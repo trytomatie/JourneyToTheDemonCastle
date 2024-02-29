@@ -41,6 +41,7 @@ public class PlayerExp : MonoBehaviour
         experience += amount;
         if (experience >= levelCaps[level])
         {
+            TalentManager.Instance.SkillPoints++;
             level++;
             experience = 0;
         }

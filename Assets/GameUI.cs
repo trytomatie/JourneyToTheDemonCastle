@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,8 @@ public class GameUI : MonoBehaviour
 
     [Header("Talent Menu")]
     public GameObject talentMenuEnviorment;
+    public TalentDescriptionUI talentDescriptionUI;
+    public TextMeshProUGUI skillPointsText;
 
     [HideInInspector] public Animator interfaceAnimator;
 
@@ -84,15 +87,33 @@ public class GameUI : MonoBehaviour
 
     public void ToggleTalentMenu()
     {
-        if (interfaceAnimator.GetInteger("State") != 3)
+        StartCoroutine(ToggleTalentMenuEnumerator());
+    }
+
+    private IEnumerator ToggleTalentMenuEnumerator()
+    {
+        if (!TransitionScreenControler.instance.isTransitioning)
         {
-            talentMenuEnviorment.SetActive(true);
-            interfaceAnimator.SetInteger("State", 3);
-        }
-        else
-        {
-            talentMenuEnviorment.SetActive(false);
-            interfaceAnimator.SetInteger("State", 0);
+            if (interfaceAnimator.GetInteger("State") != 3)
+            {
+                Time.timeScale = 0.01f;
+                float time = 0.5f;
+                TransitionScreenControler.instance.CallTransition();
+                yield return new WaitForSecondsRealtime(time);
+                talentMenuEnviorment.SetActive(true);
+                interfaceAnimator.SetInteger("State", 3);
+                TransitionScreenControler.instance.DismissTransition();
+            }
+            else
+            {
+                float time = 0.5f;
+                TransitionScreenControler.instance.CallTransition();
+                yield return new WaitForSecondsRealtime(time);
+                talentMenuEnviorment.SetActive(false);
+                interfaceAnimator.SetInteger("State", 0);
+                TransitionScreenControler.instance.DismissTransition();
+                Time.timeScale = 1;
+            }
         }
     }
 
@@ -117,5 +138,16 @@ public class GameUI : MonoBehaviour
         inventoryAnimator.SetBool("Opened", false);
         BuildingManager.instance.PlaceBuildingMode = false;
         talentMenuEnviorment.SetActive(false);
+    }
+
+    public void ShowTalentDescription(Talent talent)
+    {
+        talentDescriptionUI.SetTalent(talent);
+        talentDescriptionUI.gameObject.SetActive(true);
+    }
+
+    public void HideTalentDescription()
+    {
+        talentDescriptionUI.gameObject.SetActive(false);
     }
 }

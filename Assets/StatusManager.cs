@@ -25,6 +25,9 @@ public class StatusManager : MonoBehaviour
     [SerializeField] private int staminaRegenPerSecond = 5;
     [SerializeField] private int baseAttackDamage = 1;
 
+    public int bonusAttackDamage = 0;
+    public float bonusAttackDamageMultiplier = 1;
+
 
     public int weaponAttackDamage = 0;
 
@@ -33,7 +36,7 @@ public class StatusManager : MonoBehaviour
     public UnityEvent OnDeath;
     public UnityEvent OnDamage;
 
-    public int AttackDamage { get => baseAttackDamage + weaponAttackDamage;}
+    public int AttackDamage { get => Mathf.CeilToInt((baseAttackDamage + weaponAttackDamage + bonusAttackDamage) * bonusAttackDamageMultiplier); }
 
     // Start is called before the first frame update
     public virtual void Start()

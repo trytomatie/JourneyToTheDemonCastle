@@ -1,26 +1,57 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class TalentManager : MonoBehaviour
 {
-    private List<Talent> activeTalents = new List<Talent>();
+    public List<Talent> activeTalents = new List<Talent>();
+    private int skillPoints = 0;
 
     public Talent[] talents;
 
+    // Singelton
+    public static TalentManager Instance { get; private set; }
+    public int SkillPoints 
+    { 
+        get => skillPoints;
+        set 
+        { 
+            skillPoints = value;
+            GameUI.instance.skillPointsText.text = "Skillpoints: " +skillPoints.ToString();
+        } 
+    }
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void ActivateTalent(int index)
     {
-        Talent talent = talents[index];
-        talent.talentFunctionality.ApplyTalentEffect();
-        activeTalents.Add(talent);
+        if(SkillPoints > 0)
+        {
+            Talent talent = talents[index];
+            talent.talentFunctionality.ApplyTalentEffect(GameManager.Instance.player.GetComponent<StatusManager>());
+            activeTalents.Add(talent);
+            SkillPoints--;
+        }
     }
 
     public void DeactivateTalent(int index)
     {
         Talent talent = talents[index];
-        talent.talentFunctionality.RemoveTalentEffect();
+        talent.talentFunctionality.RemoveTalentEffect(GameManager.Instance.player.GetComponent<StatusManager>());
         activeTalents.Remove(talent);
+        SkillPoints++;
     }
 }
 
@@ -30,30 +61,5 @@ public enum TalentType
     Mage,
     Warrior,
     Rogue,
-}
-
-
-
-public class Talent : ScriptableObject
-{
-    public TalentType talentType;
-    public int tier = 1;
-    public string talentName;
-    public string talentDescription;
-    public Sprite talentIcon;
-    public TalentFunctionality talentFunctionality;
-}
-
-public class TalentFunctionality : ScriptableObject
-{
-    public virtual void ApplyTalentEffect()
-    {
-        Debug.Log("Talent effect applied");
-    }
-
-    public virtual void RemoveTalentEffect()
-    {
-        Debug.Log("Talent effect removed");
-    }
 }
 

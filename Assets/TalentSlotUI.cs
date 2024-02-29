@@ -1,16 +1,74 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TalentSlotUI : MonoBehaviour
+[RequireComponent(typeof(Button))]
+public class TalentSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image talentIcon;
     public Talent talentReference;
 
+    private void Start()
+    { 
+        GetComponent<Button>().onClick.AddListener(() => UnlockTalent());
+        SetTalent(talentReference);
+    }
     public void SetTalent(Talent talent)
     {
         talentReference = talent;
         talentIcon.sprite = talent.talentIcon;
     }
+
+    public void UnlockTalent()
+    { 
+        TalentManager talentManager = TalentManager.Instance;
+        if (talentManager.SkillPoints <= 0)
+        {
+            return;
+        }
+        int i = 0;
+        foreach(Talent talent in talentManager.talents)
+        {
+            if(!talentManager.activeTalents.Contains(talent))
+            {
+                if (talent == talentReference)
+                {
+                    talentManager.ActivateTalent(i);
+                    talentIcon.material = null;
+                }
+            }
+            i++;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GameUI.instance.ShowTalentDescription(talentReference);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GameUI.instance.HideTalentDescription();
+    }
 }
+
+[CustomEditor(typeof(TalentSlotUI))]
+public class  TallenSlotUIEditor:Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        TalentSlotUI talentSlotUI = (TalentSlotUI)target;
+        if(GUILayout.Button("Set Talent"))
+        {
+            talentSlotUI.SetTalent(talentSlotUI.talentReference);
+            // Save the changes back to the object
+            EditorUtility.SetDirty(talentSlotUI);
+        }
+    }
+}
+
