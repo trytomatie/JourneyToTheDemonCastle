@@ -24,6 +24,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         AddItem(new Item(7,1));
+        AddItem(new Item(8, 1));
     }
 
     public bool AddItem(Item item)

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem walkDust;
     public InteractionManager interactionManager;
     public Transform weaponPivot;
+    public Transform staffTip;
     private StatusManager sm;
     private Inventory inventory;
     
@@ -233,6 +234,28 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("attack", false);
+        }
+    }
+
+    private GameObject staffVFXRef = null;
+    public void HandleStaffCharge(bool isChargeing)
+    {
+        if (!BuildingManager.instance.PlaceBuildingMode && isChargeing)
+        {
+            if(anim.GetBool("chrageStaff")== false)
+            {
+                staffVFXRef = VFXManager.Instance.PlayFeedback(4, staffTip);
+            }
+            anim.SetBool("chrageStaff", true);
+        }
+        else
+        {
+            if(staffVFXRef != null)
+            {
+                staffVFXRef.GetComponent<ParticleSystem>().Stop();
+                Destroy(staffVFXRef,3);
+            }
+            anim.SetBool("chrageStaff", false);
         }
     }
 

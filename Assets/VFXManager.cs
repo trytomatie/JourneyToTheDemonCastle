@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,13 +24,14 @@ public class VFXManager : MonoBehaviour
         }
     }
 
-    public void PlayFeedback(int index,Transform position)
+    public GameObject PlayFeedback(int index,Transform position)
     {
-        PlayFeedback(index,position, Quaternion.identity);
+        return PlayFeedback(index,position, Quaternion.identity);
     }
 
-    public void PlayFeedback(int index,Transform position,Quaternion rotation)
+    public GameObject PlayFeedback(int index,Transform position,Quaternion rotation)
     {
+        GameObject result = null;
         switch (index)
         {
             case 0:
@@ -45,9 +47,17 @@ public class VFXManager : MonoBehaviour
             case 3:
                 feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().TargetWorldPosition = position.position;
                 break;
+            case 4:
+                result = Instantiate(feedbacks[index].transform.GetChild(0).gameObject, position);
+                result.transform.eulerAngles = Vector3.zero;
+                result.transform.position = position.position;
+                result.GetComponent<MMFollowTarget>().Target = position;
+                break;
 
         }
+
         feedbacks[index].PlayFeedbacks();
+        return result;
     }
 
     public static VFXManager Instance { get => instance; set => instance = value; }

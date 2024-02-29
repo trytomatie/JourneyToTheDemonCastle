@@ -25,6 +25,10 @@ public class GameUI : MonoBehaviour
     public TalentDescriptionUI talentDescriptionUI;
     public TextMeshProUGUI skillPointsText;
 
+    [Header("Level Up")]
+    public GameObject levelUpCanvas;
+    public GameObject levelUpMenu;
+
     [HideInInspector] public Animator interfaceAnimator;
 
     // Singleton
@@ -134,6 +138,7 @@ public class GameUI : MonoBehaviour
 
     public void CloseAllWindows()
     {
+        if (interfaceAnimator.GetInteger("State") == 4) return; // Cant close windows while leveling up
         interfaceAnimator.SetInteger("State", 0);
         inventoryAnimator.SetBool("Opened", false);
         BuildingManager.instance.PlaceBuildingMode = false;
@@ -150,4 +155,34 @@ public class GameUI : MonoBehaviour
     {
         talentDescriptionUI.gameObject.SetActive(false);
     }
+
+    #region LevelUp
+    public void LevelUp()
+    {
+        StartCoroutine(LevelUpCoorutine());
+    }
+
+    private IEnumerator LevelUpCoorutine()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 0f;
+        levelUpCanvas.SetActive(true);
+        yield return new WaitForSecondsRealtime(2.2f);
+        SetInterfaceState(4);
+        levelUpCanvas.SetActive(false);
+    }
+
+    public void EndLevelUp()
+    {
+        StartCoroutine(EndLevelUpCoorutine());
+    }
+
+    private IEnumerator EndLevelUpCoorutine()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 1;
+        levelUpMenu.SetActive(false);
+        SetInterfaceState(0);
+    }
+    #endregion
 }

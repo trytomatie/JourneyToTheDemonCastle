@@ -41,13 +41,21 @@ public class PlayerExp : MonoBehaviour
         experience += amount;
         if (experience >= levelCaps[level])
         {
-            TalentManager.Instance.SkillPoints++;
+            LevelUp();
             level++;
             experience = 0;
         }
         OnExperienceGained.Invoke(amount);
         experienceBar.UpdateBar01((float)experience / levelCaps[level]);
         expText.text = $"Level {level}: {experience}/{levelCaps[level]}";
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        TalentManager.Instance.SkillPoints++;
+        Time.timeScale = 0.1f;
+        GameUI.instance.LevelUp();
     }
 
 }
