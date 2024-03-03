@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
             grid.Add(gridPos, null);
         }
         pos.y = 10;
-        Vector3 posRounded = new Vector3(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), Mathf.RoundToInt(pos.z));
+        Vector3 posRounded = new Vector3(Mathf.RoundToInt(pos.x)+0.5f, Mathf.RoundToInt(pos.y), Mathf.RoundToInt(pos.z) + 0.5f);
         RaycastHit hit;
         if (Physics.Raycast(pos, Vector3.down, out hit, 100, groundLayer))
         {
