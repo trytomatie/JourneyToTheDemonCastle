@@ -5410,7 +5410,7 @@ MonoBehaviour:
   m_text: LVL 1 Wolf
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9d6db0a8b149fe449e6a3be2787f9f6, type: 2}
-  m_sharedMaterial: {fileID: 4448374652952315725, guid: b9d6db0a8b149fe449e6a3be2787f9f6, type: 2}
+  m_sharedMaterial: {fileID: 5803580495960011430, guid: b9d6db0a8b149fe449e6a3be2787f9f6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7035,7 +7035,7 @@ MonoBehaviour:
   attackPivot: {fileID: 401304538}
   anim: {fileID: 0}
   agent: {fileID: 0}
-  detectionRadius: 30
+  detectionRadius: 7
   target: {fileID: 0}
   attackDashSpeed: 8
   attackPrepareTime: 0.8
@@ -7108,6 +7108,8 @@ MonoBehaviour:
   stamina: 0
   staminaRegenPerSecond: 5
   baseAttackDamage: 1
+  bonusAttackDamage: 0
+  bonusAttackDamageMultiplier: 1
   weaponAttackDamage: 0
   OnDeath:
     m_PersistentCalls:
