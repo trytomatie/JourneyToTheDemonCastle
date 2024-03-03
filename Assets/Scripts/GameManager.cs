@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckGridAt(Vector3 pos)
     {
+        pos += new Vector3(0.5f, 0, 0.5f);
         Vector2Int gridPos = new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.z));
         bool assigned = false;
         if(grid.ContainsKey(gridPos))
@@ -93,7 +94,7 @@ public class GameManager : MonoBehaviour
             grid.Add(gridPos, null);
         }
         pos.y = 10;
-        Vector3 posRounded = new Vector3(Mathf.RoundToInt(pos.x)+0.5f, Mathf.RoundToInt(pos.y), Mathf.RoundToInt(pos.z) + 0.5f);
+        Vector3 posRounded = new Vector3(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), Mathf.RoundToInt(pos.z));
         RaycastHit hit;
         if (Physics.Raycast(pos, Vector3.down, out hit, 100, groundLayer))
         {
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
                 print(assigned);
                 if (!assigned)
                 {
-                    grid[gridPos] = Instantiate(resourceBlock, hit.point, Quaternion.identity);
+                    grid[gridPos] = Instantiate(resourceBlock, hit.point, Quaternion.identity); // Note: An offset is added
                 }
             }
             else

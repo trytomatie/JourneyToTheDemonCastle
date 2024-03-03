@@ -11,11 +11,11 @@ public class PlayerDungeonEnterTrigger : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() )
         {
-            if(other.transform.position.x > transform.position.x && GameManager.Instance.overWorld.transform.position.y > -4)
+            if(other.transform.position.z > transform.position.z && GameManager.Instance.overWorld.transform.position.y > -4)
             {
                 other.GetComponent<PlayerController>().TeleportToDungeonLayer(true);
             }
-            else if(other.transform.position.x < transform.position.x && GameManager.Instance.overWorld.transform.position.y < -4)
+            else if(other.transform.position.z < transform.position.z && GameManager.Instance.overWorld.transform.position.y < -4)
             {
                 other.GetComponent<PlayerController>().TeleportToDungeonLayer(false);
             }
