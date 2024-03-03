@@ -15,6 +15,7 @@ public class BuildingManager : MonoBehaviour
     public Material cantPlaceMaterial;
     private bool placeBuildingMode = false;
     private int selectedBuildingIndex = 0;
+    private Vector3 gridOffset = new Vector3(0.5f,0, 0.5f);
     // Singleton
     public static BuildingManager instance;
 
@@ -81,7 +82,7 @@ public class BuildingManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit,20, groundLayer) && hit.normal == Vector3.up)
         {
-            Vector3 position = hit.point;
+            Vector3 position = hit.point - gridOffset;
             PlaceBuildingIndicator(position);
         }
         else
@@ -102,8 +103,8 @@ public class BuildingManager : MonoBehaviour
     {
         // Round Position to nearest 1
         pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
-        buildingIndictaor.transform.position = pos;
-        if (CanPlaceBuilding(pos))
+        buildingIndictaor.transform.position = pos + gridOffset;
+        if (CanPlaceBuilding(pos + gridOffset))
         {
             SetMaterial(buildingIndictaor, canPlaceMaterial);
         }
