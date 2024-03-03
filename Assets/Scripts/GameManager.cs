@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     public Dictionary<Vector2Int, GameObject> grid = new Dictionary<Vector2Int, GameObject>();
     public LayerMask groundLayer;
 
+    [Header("GameWorld")]
+    public GameObject overWorld;
+    public GameObject dungeonWorld;
+
 
     [Header("Modifiers")]
     public float generalItemProductionMultiplier = 1;

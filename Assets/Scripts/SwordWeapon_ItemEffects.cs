@@ -9,7 +9,6 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
     private GameObject instaniatedWeapon;
     public override void OnUse(GameObject source, Item item)
     {
-        Debug.Log(source.name + " is using " + item.id);
         if(isUsing)
         {
             source.GetComponent<PlayerController>().HandleAttack(true);
@@ -28,7 +27,6 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
         instaniatedWeapon = Instantiate(weaponPrefab, weaponPivot);
         instaniatedWeapon.transform.localScale = weaponPrefab.transform.localScale;
         source.GetComponent<StatusManager>().weaponAttackDamage = attackDamage;
-        Debug.Log("Equipping " + item.id);
     }
 
     public override void OnUnequip(GameObject source, Item item)

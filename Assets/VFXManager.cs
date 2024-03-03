@@ -53,6 +53,11 @@ public class VFXManager : MonoBehaviour
                 result.transform.position = position.position;
                 result.GetComponent<MMFollowTarget>().Target = position;
                 break;
+            case 5:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                break;
 
         }
 

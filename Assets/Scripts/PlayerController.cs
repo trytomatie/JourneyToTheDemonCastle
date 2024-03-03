@@ -1,8 +1,10 @@
 using Cinemachine;
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -28,6 +30,9 @@ public class PlayerController : MonoBehaviour
     public Transform staffTip;
     private StatusManager sm;
     private Inventory inventory;
+
+    [Header("HitBoxes")]
+    public GameObject[] hitBoxes;
     
 
     public Animator anim;
@@ -238,6 +243,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private GameObject staffVFXRef = null;
+    private float attackChargeTime = 1;
+    private float attackChargeTimer = 0;
     public void HandleStaffCharge(bool isChargeing)
     {
         if (!BuildingManager.instance.PlaceBuildingMode && isChargeing)
@@ -246,16 +253,49 @@ public class PlayerController : MonoBehaviour
             {
                 staffVFXRef = VFXManager.Instance.PlayFeedback(4, staffTip);
             }
+            attackChargeTimer += Time.deltaTime;
+            RotationDuringCast();
             anim.SetBool("chrageStaff", true);
         }
         else
         {
-            if(staffVFXRef != null)
+            if(attackChargeTimer >= attackChargeTime)
+            {
+                FireMagicAttack();
+                attackChargeTimer = 0;
+            }
+            if (staffVFXRef != null)
             {
                 staffVFXRef.GetComponent<ParticleSystem>().Stop();
                 Destroy(staffVFXRef,3);
             }
             anim.SetBool("chrageStaff", false);
+        }
+    }
+
+    private void FireMagicAttack()
+    {
+        Instantiate(hitBoxes[1], hitBoxes[1].transform.position, hitBoxes[1].transform.rotation).SetActive(true);
+        GameObject vfx = VFXManager.Instance.PlayFeedback(5, staffTip);
+        Destroy(vfx,11);
+    }
+
+    public void RotationDuringCast()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        groundPlane.SetNormalAndPosition(Vector3.up, transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        float hitDistance;
+
+        if (groundPlane.Raycast(ray, out hitDistance))
+        {
+            Vector3 cursorPosition = ray.GetPoint(hitDistance);
+
+            Vector3 direction = cursorPosition - transform.position;
+            direction.Normalize();
+            Quaternion targetCharacterRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetCharacterRotation, 10000 * Time.deltaTime);
         }
     }
 
@@ -278,15 +318,23 @@ public class PlayerController : MonoBehaviour
         characterController.enabled = true;
     }
 
-    public void TeleportPlayer(Vector3 pos)
+    public void TeleportToDungeonLayer(bool enter)
     {
-        vCam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0;
-        vCam.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0;
-        vCam.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0;
-        characterController.enabled = false;
-        transform.position = pos;
-        characterController.enabled = true;
-        Invoke("ResetCamera", 0.1f);
+        print(enter);
+        //vCam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0;
+        //vCam.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0;
+        //vCam.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0;
+        if (enter)
+        {
+            GameManager.Instance.overWorld.transform.position = new Vector3(0, -50, 0);
+            GameManager.Instance.dungeonWorld.transform.position = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            GameManager.Instance.overWorld.transform.position = new Vector3(0, 0, 0);
+            GameManager.Instance.dungeonWorld.transform.position = new Vector3(0, -50, 0);
+        }
+       // Invoke("ResetCamera", 0.1f);
     }
 
     private void ResetCamera()
@@ -423,8 +471,8 @@ public class PlayerStateAirStepping : State
     public void OnUpdate(PlayerController pc)
     {
         pc.AirStep(facingDirection,pc.airStepDuration - (onEnterTime - Time.time));
-        
-        if(Time.time > onEnterTime)
+        pc.ItemUsage();
+        if (Time.time > onEnterTime)
         {
             pc.SwitchPlayerState(PlayerState.Controlling);
 

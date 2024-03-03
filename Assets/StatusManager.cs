@@ -107,6 +107,7 @@ public class StatusManager : MonoBehaviour
 
     public void ApplyDamage(int damage)
     {
+        print(damage);
         hp -= damage;
         FloatingTextSpawner.instance.SpawnFloatingText(damage.ToString(), transform);
         OnDamage.Invoke();
