@@ -104,7 +104,8 @@ public class GameManager : MonoBehaviour
                 print(assigned);
                 if (!assigned)
                 {
-                    grid[gridPos] = Instantiate(resourceBlock, hit.point, Quaternion.identity); // Note: An offset is added
+                    grid[gridPos] = Instantiate(resourceBlock, hit.point, Quaternion.identity);
+                    grid[gridPos].transform.parent = hit.collider.transform.root;
                 }
             }
             else

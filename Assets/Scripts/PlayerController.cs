@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         states[(int)currentPlayerState].OnUpdate(this);
+        CheckForPlayerVoidOut();
     }
 
     public void HandleInteraction()
@@ -361,6 +362,14 @@ public class PlayerController : MonoBehaviour
         if(movementDirection != Vector3.zero)
         {
             SwitchPlayerState(PlayerState.AirStepping,true);
+        }
+    }
+
+    public void CheckForPlayerVoidOut()
+    {
+        if(transform.position.y < -15)
+        {
+            CurrentPlayerState = PlayerState.InWater;
         }
     }
 

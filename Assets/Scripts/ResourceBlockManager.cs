@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourceBlockManager : MonoBehaviour
 {
-    private List<ResourceBlock> resourceBlocksInScene = new List<ResourceBlock>();
+    public List<ResourceBlock> resourceBlocksInScene = new List<ResourceBlock>();
     public List<ResoruceBlockData> resourceBlockData;
 
     private int gameTickInterval = 10;
@@ -35,22 +35,22 @@ public class ResourceBlockManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnGameTick += SpawnResoruces;
+        //GameManager.OnGameTick += SpawnResoruces;
     }
 
     private void OnDisable()
     {
-        GameManager.OnGameTick -= SpawnResoruces;
+        //GameManager.OnGameTick -= SpawnResoruces;
     }
 
-    public void SpawnResoruces()
+    public void SpawnResoruces(List<ResourceBlock> blocks)
     {
         if(GameManager.Instance.gameTicks % gameTickInterval != 0)
         {
             return;
         }
         // Pick a random ResourceBlock in the scene
-        ResourceBlock resourceBlock = resourceBlocksInScene[Random.Range(0, resourceBlocksInScene.Count)];
+        ResourceBlock resourceBlock = blocks[Random.Range(0, resourceBlocksInScene.Count)];
         int maxWeight = 0;
  
         if(resourceBlock.spawnedResoruce != null)
@@ -75,6 +75,7 @@ public class ResourceBlockManager : MonoBehaviour
                 if(randomWeight <= 0)
                 {
                     resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
+                    resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
                     resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, resourceBlockData.Count));
                     break;
                 }
