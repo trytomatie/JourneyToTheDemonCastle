@@ -165,10 +165,10 @@ public class GameUI : MonoBehaviour
     private IEnumerator LevelUpCoorutine()
     {
         yield return new WaitForSecondsRealtime(0.5f);
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         levelUpCanvas.SetActive(true);
         yield return new WaitForSecondsRealtime(2.2f);
-        SetInterfaceState(4);
+        //SetInterfaceState(4);
         levelUpCanvas.SetActive(false);
     }
 

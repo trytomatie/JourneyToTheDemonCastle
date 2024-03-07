@@ -54,7 +54,7 @@ public class PlayerExp : MonoBehaviour
     {
         level++;
         TalentManager.Instance.SkillPoints++;
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.1f;
         GameUI.instance.LevelUp();
     }
 
