@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(GameClock());
-        CheckGridInARadius(Vector3.zero, 60);
+        CheckGridInARadius(Vector3.zero, 360);
     }
 
     private IEnumerator GameClock()
@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckGridAt(Vector3 pos)
     {
-        pos += new Vector3(0.5f, 0, 0.5f);
         Vector2Int gridPos = new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.z));
         bool assigned = false;
         if(grid.ContainsKey(gridPos))
@@ -96,7 +95,7 @@ public class GameManager : MonoBehaviour
         pos.y = 10;
         Vector3 posRounded = new Vector3(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), Mathf.RoundToInt(pos.z));
         RaycastHit hit;
-        if (Physics.Raycast(pos, Vector3.down, out hit, 100, groundLayer))
+        if (Physics.Raycast(pos + new Vector3(0.5f, 0, -0.5f), Vector3.down, out hit, 100, groundLayer))
         {
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))

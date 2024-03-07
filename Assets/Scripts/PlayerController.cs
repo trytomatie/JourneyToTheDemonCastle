@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static PlayerController;
@@ -334,6 +335,19 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.overWorld.transform.position = new Vector3(0, 0, 0);
             GameManager.Instance.dungeonWorld.transform.position = new Vector3(0, -50, 0);
+        }
+        foreach(EnemyAI enemy in EnemyAI.enemyAIList)
+        {
+            if(enemy.transform.position.y <-20)
+            {
+                enemy.gameObject.SetActive(false);
+            }
+            else
+            {
+                enemy.gameObject.SetActive(true);
+            }
+            enemy.agent.enabled = false;
+            enemy.agent.enabled = true;
         }
        // Invoke("ResetCamera", 0.1f);
     }

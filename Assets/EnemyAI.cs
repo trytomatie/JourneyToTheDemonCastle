@@ -45,6 +45,8 @@ public class EnemyAI : MonoBehaviour
 
     private float detectionTimer = 0;
 
+    public static List<EnemyAI> enemyAIList = new List<EnemyAI>();
+
 
     private void Awake()
     {
@@ -60,6 +62,7 @@ public class EnemyAI : MonoBehaviour
         states[(int)EnemyControllState.Death] = new Death();
         states[(int)currentState].OnEnter(this);
         sm.OnDeath.AddListener(() => SwitchState(EnemyControllState.Death));
+        enemyAIList.Add(this);
     }
 
     public void Update()
@@ -76,6 +79,7 @@ public class EnemyAI : MonoBehaviour
 
     public void SetDestinaton(Vector3 destination)
     {
+        if (transform.position.y < -20) return;
         NavMeshPath path = new NavMeshPath();
         agent.CalculatePath(destination, path);
         if (path.status == NavMeshPathStatus.PathComplete)
@@ -222,7 +226,7 @@ public class Wander: EnemyState
         while (sampleCount < 5)
         {
             destination = pc.transform.position + Random.insideUnitSphere * wanderRadius;
-            if (!NavMesh.SamplePosition(destination, out hit, wanderRadius, 1))
+            if (!NavMesh.SamplePosition(destination, out hit, wanderRadius, pc.agent.areaMask))
             {
                 sampleCount++;
             }
@@ -379,7 +383,7 @@ public class Death : EnemyState
         pc.agent.enabled = false;
         pc.GetComponent<Collider>().enabled = false;
         GameManager.Instance.player.GetComponent<PlayerExp>().AddExperience(pc.transform.position, 12);
-
+        EnemyAI.enemyAIList.Remove(pc);
     }
 
     public void OnExit(EnemyAI pc)
