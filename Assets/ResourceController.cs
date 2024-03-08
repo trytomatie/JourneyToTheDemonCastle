@@ -8,6 +8,7 @@ public class ResourceController : MonoBehaviour
     public GameObject[] visuals;
     public ItemBlueprint itemDrop;
     public ShaderController shaderController;
+    private ResourceStatusManager rsm;
 
     public void SetVisual(int index)
     {
@@ -30,12 +31,13 @@ public class ResourceController : MonoBehaviour
 
     private void Start()
     {
+        rsm = GetComponent<ResourceStatusManager>();
         GetComponent<ResourceStatusManager>().OnDeath.AddListener(AddExperience);
     }
 
     public void AddExperience()
     {
-        GameManager.Instance.player.GetComponent<PlayerExp>().AddExperience(transform.position,1);
+        GameManager.Instance.player.GetComponent<PlayerExp>().AddExperience(transform.position,rsm.experienceDrop);
     }
 
 }

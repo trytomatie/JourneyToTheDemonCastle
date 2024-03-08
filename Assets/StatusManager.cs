@@ -18,12 +18,17 @@ public class StatusManager : MonoBehaviour
     public Faction faction = Faction.Neutral;
     public HitType materialType = HitType.Entity;
     public SoundType deathSound;
+    public int level = 1;
     [SerializeField] private int maxHp = 30;
     [SerializeField] private int hp = 30;
     [SerializeField] private int maxStamina = 0;
     [SerializeField] private int stamina = 0;
     [SerializeField] private int staminaRegenPerSecond = 5;
     [SerializeField] private int baseAttackDamage = 1;
+
+    public int experienceDrop = 1;
+
+    public StatsScaling statsScaling;
 
     public int bonusAttackDamage = 0;
     public float bonusAttackDamageMultiplier = 1;
@@ -41,6 +46,14 @@ public class StatusManager : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        if(statsScaling != null)
+        {
+            maxHp += statsScaling.hpGrowth * level-1;
+            hp = maxHp;
+            baseAttackDamage += statsScaling.attackGrowth * level-1;
+            experienceDrop += statsScaling.expGrowth * level-1;
+
+        }
         if(maxStamina > 0) 
         { 
             StartCoroutine(RegenStamina());

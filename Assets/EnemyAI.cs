@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour
 
     // References
     public Transform attackPivot;
-    private StatusManager sm;
+    [HideInInspector] public StatusManager sm;
     [HideInInspector] public Animator anim;
     [HideInInspector] public NavMeshAgent agent;
 
@@ -382,7 +382,7 @@ public class Death : EnemyState
         pc.anim.SetTrigger("Death");
         pc.agent.enabled = false;
         pc.GetComponent<Collider>().enabled = false;
-        GameManager.Instance.player.GetComponent<PlayerExp>().AddExperience(pc.transform.position, 12);
+        GameManager.Instance.player.GetComponent<PlayerExp>().AddExperience(pc.transform.position, pc.sm.experienceDrop);
         EnemyAI.enemyAIList.Remove(pc);
     }
 
