@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocks: []
   isDungeon: 0
+  mobSpawnLevel: 7
   spawnableEnemies:
   - {fileID: 11400000, guid: 9a3e136fec4d74749818732be62112e1, type: 2}
   maxEnemies: 7

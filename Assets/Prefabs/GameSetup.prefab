@@ -1959,7 +1959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -82.09979, y: -437.7501}
+  m_AnchoredPosition: {x: -82.09961, y: -437.7501}
   m_SizeDelta: {x: 545.6, y: 512.414}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &317961140
@@ -30943,6 +30943,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ccb5818a77be4fe43b955e16117f690a, type: 2}
   - {fileID: 11400000, guid: 31b4c447861f8fb40b2064d27fffc164, type: 2}
   - {fileID: 11400000, guid: 35fcf00b4d8d66f488fbefe683c48f34, type: 2}
+  - {fileID: 11400000, guid: af19cc59369ab2a4f83cc954378736f7, type: 2}
+  - {fileID: 11400000, guid: 0c31b6195d7ff064482c3adbe5ddd922, type: 2}
+  - {fileID: 11400000, guid: ddd962340a10a374badabe0a01e2a2ad, type: 2}
 --- !u!1 &2099579803
 GameObject:
   m_ObjectHideFlags: 0
@@ -37769,10 +37772,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be18352676e327418cffe1bdc0b2c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceBlocksInScene: []
   resourceBlockData:
   - {fileID: 11400000, guid: 70f552f62d947f545807bbbe50ba8ef7, type: 2}
   - {fileID: 11400000, guid: dd7dc6c95e9618a47813b1160b88f60d, type: 2}
   - {fileID: 11400000, guid: aaaeb11d5a8be904fb95b93db95ff586, type: 2}
+  - {fileID: 11400000, guid: 5cca95ebd3773fa44abb31ad48920d54, type: 2}
 --- !u!1 &3952892341291228953
 GameObject:
   m_ObjectHideFlags: 0
@@ -38410,6 +38415,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  overWorld: {fileID: 0}
+  dungeonWorld: {fileID: 0}
   generalItemProductionMultiplier: 1
   globalStashUnlocked: 0
   lootDropAmount: 1
@@ -38513,8 +38520,8 @@ Camera:
   m_GameObject: {fileID: 3952892342074103840}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -38528,7 +38535,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 30
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -39159,12 +39166,15 @@ MonoBehaviour:
   faction: 0
   materialType: 2
   deathSound: -1
+  level: 1
   maxHp: 30
   hp: 30
   maxStamina: 0
   stamina: 0
   staminaRegenPerSecond: 5
-  baseAttackDamage: 333
+  baseAttackDamage: 1
+  experienceDrop: 1
+  statsScaling: {fileID: 0}
   bonusAttackDamage: 0
   bonusAttackDamageMultiplier: 1
   weaponAttackDamage: 0
@@ -39257,7 +39267,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 30
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}

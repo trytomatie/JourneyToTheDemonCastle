@@ -8,13 +8,16 @@ using UnityEngine.UI;
 public class SpawnDirector : MonoBehaviour
 {
     private BoxCollider boxCollider;
+    [Header("Resources")]
     public List<ResourceBlock> blocks = new List<ResourceBlock>();
-    public bool isDungeon = false;
+    public int spawnedResources = 0;
 
     [Header("Enemies")]
     public List<ResoruceBlockData> spawnableEnemies;
     public int maxEnemies = 7;
     public int spawnedEnemies = 0;
+    public bool isDungeon = false;
+    public int mobSpawnLevel = 1;
 
 
     private int awokenGameTick = 0;
@@ -40,13 +43,13 @@ public class SpawnDirector : MonoBehaviour
             yield return null;
         }
         RegisterBlocks();
-        GameManager.OnGameTick += () => ResourceBlockManager.Instance.SpawnResoruces(blocks);
+        GameManager.OnGameTick += () => SpawnResoruces(blocks);
         GameManager.OnGameTick += () => SpawnEnemy();
     }
 
     private void OnDisable()
     {
-        GameManager.OnGameTick -= () =>ResourceBlockManager.Instance.SpawnResoruces(blocks);
+        GameManager.OnGameTick -= () => SpawnResoruces(blocks);
         GameManager.OnGameTick -= () => SpawnEnemy();
     }
 
@@ -96,6 +99,7 @@ public class SpawnDirector : MonoBehaviour
                             resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
                             resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
                             resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedEnemies--);
+                            resourceBlock.spawnedResoruce.GetComponent<StatusManager>().level = mobSpawnLevel;
                             spawnedEnemies++;
                             // resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, resourceBlockData.Count));
                             break;
@@ -106,6 +110,59 @@ public class SpawnDirector : MonoBehaviour
             }
             return;
         }
+    }
+
+    private int spawnIntervall = 9;
+    public void SpawnResoruces(List<ResourceBlock> blocks)
+    {
+        if (GameManager.Instance.gameTicks % spawnIntervall != 0)
+        {
+            return;
+        }
+        int blockPercantage = Random.Range(1,3);
+        print("Spawning " + blockPercantage + " resources");
+        for (int i = 0; i < blockPercantage; i++)
+        {
+            // Pick a random ResourceBlock in the scene
+            ResourceBlock resourceBlock = blocks[Random.Range(0, blocks.Count)];
+            int maxWeight = 0;
+
+            if (resourceBlock.spawnedResoruce != null)
+            {
+                return;
+            }
+
+            // Get the total weight of all the resource blocks
+            foreach (ResoruceBlockData data in ResourceBlockManager.Instance.resourceBlockData)
+            {
+                maxWeight += data.spawnWeight;
+            }
+
+            int randomWeight = Random.Range(0, maxWeight + resourceBlock.spawnResistance + (50*(spawnedResources/blocks.Count)));
+
+            if (randomWeight < maxWeight)
+            {
+                // Spawn a resource
+                foreach (ResoruceBlockData data in ResourceBlockManager.Instance.resourceBlockData)
+                {
+                    randomWeight -= data.spawnWeight;
+                    if (randomWeight <= 0)
+                    {
+                        spawnedResources++;
+                        resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
+                        resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
+                        resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, ResourceBlockManager.Instance.resourceBlockData.Count));
+                        resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedResources--);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                // Do Nothing I guess
+            }
+        }
+
     }
 
 }

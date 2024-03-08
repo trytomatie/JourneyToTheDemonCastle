@@ -13,6 +13,7 @@ public class ItemBlueprint : ScriptableObject
     public string itemDescription;
     public Sprite itemIcon;
     public int maxStackSize;
+    public bool keyItem = false;
 
     public ItemInteractionEffects itemInteractionEffects;
 

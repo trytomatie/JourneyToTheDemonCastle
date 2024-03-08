@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -39,6 +40,9 @@ public class EnemyAI : MonoBehaviour
     public float audioInterval = 5f;
     private float audioTimer = 0;
 
+    [Header("UI")]
+    public TextMeshProUGUI nameAndLevel;
+
     public GameObject attackHitbox;
 
     [HideInInspector]public float attackCooldownTimer = 0;
@@ -63,6 +67,11 @@ public class EnemyAI : MonoBehaviour
         states[(int)currentState].OnEnter(this);
         sm.OnDeath.AddListener(() => SwitchState(EnemyControllState.Death));
         enemyAIList.Add(this);
+    }
+
+    private void Start()
+    {
+        nameAndLevel.text = sm.name + " Lv." + sm.level;
     }
 
     public void Update()

@@ -7033,6 +7033,7 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: bf5fa23ce5246b442b15d0b4683e7ab9, type: 2}
   currentState: 1
   attackPivot: {fileID: 401304538}
+  sm: {fileID: 0}
   anim: {fileID: 0}
   agent: {fileID: 0}
   detectionRadius: 7
@@ -7085,6 +7086,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackEndlag: 1.5
   audioInterval: 5
+  nameAndLevel: {fileID: 1143977816}
   attackHitbox: {fileID: 1774438764}
   attackCooldownTimer: 0
 --- !u!114 &3081394451599576168
@@ -7102,12 +7104,15 @@ MonoBehaviour:
   faction: 1
   materialType: 2
   deathSound: 2
+  level: 1
   maxHp: 9
   hp: 9
   maxStamina: 0
   stamina: 0
   staminaRegenPerSecond: 5
   baseAttackDamage: 1
+  experienceDrop: 1
+  statsScaling: {fileID: 11400000, guid: 2fc279bb89f3bac48b1ed4f6dc2b8e73, type: 2}
   bonusAttackDamage: 0
   bonusAttackDamageMultiplier: 1
   weaponAttackDamage: 0
