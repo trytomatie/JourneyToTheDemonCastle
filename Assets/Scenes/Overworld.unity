@@ -671,6 +671,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2092204359, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: items.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092204359, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: items.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: ddd962340a10a374badabe0a01e2a2ad, type: 2}
     - target: {fileID: 2453208417933099723, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -703,6 +711,10 @@ PrefabInstance:
       propertyPath: dungeonWorld
       value: 
       objectReference: {fileID: 1777205790}
+    - target: {fileID: 3952892342074103845, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.71
+      objectReference: {fileID: 0}
     - target: {fileID: 3952892342350099004, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: m_Name
       value: GameSetup
@@ -750,6 +762,10 @@ PrefabInstance:
     - target: {fileID: 3952892342350099007, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952892342921634951, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7387534716265485110, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: m_AnchorMax.y

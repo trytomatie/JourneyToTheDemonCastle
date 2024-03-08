@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35c4bacfbc0048a44a996277d0b4136f, type: 2}
+  - {fileID: 2100000, guid: baa4c0ebc3cfaab4881bab91f869299a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -207,7 +207,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visuals:
   - {fileID: 4920394702995135688}
+  - {fileID: 4920394702995135688}
+  - {fileID: 4920394702995135688}
   itemDrop: {fileID: 11400000, guid: ddd962340a10a374badabe0a01e2a2ad, type: 2}
+  dropAmountRange: {x: 1, y: 3}
   shaderController: {fileID: 8577287430964814781}
 --- !u!208 &8020663531422912948
 NavMeshObstacle:
@@ -286,7 +289,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35c4bacfbc0048a44a996277d0b4136f, type: 2}
+  - {fileID: 2100000, guid: baa4c0ebc3cfaab4881bab91f869299a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -369,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35c4bacfbc0048a44a996277d0b4136f, type: 2}
+  - {fileID: 2100000, guid: baa4c0ebc3cfaab4881bab91f869299a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -571,7 +574,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35c4bacfbc0048a44a996277d0b4136f, type: 2}
+  - {fileID: 2100000, guid: baa4c0ebc3cfaab4881bab91f869299a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

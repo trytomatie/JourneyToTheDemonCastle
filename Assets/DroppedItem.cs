@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DroppedItem : MonoBehaviour
@@ -9,6 +10,7 @@ public class DroppedItem : MonoBehaviour
     public ItemBlueprint droppedItem;
     public int amount = 1;
     public SpriteRenderer spriteRenderer;
+    public TextMeshPro amountText;
 
     private Transform target;
 
@@ -26,6 +28,7 @@ public class DroppedItem : MonoBehaviour
         spriteRenderer.sprite = item.itemIcon;
         droppedItem = item;
         this.amount = amount;
+        amountText.text = "x" + amount.ToString();
     }
 
     private void Update()

@@ -10,6 +10,7 @@ Material:
   m_Name: URPBFGrassVertexColor
   m_Shader: {fileID: 4800000, guid: 2c2cefb6802b6cd429dfbe4041764676, type: 3}
   m_ValidKeywords:
+  - USE_CS
   - USE_RT
   - USE_S
   - USE_SC
@@ -108,7 +109,7 @@ Material:
     - _Metallic: 0
     - _MinimumNumberStacks: 2
     - _Mode: 0
-    - _NearCameraSmoosh: 0
+    - _NearCameraSmoosh: 1
     - _NoisePower: 4
     - _NumberOfStacks: 17
     - _OcclusionStrength: 1
@@ -130,7 +131,7 @@ Material:
     - _TilingN3: 0.4
     - _UVSec: 0
     - _UseAmbientLight: 0
-    - _UseCS: 0
+    - _UseCS: 1
     - _UsePR: 0
     - _UsePreciseDepth: 0
     - _UseRT: 1

@@ -300,12 +300,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faction: 2
   materialType: 1
+  deathSound: 0
+  level: 1
   maxHp: 30
   hp: 9
   maxStamina: 0
   stamina: 0
   staminaRegenPerSecond: 5
-  attackDamage: 1
+  baseAttackDamage: 1
+  experienceDrop: 1
+  statsScaling: {fileID: 0}
+  bonusAttackDamage: 0
+  bonusAttackDamageMultiplier: 1
+  weaponAttackDamage: 0
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -354,6 +361,7 @@ MonoBehaviour:
   - {fileID: 5187481451062643914}
   - {fileID: 6701143423060755004}
   itemDrop: {fileID: 11400000, guid: 28f84506314f7524097565b6da4f2bb1, type: 2}
+  dropAmountRange: {x: 2, y: 4}
   shaderController: {fileID: 4019500801945924748}
 --- !u!65 &8995106700288240546
 BoxCollider:
