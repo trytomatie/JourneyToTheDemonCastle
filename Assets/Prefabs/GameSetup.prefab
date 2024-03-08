@@ -27660,7 +27660,7 @@ AudioSource:
   m_GameObject: {fileID: 1597181422}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2273146209696275378, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -27674,7 +27674,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -27684,15 +27684,6 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -27759,6 +27750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341a5917a78e9f747b8b4ad5b0b4b58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgMusic:
+  - {fileID: 8300000, guid: 59a0a1680d66200488937d4dfad86e3f, type: 3}
+  - {fileID: 8300000, guid: adb2fac36b6170d4c88030d14e6d3428, type: 3}
   woodHit:
   - {fileID: 8300000, guid: 085ecc65fea3e47428b8adc85ee46776, type: 3}
   - {fileID: 8300000, guid: a539479d8a7c3424cbfc03e928b4c4b2, type: 3}
@@ -27785,6 +27779,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a175ac2387ac5b4d975f26d61e951a4, type: 2}
   - {fileID: 11400000, guid: 9b02cbd143207a04b8b97d29b6320cfc, type: 2}
   sfxAudioGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+  musicAudioGroup: {fileID: -2273146209696275378, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
   audioSourcePrefab: {fileID: 8452735164548895714, guid: 110a7c741c5770047a6405719889ea4e, type: 3}
 --- !u!1 &1619893252
 GameObject:

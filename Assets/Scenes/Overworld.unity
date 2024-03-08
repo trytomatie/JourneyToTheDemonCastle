@@ -655,6 +655,38 @@ PrefabInstance:
       propertyPath: managedReferences[6749143728526983174].TargetTransform
       value: 
       objectReference: {fileID: 8530477260367985984}
+    - target: {fileID: 1597181424, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: musicAudioGroup
+      value: 
+      objectReference: {fileID: -2273146209696275378, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - target: {fileID: 1597181424, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: bgMusic.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597181424, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: bgMusic.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 59a0a1680d66200488937d4dfad86e3f, type: 3}
+    - target: {fileID: 1597181424, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: bgMusic.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: adb2fac36b6170d4c88030d14e6d3428, type: 3}
+    - target: {fileID: 1597181425, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597181425, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2273146209696275378, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - target: {fileID: 1597181425, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597181425, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2051417613, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public AudioClip[] bgMusic;
     public AudioClip[] woodHit;
     public AudioClip[] stoneHit;
     public AudioClip[] entityHit;
@@ -12,6 +13,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioList[] audioLists;
     public AudioMixerGroup sfxAudioGroup;
+    public AudioMixerGroup musicAudioGroup;
 
     public GameObject audioSourcePrefab;
 
@@ -27,6 +29,7 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(this);
         }
+        PlayMusic();
     }
     public static void PlayHitSound(Vector3 position, HitType type)
     {
@@ -58,6 +61,23 @@ public class AudioManager : MonoBehaviour
         source.outputAudioMixerGroup = instance.sfxAudioGroup;
         source.Play();
         Destroy(audioSource, source.clip.length + 0.1f);
+    }
+
+    private int musicIndex = 0;
+    public void PlayMusic()
+    {
+        if (musicIndex < instance.bgMusic.Length - 1)
+        {
+            musicIndex++;
+        }
+        else
+        {
+            musicIndex = 0;
+        }
+        GetComponent<AudioSource>().clip = instance.bgMusic[musicIndex];
+        GetComponent<AudioSource>().outputAudioMixerGroup = instance.musicAudioGroup;
+        GetComponent<AudioSource>().Play();
+        Invoke("PlayMusic", GetComponent<AudioSource>().clip.length);
     }
 }
 
