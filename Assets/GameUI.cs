@@ -138,8 +138,18 @@ public class GameUI : MonoBehaviour
     /// <param name="ctx"></param>
     private void ToggleInventory(InputAction.CallbackContext ctx)
     {
-        bool isInventoryOpen = inventoryAnimator.GetBool("Opened");
-        inventoryAnimator.SetBool("Opened", !isInventoryOpen);
+        if (interfaceAnimator.GetInteger("State") != 6)
+        {
+            SetInterfaceState(6);
+        }
+        else
+        {
+            SetInterfaceState(0);
+        }
+
+
+        //bool isInventoryOpen = inventoryAnimator.GetBool("Opened");
+        //inventoryAnimator.SetBool("Opened", !isInventoryOpen);
     }
 
     public void CloseAllWindows()
