@@ -198,7 +198,7 @@ public class SpawnDirector : MonoBehaviour
         spawnedResources++;
         resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
         resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
-        resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, ResourceBlockManager.Instance.resourceBlockData.Count));
+        resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual();
         resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedResources--);
         spawnsPerMinute[data]++;
     }

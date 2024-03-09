@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
     public Vector3 lastSolidGround = Vector3.zero;
 
     [Header("Air Stepping")]
+    public int dashLimit = 0;
+    public int dashCount = 0;
+    public float dashCooldown = 3;
+    [HideInInspector]public float lastDashTime = 0;
     public float airStepDistance = 5;
     public AnimationCurve airStepCurve;
     public float airStepDuration = 0.5f;
@@ -373,9 +377,12 @@ public class PlayerController : MonoBehaviour
 
     public void CheckAirStepConditions(InputAction.CallbackContext ctx)
     {
-        if(movementDirection != Vector3.zero)
+        if(lastDashTime + dashCooldown < Time.time)
         {
-            SwitchPlayerState(PlayerState.AirStepping,true);
+            if(movementDirection != Vector3.zero && dashCount < dashLimit)
+            {
+                SwitchPlayerState(PlayerState.AirStepping,true);
+            }
         }
     }
 
@@ -467,6 +474,7 @@ public class PlayerStateAirStepping : State
     private float airStepInputLockoutTime = 0.9f; // Percentage of the airStepDuration
     public void OnEnter(PlayerController pc)
     {
+        pc.dashCount++;
         AudioManager.PlaySound(pc.transform.position, SoundType.Player_Dash);
         VFXManager.Instance.PlayFeedback(0, pc.transform);
         onEnterTime = Time.time + pc.airStepDuration;
@@ -498,7 +506,8 @@ public class PlayerStateAirStepping : State
         if (Time.time > onEnterTime)
         {
             pc.SwitchPlayerState(PlayerState.Controlling);
-
+            pc.dashCount = 0;
+            pc.lastDashTime = Time.time;
         }
     }
 }

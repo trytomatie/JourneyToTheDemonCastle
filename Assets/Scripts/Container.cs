@@ -112,21 +112,22 @@ public class Container : MonoBehaviour
         {
             if (items[i].id == id)
             {
-                if (items[i].amount > amount)
+                if (items[i].amount > amount) // If the item has more than the amount we want to remove
                 {
                     items[i].amount -= amount;
                     stash.RemoveItem(id, amount, this);
                     onInventoryUpdate.Invoke(i);
                     return;
                 }
-                else if (items[i].amount == amount)
+                else if (items[i].amount == amount) // If the item has the same amount as the amount we want to remove
                 {
-                    items.RemoveAt(i);
+                    onItemCompletlyRemoved?.Invoke(i);
+                    items[i] = new Item(0, 0);
                     stash.RemoveItem(id, amount, this);
                     onInventoryUpdate.Invoke(i);
                     return;
                 }
-                else
+                else // If the item has less than the amount we want to remove
                 {
                     onItemCompletlyRemoved?.Invoke(i);
                     amount -= items[i].amount;

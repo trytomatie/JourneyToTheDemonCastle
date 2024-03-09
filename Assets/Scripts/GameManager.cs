@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
     }
 
     // Start is called before the first frame update
@@ -59,11 +60,15 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(gameTickRate);
             try
             {
-                OnGameTick.Invoke();
+                if(OnGameTick != null)
+                {
+                    OnGameTick.Invoke();
+                }
+
             }
             catch(Exception e)
             {
-                Debug.Log(e.Message);
+                Debug.LogException(e, this);
             }
             gameTicks++;
         }
