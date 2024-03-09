@@ -10,6 +10,7 @@ public class Crafter_Interactable : Interactable
     public string crafterName;
     public List<CraftingRecipe> recipes;
     public int selectedRecipeIndex;
+    private int craftingRecipieIndex;
 
     public Item[] craftingMaterials = new Item[2];
 
@@ -35,13 +36,14 @@ public class Crafter_Interactable : Interactable
 
     public void StartCrafting(int amount)
     {
+        craftingRecipieIndex = selectedRecipeIndex;
         CancelCraft();
-        for (int i = 0; i < recipes[selectedRecipeIndex].materials.Length; i++)
+        for (int i = 0; i < recipes[craftingRecipieIndex].materials.Length; i++)
         {
-            ItemBlueprint item = recipes[selectedRecipeIndex].materials[i];
+            ItemBlueprint item = recipes[craftingRecipieIndex].materials[i];
             if(Stash.instance.inventoryItems.ContainsKey(item.id))
             {
-                int craftingCost = recipes[selectedRecipeIndex].amount[i] * amount;
+                int craftingCost = recipes[craftingRecipieIndex].amount[i] * amount;
                 if (Stash.instance.inventoryItems[item.id] < craftingCost)
                 {
                     Debug.Log("Not enough items");
@@ -56,9 +58,9 @@ public class Crafter_Interactable : Interactable
         }
         this.amount = amount;
         craftingMaterials = new Item[2];
-        for (int i = 0; i < recipes[selectedRecipeIndex].materials.Length; i++)
+        for (int i = 0; i < recipes[craftingRecipieIndex].materials.Length; i++)
         {
-            craftingMaterials[i] = new Item(recipes[selectedRecipeIndex].materials[i].id, recipes[selectedRecipeIndex].amount[i] * amount);
+            craftingMaterials[i] = new Item(recipes[craftingRecipieIndex].materials[i].id, recipes[craftingRecipieIndex].amount[i] * amount);
             Stash.instance.inventory.RemoveItem(craftingMaterials[i].id, craftingMaterials[i].amount);
         }
         progressBar.gameObject.SetActive(true);
@@ -67,25 +69,25 @@ public class Crafter_Interactable : Interactable
 
     public void PerformCrafting()
     {
-        craftingImage.sprite = recipes[selectedRecipeIndex].result.itemIcon;
+        craftingImage.sprite = recipes[craftingRecipieIndex].result.itemIcon;
         amountToCraft.text = "x" + amount.ToString();
 
 
         progressBar.UpdateBar01(0);
-        progressBar.LerpForegroundBarDurationIncreasing = recipes[selectedRecipeIndex].craftingTime;
+        progressBar.LerpForegroundBarDurationIncreasing = recipes[craftingRecipieIndex].craftingTime;
         progressBar.BarFillMode = MMProgressBar.BarFillModes.FixedDuration;
         progressBar.UpdateBar01(1);
-        Invoke("CompleteCraft", recipes[selectedRecipeIndex].craftingTime);
+        Invoke("CompleteCraft", recipes[craftingRecipieIndex].craftingTime);
 
     }
 
     private void CompleteCraft()
     {
         // Spawn the item
-        GameManager.Instance.SpawnItem(recipes[selectedRecipeIndex].result,1 * Mathf.RoundToInt(GameManager.Instance.generalItemProductionMultiplier), transform.position);
-        for(int i = 0; i < recipes[selectedRecipeIndex].amount.Length; i++)
+        GameManager.Instance.SpawnItem(recipes[craftingRecipieIndex].result,1 * Mathf.RoundToInt(GameManager.Instance.generalItemProductionMultiplier), transform.position);
+        for(int i = 0; i < recipes[craftingRecipieIndex].amount.Length; i++)
         {
-            craftingMaterials[i].amount -= recipes[selectedRecipeIndex].amount[i];
+            craftingMaterials[i].amount -= recipes[craftingRecipieIndex].amount[i];
         }
         amount--;
         if(amount > 0)
