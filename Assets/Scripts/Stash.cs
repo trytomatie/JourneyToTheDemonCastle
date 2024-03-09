@@ -50,12 +50,20 @@ public class Stash : MonoBehaviour
             fromInventory = true;
         }
         ItemBlueprint item = ItemDatabase.GetItem(itemRef.id);
-        if (inventoryItems.ContainsKey(itemRef.id))
+        if (totalItems.ContainsKey(itemRef.id))
         {
             totalItems[itemRef.id] += amount;
             if (fromInventory)
             {
-                inventoryItems[itemRef.id] += amount;
+                if(inventoryItems.ContainsKey(itemRef.id))
+                {
+                    inventoryItems[itemRef.id] += amount;
+                }
+                else
+                {
+                    inventoryItems.Add(itemRef.id, amount);
+                }
+
             }
         }
         else
