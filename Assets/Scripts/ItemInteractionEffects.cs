@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class ItemInteractionEffects : ScriptableObject
 {
+    public enum EquipmentType 
+    {      None,
+           Head,
+           Chest,
+           Legs,
+           Feet,
+           Weapon,
+           Shield,
+           Tool,
+           Consumable,
+           KeyItem
+    }
+    public EquipmentType equipmentType = EquipmentType.None;
     protected bool isUsing = false;
     public virtual void OnUse(GameObject source, Item item)
     {
