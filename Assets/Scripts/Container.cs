@@ -45,14 +45,51 @@ public class Container : MonoBehaviour
                 }
             }
         }
-        else if (items.Count < space)
+        else if (ItemsCount < space)
         {
-            items.Add(item);
+
+            AddItemToEmptySpot(item);
             stash.AddItem(item, item.amount, this);
             onInventoryUpdate?.Invoke();
             return true;
         }
         return false;
+    }
+
+    private int ItemsCount
+    {
+        get
+        {
+            int count = 0;
+            foreach(Item item in items)
+            {
+                if (item.id != 0) count++;
+            }
+            return count;
+        }
+    }
+
+    private void AddItemToEmptySpot(Item itemToAdd)
+    {
+        int index = -1;
+        int i = 0;
+        foreach (Item item in items)
+        {
+            if (item.id == 0)
+            {
+                index = i;
+                break;
+            }
+            i++;
+        }
+        if(index != -1)
+        {
+            items[index] = itemToAdd;
+        }
+        else
+        {
+            // Do Nothing i Guess
+        }
     }
 
 
@@ -80,7 +117,7 @@ public class Container : MonoBehaviour
                 {
                     amount -= items[i].amount;
                     stash.RemoveItem(id, items[i].amount, this);
-                    items.RemoveAt(i);
+                    items[i] = new Item(0, 0);
                 }
             }
         }
