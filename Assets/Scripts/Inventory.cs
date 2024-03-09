@@ -3,7 +3,13 @@ using System.Collections;
 
 public class Inventory : Container
 {
-
+    public override void Init()
+    {
+        AddItem(new Item(7, 1));
+        AddItem(new Item(8, 1));
+        onItemCompletlyRemoved += RemoveHotbarItemIfRemoved;
+        onInventoryUpdate += EquipNewHotBarItem;
+    }
     private int currentHotbarIndex = 0;
     public Item CurrentHotbarItem
     {
@@ -25,6 +31,21 @@ public class Inventory : Container
         {
             items[currentHotbarIndex].GetItemInteractionEffects.OnEquip(gameObject, items[currentHotbarIndex]);
         }
+    }
 
+    public void RemoveHotbarItemIfRemoved(int i)
+    {
+        if(i == currentHotbarIndex)
+        {
+            items[currentHotbarIndex].GetItemInteractionEffects.OnUnequip(gameObject, items[currentHotbarIndex]);
+        }
+    }
+
+    public void EquipNewHotBarItem(int i)
+    {
+        if(i == currentHotbarIndex)
+        {
+            items[currentHotbarIndex].GetItemInteractionEffects.OnEquip(gameObject, items[currentHotbarIndex]);
+        }
     }
 }

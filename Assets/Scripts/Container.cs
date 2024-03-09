@@ -1,18 +1,31 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static Container;
+using static UnityEditor.PlayerSettings;
 
 public class Container : MonoBehaviour
 {
     public List<Item> items = new List<Item>();
     public int space = 20;
-    public delegate void ContainerUpdated();
+    public delegate void ContainerUpdated(int index);
+    public delegate void ItemCompletlyRemoved(int index);
+    public ItemCompletlyRemoved onItemCompletlyRemoved;
     public ContainerUpdated onInventoryUpdate;
     public Stash stash;
 
     private void Start()
     {
-        AddItem(new Item(7, 1));
-        AddItem(new Item(8, 1));
+        items.Clear();
+        for(int i = 0; i < space; i++)
+        {
+            items.Add(new Item(0, 0));
+        }
+        Init();
+    }
+
+    public virtual void Init()
+    {
+
     }
 
     public bool AddItem(Item item)
@@ -25,7 +38,7 @@ public class Container : MonoBehaviour
             {
                 items[pos].amount += item.amount;
                 stash.AddItem(item, item.amount, this);
-                onInventoryUpdate?.Invoke();
+                onInventoryUpdate?.Invoke(pos);
                 return true;
             }
             else // If the item can't fit in the stack
@@ -36,7 +49,7 @@ public class Container : MonoBehaviour
                 {
                     print(item.amount);
                     AddItem(item);
-                    onInventoryUpdate?.Invoke();
+                    onInventoryUpdate?.Invoke(pos);
                     return true;
                 }
                 else
@@ -50,7 +63,7 @@ public class Container : MonoBehaviour
 
             AddItemToEmptySpot(item);
             stash.AddItem(item, item.amount, this);
-            onInventoryUpdate?.Invoke();
+            onInventoryUpdate?.Invoke(pos);
             return true;
         }
         return false;
@@ -103,18 +116,19 @@ public class Container : MonoBehaviour
                 {
                     items[i].amount -= amount;
                     stash.RemoveItem(id, amount, this);
-                    onInventoryUpdate.Invoke();
+                    onInventoryUpdate.Invoke(i);
                     return;
                 }
                 else if (items[i].amount == amount)
                 {
                     items.RemoveAt(i);
                     stash.RemoveItem(id, amount, this);
-                    onInventoryUpdate.Invoke();
+                    onInventoryUpdate.Invoke(i);
                     return;
                 }
                 else
                 {
+                    onItemCompletlyRemoved?.Invoke(i);
                     amount -= items[i].amount;
                     stash.RemoveItem(id, items[i].amount, this);
                     items[i] = new Item(0, 0);
@@ -136,5 +150,16 @@ public class Container : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public static void SwapItems(Container container1, Container container2, int index1, int index2)
+    {
+        Item temp = container1.items[index1];
+        container1.onItemCompletlyRemoved?.Invoke(index1);
+        container2.onItemCompletlyRemoved?.Invoke(index2);
+        container1.items[index1] = container2.items[index2];
+        container2.items[index2] = temp;
+        container1.onInventoryUpdate?.Invoke(index1);
+        container2.onInventoryUpdate?.Invoke(index2);
     }
 }
