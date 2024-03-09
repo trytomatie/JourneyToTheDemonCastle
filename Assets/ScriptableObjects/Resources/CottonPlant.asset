@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bf62dbb6e160142bac4e02acf48777, type: 3}
   m_Name: CottonPlant
   m_EditorClassIdentifier: 
-  id: 0
+  id: 3
   spawnWeight: 10
+  guarenteedSpawnPerMinute: 3
   resourceBlockPrefab: {fileID: 622364232325524049, guid: 3c992b46bdc008142bb9dc26f94eb6e0, type: 3}

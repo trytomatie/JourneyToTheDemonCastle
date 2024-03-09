@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   spawnWeight: 20
+  guarenteedSpawnPerMinute: 3
   resourceBlockPrefab: {fileID: 622364232325524049, guid: aa1ba4b3e72ad304fb0db550e3513abc, type: 3}

@@ -42,7 +42,7 @@ public class Stash : MonoBehaviour
     {
         InputSystem.GetInputActionMapPlayer().Debug.PrintStackToConsole.performed -= ctx => PrintStack();
     }
-    public bool AddItem(Item itemRef, int amount,Inventory source)
+    public bool AddItem(Item itemRef, int amount, Container source)
     {
         bool fromInventory = false;
         if(source == inventory)
@@ -69,7 +69,7 @@ public class Stash : MonoBehaviour
         return true;
     }
 
-    public bool RemoveItem(int id, int amount,Inventory source)
+    public bool RemoveItem(int id, int amount,Container source)
     {
         bool fromInventory = false;
         bool hasremoved = false;

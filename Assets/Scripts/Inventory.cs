@@ -3,7 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : Container
+{
+
+    private int currentHotbarIndex = 0;
+    public Item CurrentHotbarItem
+    {
+        get
+        {
+            if (items.Count - 1 < currentHotbarIndex) return null;
+            return items[currentHotbarIndex];
+        }
+    }
+    public void SwitchHotbarItem(int index)
+    {
+        GameUI.instance.inventoryUI.SelectSlot(index);
+        if (items.Count-1 >= currentHotbarIndex)
+        {
+            items[currentHotbarIndex].GetItemInteractionEffects.OnUnequip(gameObject, items[currentHotbarIndex]);
+        }
+        currentHotbarIndex = index;
+        if(items.Count-1 >= currentHotbarIndex)
+        {
+            items[currentHotbarIndex].GetItemInteractionEffects.OnEquip(gameObject, items[currentHotbarIndex]);
+        }
+
+    }
+}
+
+public class Container : MonoBehaviour
 {
     public List<Item> items = new List<Item>();
     public int space = 20;
@@ -11,19 +39,9 @@ public class Inventory : MonoBehaviour
     public InventoryUpdated onInventoryUpdate;
     public Stash stash;
 
-    private int currentHotbarIndex = 0;
-    public Item CurrentHotbarItem
-    {
-        get
-        {
-            if (items.Count-1 < currentHotbarIndex) return null;
-            return items[currentHotbarIndex];
-        }
-    }
-
     private void Start()
     {
-        AddItem(new Item(7,1));
+        AddItem(new Item(7, 1));
         AddItem(new Item(8, 1));
     }
 
@@ -36,7 +54,7 @@ public class Inventory : MonoBehaviour
             if (items[pos].amount + item.amount <= maxStack) // If the item can fit in the stack
             {
                 items[pos].amount += item.amount;
-                stash.AddItem(item, item.amount,this);
+                stash.AddItem(item, item.amount, this);
                 onInventoryUpdate?.Invoke();
                 return true;
             }
@@ -57,7 +75,7 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-        else if(items.Count < space)
+        else if (items.Count < space)
         {
             items.Add(item);
             stash.AddItem(item, item.amount, this);
@@ -67,7 +85,8 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public void RemoveItem(int id,int amount)
+
+    public void RemoveItem(int id, int amount)
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -97,7 +116,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public int ContainsItemAndHasSpace(Item item) 
+    public int ContainsItemAndHasSpace(Item item)
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -110,20 +129,5 @@ public class Inventory : MonoBehaviour
             }
         }
         return -1;
-    }
-
-    public void SwitchHotbarItem(int index)
-    {
-        GameUI.instance.inventoryUI.SelectSlot(index);
-        if (items.Count-1 >= currentHotbarIndex)
-        {
-            items[currentHotbarIndex].GetItemInteractionEffects.OnUnequip(gameObject, items[currentHotbarIndex]);
-        }
-        currentHotbarIndex = index;
-        if(items.Count-1 >= currentHotbarIndex)
-        {
-            items[currentHotbarIndex].GetItemInteractionEffects.OnEquip(gameObject, items[currentHotbarIndex]);
-        }
-
     }
 }

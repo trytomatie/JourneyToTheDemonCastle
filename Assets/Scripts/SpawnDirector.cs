@@ -10,6 +10,7 @@ public class SpawnDirector : MonoBehaviour
     private BoxCollider boxCollider;
     [Header("Resources")]
     public List<ResourceBlock> blocks = new List<ResourceBlock>();
+    private Dictionary<ResoruceBlockData, int> spawnsPerMinute = new Dictionary<ResoruceBlockData, int>();
     public int spawnedResources = 0;
 
     [Header("Enemies")]
@@ -34,6 +35,10 @@ public class SpawnDirector : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
         awokenGameTick = GameManager.Instance.gameTicks;
         StartCoroutine(RegisterBlocksCoorutine());
+        foreach(ResoruceBlockData data in ResourceBlockManager.Instance.resourceBlockData)
+        {
+            spawnsPerMinute.Add(data, 0);
+        }
     }
 
     private IEnumerator RegisterBlocksCoorutine()
@@ -45,12 +50,14 @@ public class SpawnDirector : MonoBehaviour
         RegisterBlocks();
         GameManager.OnGameTick += () => SpawnResoruces(blocks);
         GameManager.OnGameTick += () => SpawnEnemy();
+        GameManager.OnGameTick += () => CheckGuaranteedResourceSpawns();
     }
 
     private void OnDisable()
     {
         GameManager.OnGameTick -= () => SpawnResoruces(blocks);
         GameManager.OnGameTick -= () => SpawnEnemy();
+        GameManager.OnGameTick -= () => CheckGuaranteedResourceSpawns();
     }
 
     public void RegisterBlocks()
@@ -70,7 +77,11 @@ public class SpawnDirector : MonoBehaviour
     {
         if(GameManager.Instance.gameTicks % 30 == 0)
         {
-            int enemiesToSpawn = Random.Range(0,maxEnemies - spawnedEnemies+1);
+            int enemiesToSpawn = 1;
+            if(isDungeon)
+            {
+                enemiesToSpawn = Random.Range(0, maxEnemies - spawnedEnemies + 1);
+            }
             for (int i = 0; i < enemiesToSpawn; i++)
             {
                 if (spawnedEnemies >= maxEnemies)
@@ -112,7 +123,7 @@ public class SpawnDirector : MonoBehaviour
         }
     }
 
-    private int spawnIntervall = 9;
+    private int spawnIntervall = 20;
     public void SpawnResoruces(List<ResourceBlock> blocks)
     {
         if (GameManager.Instance.gameTicks % spawnIntervall != 0)
@@ -148,11 +159,7 @@ public class SpawnDirector : MonoBehaviour
                     randomWeight -= data.spawnWeight;
                     if (randomWeight <= 0)
                     {
-                        spawnedResources++;
-                        resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
-                        resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
-                        resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, ResourceBlockManager.Instance.resourceBlockData.Count));
-                        resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedResources--);
+                        SpawnResource(resourceBlock, data);
                         break;
                     }
                 }
@@ -162,7 +169,37 @@ public class SpawnDirector : MonoBehaviour
                 // Do Nothing I guess
             }
         }
-
     }
 
+    private void CheckGuaranteedResourceSpawns()
+    {
+        if(GameManager.Instance.gameTicks % 60 != 0)
+        {
+            return;
+        }
+        for(int i = 0; i < spawnsPerMinute.Count;i++)
+        {
+            ResoruceBlockData data = ResourceBlockManager.Instance.resourceBlockData[i];
+            if (spawnsPerMinute[data] < data.guarenteedSpawnPerMinute)
+            {
+                int neededSpawns = data.guarenteedSpawnPerMinute - spawnsPerMinute[data];
+                for(int o = 0; o < neededSpawns; o++)
+                {
+                    ResourceBlock resourceBlock = blocks[Random.Range(0, blocks.Count)];
+                    SpawnResource(resourceBlock, data);
+                }
+            }
+            spawnsPerMinute[data] = 0;
+        }
+    }
+
+    private void SpawnResource(ResourceBlock resourceBlock, ResoruceBlockData data)
+    {
+        spawnedResources++;
+        resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
+        resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
+        resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, ResourceBlockManager.Instance.resourceBlockData.Count));
+        resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedResources--);
+        spawnsPerMinute[data]++;
+    }
 }

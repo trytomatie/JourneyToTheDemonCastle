@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class DroppedItem : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class DroppedItem : MonoBehaviour
     public int amount = 1;
     public SpriteRenderer spriteRenderer;
     public TextMeshPro amountText;
-
+    public bool isKeyItem = false;
     private Transform target;
+    public GameObject keyItemVFX;
 
     private bool hitGround = false;
     // Start is called before the first frame update
@@ -28,6 +30,8 @@ public class DroppedItem : MonoBehaviour
         spriteRenderer.sprite = item.itemIcon;
         droppedItem = item;
         this.amount = amount;
+        isKeyItem = item.keyItem;
+        keyItemVFX.SetActive(isKeyItem);
         amountText.text = "x" + amount.ToString();
     }
 
@@ -40,12 +44,26 @@ public class DroppedItem : MonoBehaviour
         {
             if (distance < 0.1f)
             {
-                target.GetComponent<Inventory>().AddItem(new Item(droppedItem.id,amount));
-                Destroy(gameObject);
+                PickUpItem();
             }
             Vector3 dir =  target.position- transform.position;
             transform.position += dir.normalized * 7 * Time.deltaTime;
         }
+    }
+
+    private void PickUpItem()
+    {
+        if(isKeyItem) 
+        {
+            Item item = new Item(droppedItem.id, amount);
+            target.GetComponent<Inventory>().AddItem(item);
+            GameUI.instance.SetUpGetItemScreen(item);
+        }
+        else
+        {
+            target.GetComponent<Inventory>().AddItem(new Item(droppedItem.id, amount));
+        }
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)

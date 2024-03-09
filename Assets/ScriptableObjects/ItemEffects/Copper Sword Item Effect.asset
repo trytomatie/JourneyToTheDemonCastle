@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a28f23c8d12e347a3678e515f9b5ac, type: 3}
   m_Name: Copper Sword Item Effect
   m_EditorClassIdentifier: 
-  attackDamage: 2
+  attackDamage: 3
   weaponPrefab: {fileID: 195570, guid: 71bfa3c2d06ef5643980cf76996b302b, type: 3}

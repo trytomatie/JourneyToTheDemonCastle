@@ -629,7 +629,7 @@ MonoBehaviour:
   m_text: x3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9d6db0a8b149fe449e6a3be2787f9f6, type: 2}
-  m_sharedMaterial: {fileID: 4448374652952315725, guid: b9d6db0a8b149fe449e6a3be2787f9f6, type: 2}
+  m_sharedMaterial: {fileID: 5803580495960011430, guid: b9d6db0a8b149fe449e6a3be2787f9f6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -959,6 +959,7 @@ MonoBehaviour:
   crafterName: Smithy
   recipes:
   - {fileID: 11400000, guid: 28596c715625ffe478c474efdb6e9100, type: 2}
+  - {fileID: 11400000, guid: d5870c239f6545b459d07020aeca120f, type: 2}
   selectedRecipeIndex: 0
   craftingMaterials:
   - id: 0

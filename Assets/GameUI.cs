@@ -29,6 +29,12 @@ public class GameUI : MonoBehaviour
     public GameObject levelUpCanvas;
     public GameObject levelUpMenu;
 
+    [Header("ItemGetScreen")]
+    public GameObject itemGetScene;
+    public SpriteRenderer itemGetSprite;
+    public TextMeshProUGUI itemGetTitle;
+    public TextMeshProUGUI itemGetDescription;
+
     [HideInInspector] public Animator interfaceAnimator;
 
     // Singleton
@@ -183,6 +189,35 @@ public class GameUI : MonoBehaviour
         Time.timeScale = 1;
         levelUpMenu.SetActive(false);
         SetInterfaceState(0);
+    }
+    #endregion
+
+    #region ItemGetScreen
+    public void SetUpGetItemScreen(Item item)
+    {
+
+        itemGetScene.SetActive(true);
+        itemGetSprite.sprite = ItemDatabase.GetItem(item.id).itemIcon;
+        itemGetTitle.text = "Aquired " + ItemDatabase.GetItem(item.id).itemName +"!";
+        itemGetDescription.text = ItemDatabase.GetItem(item.id).itemDescription;
+        StartCoroutine(GetItemScreenCoorutine());
+
+    }
+
+    private IEnumerator GetItemScreenCoorutine()
+    {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(0.5f);
+        SetInterfaceState(5);
+        Time.timeScale = 0;
+        InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.performed += SetGetItemScreenCloseDelegate;
+    }
+
+    private void SetGetItemScreenCloseDelegate(InputAction.CallbackContext ctx)
+    {
+        Time.timeScale = 1;
+        SetInterfaceState(0);
+        InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.performed -= SetGetItemScreenCloseDelegate;
     }
     #endregion
 }
