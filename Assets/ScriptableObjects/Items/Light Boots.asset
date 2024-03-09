@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   itemName: Light Boots
-  itemDescription: 
+  itemDescription: Lets you dash through the air!
   itemIcon: {fileID: 21300000, guid: 29a1226f7b5e20240942612e151c3c4c, type: 3}
   maxStackSize: 1
   keyItem: 1
-  itemInteractionEffects: {fileID: 11400000, guid: a9297ea7516d0a6449c1ab34e09c6926, type: 2}
+  itemInteractionEffects: {fileID: 11400000, guid: e1f7a5ccfb757c14f9da8ef5eab1db27, type: 2}

@@ -11,8 +11,9 @@ public class ResourceController : MonoBehaviour
     public ShaderController shaderController;
     private ResourceStatusManager rsm;
 
-    public void SetVisual(int index)
+    public void SetVisual()
     {
+        int index = Random.Range(0, visuals.Length);
         foreach (var visual in visuals)
         {
             visual.SetActive(false);
