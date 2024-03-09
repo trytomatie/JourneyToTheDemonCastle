@@ -42,7 +42,14 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             feedback.PlayFeedbacks();
             currentAmount = item.amount;
         }
-        amountText.text = $"x{item.amount}";
+        if(item.amount == 1)
+        {
+            amountText.text = "";
+        }
+        else
+        {
+            amountText.text = $"{item.amount}";
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
