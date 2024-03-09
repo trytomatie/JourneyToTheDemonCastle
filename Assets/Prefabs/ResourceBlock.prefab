@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c2d4478709a54e9e286c300b27ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnResistance: 100
+  spawnResistance: 50
   spawnedResoruce: {fileID: 0}
   grassPivot: {fileID: 0}

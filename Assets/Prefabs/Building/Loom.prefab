@@ -960,6 +960,7 @@ MonoBehaviour:
   crafterName: Loom
   recipes:
   - {fileID: 11400000, guid: 2e06cd8b615899246b4d1ff6daa054ea, type: 2}
+  - {fileID: 11400000, guid: 8f881145b74cb9c4fb8c534fdc2ecac5, type: 2}
   selectedRecipeIndex: 0
   craftingMaterials:
   - id: 0
