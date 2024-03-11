@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class SpawnDirector : MonoBehaviour
 {
-    private BoxCollider boxCollider;
+    [HideInInspector]public BoxCollider boxCollider;
     [Header("Resources")]
     public List<ResourceBlock> blocks = new List<ResourceBlock>();
-    private Dictionary<ResoruceBlockData, int> spawnsPerMinute = new Dictionary<ResoruceBlockData, int>();
     public int spawnedResources = 0;
+    public int resourceLimit = 10;
 
     [Header("Enemies")]
     public List<ResoruceBlockData> spawnableEnemies;
@@ -35,10 +35,9 @@ public class SpawnDirector : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
         awokenGameTick = GameManager.Instance.gameTicks;
         StartCoroutine(RegisterBlocksCoorutine());
-        foreach(ResoruceBlockData data in ResourceBlockManager.Instance.resourceBlockData)
-        {
-            spawnsPerMinute.Add(data, 0);
-        }
+        ResourceBlockManager.Instance.spawnDirectors.Add(this);
+
+
     }
 
     private IEnumerator RegisterBlocksCoorutine()
@@ -48,16 +47,19 @@ public class SpawnDirector : MonoBehaviour
             yield return null;
         }
         RegisterBlocks();
+        while (spawnedResources < resourceLimit)
+        {
+            ResourceBlock resourceBlock = blocks[Random.Range(0, blocks.Count)];
+            SpawnResource(resourceBlock, ResourceBlockManager.Instance.resourceBlockData[Random.Range(0, ResourceBlockManager.Instance.resourceBlockData.Count)]);
+        }
         GameManager.OnGameTick += () => SpawnResoruces(blocks);
         GameManager.OnGameTick += () => SpawnEnemy();
-        GameManager.OnGameTick += () => CheckGuaranteedResourceSpawns();
     }
 
     private void OnDisable()
     {
         GameManager.OnGameTick -= () => SpawnResoruces(blocks);
         GameManager.OnGameTick -= () => SpawnEnemy();
-        GameManager.OnGameTick -= () => CheckGuaranteedResourceSpawns();
     }
 
     public void RegisterBlocks()
@@ -75,7 +77,7 @@ public class SpawnDirector : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        if(GameManager.Instance.gameTicks % 30 == 0)
+        if(GameManager.Instance.gameTicks % 300 == 0)
         {
             int enemiesToSpawn = 1;
             if(isDungeon)
@@ -123,9 +125,13 @@ public class SpawnDirector : MonoBehaviour
         }
     }
 
-    private int spawnIntervall = 20;
+    private int spawnIntervall = 10;
     public void SpawnResoruces(List<ResourceBlock> blocks)
     {
+        if(spawnedResources >= resourceLimit)
+        {
+            return;
+        }
         if (GameManager.Instance.gameTicks % spawnIntervall != 0)
         {
             return;
@@ -171,35 +177,12 @@ public class SpawnDirector : MonoBehaviour
         }
     }
 
-    private void CheckGuaranteedResourceSpawns()
-    {
-        if(GameManager.Instance.gameTicks % 60 != 0)
-        {
-            return;
-        }
-        for(int i = 0; i < spawnsPerMinute.Count;i++)
-        {
-            ResoruceBlockData data = ResourceBlockManager.Instance.resourceBlockData[i];
-            if (spawnsPerMinute[data] < data.guarenteedSpawnPerMinute)
-            {
-                int neededSpawns = data.guarenteedSpawnPerMinute - spawnsPerMinute[data];
-                for(int o = 0; o < neededSpawns; o++)
-                {
-                    ResourceBlock resourceBlock = blocks[Random.Range(0, blocks.Count)];
-                    SpawnResource(resourceBlock, data);
-                }
-            }
-            spawnsPerMinute[data] = 0;
-        }
-    }
-
-    private void SpawnResource(ResourceBlock resourceBlock, ResoruceBlockData data)
+    public void SpawnResource(ResourceBlock resourceBlock, ResoruceBlockData data)
     {
         spawnedResources++;
         resourceBlock.spawnedResoruce = Instantiate(data.resourceBlockPrefab, resourceBlock.transform.position, Quaternion.identity);
         resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
         resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual();
         resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedResources--);
-        spawnsPerMinute[data]++;
     }
 }

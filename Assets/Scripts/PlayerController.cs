@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(hitBoxes[1], hitBoxes[1].transform.position, hitBoxes[1].transform.rotation).SetActive(true);
         GameObject vfx = VFXManager.Instance.PlayFeedback(5, staffTip);
+        AudioManager.PlayGeneralSound(transform.position, 2);
         Destroy(vfx,11);
     }
 

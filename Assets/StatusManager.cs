@@ -19,12 +19,13 @@ public class StatusManager : MonoBehaviour
     public HitType materialType = HitType.Entity;
     public SoundType deathSound;
     public int level = 1;
-    [SerializeField] private int maxHp = 30;
-    [SerializeField] private int hp = 30;
+    public int maxHp = 30;
+    public int hp = 30;
     [SerializeField] private int maxStamina = 0;
     [SerializeField] private int stamina = 0;
     [SerializeField] private int staminaRegenPerSecond = 5;
     [SerializeField] private int baseAttackDamage = 1;
+    public int bonusDefense = 0;
 
     public int experienceDrop = 1;
 
@@ -42,7 +43,7 @@ public class StatusManager : MonoBehaviour
     public UnityEvent OnDamage;
 
     public int AttackDamage { get => Mathf.CeilToInt((baseAttackDamage + weaponAttackDamage + bonusAttackDamage) * bonusAttackDamageMultiplier); }
-
+    public int Defense { get => bonusDefense; }
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -120,9 +121,9 @@ public class StatusManager : MonoBehaviour
 
     public void ApplyDamage(int damage)
     {
-        print(damage);
-        hp -= damage;
-        FloatingTextSpawner.instance.SpawnFloatingText(damage.ToString(), transform);
+        int calculatedDamage = Mathf.Clamp(damage - bonusDefense,1, 9999);
+        hp -= calculatedDamage;
+        FloatingTextSpawner.instance.SpawnFloatingText(calculatedDamage.ToString(), transform);
         OnDamage.Invoke();
         if (hp <= 0)
         {

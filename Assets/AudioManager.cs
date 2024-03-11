@@ -63,6 +63,16 @@ public class AudioManager : MonoBehaviour
         Destroy(audioSource, source.clip.length + 0.1f);
     }
 
+    public static void PlayGeneralSound(Vector3 pos, int index)
+    {
+        GameObject audioSource = Instantiate(instance.audioSourcePrefab, pos, Quaternion.identity);
+        AudioSource source = audioSource.GetComponent<AudioSource>();
+        source.clip = instance.generalAudio[index];
+        source.outputAudioMixerGroup = instance.sfxAudioGroup;
+        source.Play();
+        Destroy(audioSource, source.clip.length + 0.1f);
+    }
+
     private int musicIndex = 0;
     public void PlayMusic()
     {
