@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ddd962340a10a374badabe0a01e2a2ad, type: 2}
   amount: 03000000
   result: {fileID: 11400000, guid: ce86a02300be9544b9fb49d434af6dd8, type: 2}
-  craftingTime: 25
+  craftingTime: 10
