@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
@@ -35,6 +36,13 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI itemGetTitle;
     public TextMeshProUGUI itemGetDescription;
 
+    [Header("Player Stats")]
+    public Image playerHealthBar;
+    public Image playerManaBar;
+    public TextMeshProUGUI playerHealthText;
+    public TextMeshProUGUI playerManaText;
+    private StatusManager playerStatusManager;
+
     [HideInInspector] public Animator interfaceAnimator;
 
     // Singleton
@@ -55,6 +63,9 @@ public class GameUI : MonoBehaviour
     {
         interfaceAnimator = GetComponent<Animator>();
         SetUpInputSystem();
+        playerStatusManager = GameManager.Instance.player.GetComponent<StatusManager>();
+        playerStatusManager.OnDamage.AddListener(UpdatePlayerHealthBar);
+        UpdatePlayerHealthBar();
     }
 
     private void OnDisable()
@@ -211,7 +222,14 @@ public class GameUI : MonoBehaviour
         itemGetTitle.text = "Aquired " + ItemDatabase.GetItem(item.id).itemName +"!";
         itemGetDescription.text = ItemDatabase.GetItem(item.id).itemDescription;
         StartCoroutine(GetItemScreenCoorutine());
+    }
 
+    public void UpdatePlayerHealthBar()
+    {
+        int currentHealth = playerStatusManager.hp;
+        int maxHealth = playerStatusManager.maxHp;
+        playerHealthBar.fillAmount = (float)currentHealth / maxHealth;
+        playerHealthText.text = ""+currentHealth;
     }
 
     private IEnumerator GetItemScreenCoorutine()

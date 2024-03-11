@@ -53,7 +53,7 @@ public class DroppedItem : MonoBehaviour
 
     private void PickUpItem()
     {
-        if(isKeyItem) 
+        if (isKeyItem)
         {
             Item item = new Item(droppedItem.id, amount);
             target.GetComponent<Inventory>().AddItem(item);
@@ -63,6 +63,7 @@ public class DroppedItem : MonoBehaviour
         {
             target.GetComponent<Inventory>().AddItem(new Item(droppedItem.id, amount));
         }
+        AudioManager.PlayGeneralSound(transform.position, 1);
         Destroy(gameObject);
     }
 
