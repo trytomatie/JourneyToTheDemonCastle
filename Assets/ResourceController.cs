@@ -27,8 +27,12 @@ public class ResourceController : MonoBehaviour
     }
     public void DropItem()
     {
-        GameObject go = Instantiate(GameManager.Instance.droppedItem, transform.position + new Vector3(0,0.3f,0), Quaternion.identity);
-        go.GetComponent<DroppedItem>().SetUpDroppedItem(itemDrop, Random.Range(dropAmountRange.x,dropAmountRange.y+1));
+        int dropAmount = Random.Range(dropAmountRange.x,dropAmountRange.y+1);
+        for (int i = 0; i < dropAmount; i++)
+        {
+            GameObject go = Instantiate(GameManager.Instance.droppedItem, transform.position + new Vector3(0,0.3f,0), Quaternion.identity);
+            go.GetComponent<DroppedItem>().SetUpDroppedItem(itemDrop, 1);
+        }
     }
 
     private void Start()
