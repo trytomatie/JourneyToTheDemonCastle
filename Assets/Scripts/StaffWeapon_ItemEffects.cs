@@ -21,6 +21,12 @@ public class StaffWeapon_ItemEffects : ItemInteractionEffects
         source.GetComponent<PlayerController>().HandleStaffCharge(false);
     }
 
+    public override string EffectDescription()
+    {
+        string result = $"+{attackDamage} Spelldamage\n";
+        result += "On Use: Cast Zoltraak in a Cone infront of you";
+        return result;
+    }
 
     public override void OnEquip(GameObject source, Item item)
     {

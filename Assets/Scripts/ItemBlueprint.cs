@@ -9,6 +9,7 @@ using UnityEngine;
 public class ItemBlueprint : ScriptableObject
 {
     public int id;
+    public ItemType itemType = ItemType.None;
     public string itemName;
     public string itemDescription;
     public Sprite itemIcon;
@@ -30,6 +31,14 @@ public class Item
     {
         this.id = id;
         this.amount = amount;
+    }
+
+    public ItemBlueprint BluePrint
+    {
+        get
+        {
+            return ItemDatabase.GetItem(id);
+        }
     }
 
     public ItemInteractionEffects GetItemInteractionEffects

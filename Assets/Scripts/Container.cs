@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using static Container;
-using static UnityEditor.PlayerSettings;
 
 public class Container : MonoBehaviour
 {

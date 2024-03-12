@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-
+        Instance.player = GameObject.FindObjectOfType<PlayerController>().gameObject;
     }
 
     // Start is called before the first frame update
@@ -130,5 +130,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public static GameManager Instance { get => instance; set => instance = value; }
+    public static GameManager Instance { get 
+        { 
+            return instance; 
+        } 
+        set => instance = value; }
 }

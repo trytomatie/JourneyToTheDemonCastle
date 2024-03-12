@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class ItemInteractionEffects : ScriptableObject
 {
-    public enum EquipmentType 
-    {      None,
-           Head,
-           Chest,
-           Legs,
-           Feet,
-           Weapon,
-           Shield,
-           Tool,
-           Consumable,
-           KeyItem
-    }
-    public EquipmentType equipmentType = EquipmentType.None;
     protected bool isUsing = false;
     public virtual void OnUse(GameObject source, Item item)
     {
         Debug.LogError("OnUse not implemented");
+    }
+
+    public virtual string EffectDescription()
+    {
+        return "";
     }
 
     public virtual void OnUseEnd(GameObject source, Item item)
@@ -53,4 +45,19 @@ public class ItemInteractionEffects : ScriptableObject
     {
         Debug.LogError("OnDrop not implemented");
     }
+}
+
+public enum ItemType
+{
+    None,
+    Head,
+    Chest,
+    Legs,
+    Feet,
+    Weapon,
+    Shield,
+    Tool,
+    Consumable,
+    KeyItem,
+    Material
 }

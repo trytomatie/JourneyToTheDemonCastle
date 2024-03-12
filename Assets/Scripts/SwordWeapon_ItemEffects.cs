@@ -20,6 +20,13 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
         source.GetComponent<PlayerController>().HandleAttack(false);
     }
 
+    public override string EffectDescription()
+    {
+        string result = $"+{attackDamage} Attackdamage\n";
+        result += "On Use: Strike infront of you";
+        return result;
+    }
+
 
     public override void OnEquip(GameObject source, Item item)
     {

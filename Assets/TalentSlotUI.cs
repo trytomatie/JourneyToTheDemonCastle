@@ -113,6 +113,7 @@ public class TalentSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(TalentSlotUI))]
 public class  TallenSlotUIEditor:Editor
 {
@@ -128,4 +129,5 @@ public class  TallenSlotUIEditor:Editor
         }
     }
 }
+#endif
 

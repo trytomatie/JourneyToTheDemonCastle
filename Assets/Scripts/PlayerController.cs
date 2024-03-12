@@ -65,16 +65,14 @@ public class PlayerController : MonoBehaviour
     private State[] states = new State[5];
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         states[(int)PlayerState.Controlling] = new PlayerStateControlling();
         states[(int)PlayerState.InWater] = new PlayerStateInWater();
         states[(int)PlayerState.AirStepping] = new PlayerStateAirStepping();
         states[(int)currentPlayerState].OnEnter(this);
-
-        inventory = GetComponent<Inventory>();
         cameraTransform = Camera.main.transform;
-        GameManager.Instance.player = gameObject;
+        inventory = GetComponent<Inventory>();
         sm = GetComponent<StatusManager>();
         SwitchHotbarItem(0);
         InputSystem.GetInputActionMapPlayer().Player.Hotkey1.performed += ctx => SwitchHotbarItem(0);

@@ -12,7 +12,7 @@ public class InputSystem : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance == null)
+        if (instance == this || instance == null)
         {
             instance = this;
         }
@@ -33,8 +33,9 @@ public class InputSystem : MonoBehaviour
 
     public static InputActionMapPlayer GetInputActionMapPlayer()
     {
-        if(instance.inputActionMapPlayer == null)
+        if(instance == null)
         {
+            instance = GameObject.FindObjectOfType<InputSystem>();
             instance.inputActionMapPlayer = new InputActionMapPlayer();
         }
         return instance.inputActionMapPlayer;
