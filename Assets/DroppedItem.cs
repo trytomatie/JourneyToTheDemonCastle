@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class DroppedItem : MonoBehaviour
 {
@@ -17,12 +16,15 @@ public class DroppedItem : MonoBehaviour
     public GameObject keyItemVFX;
 
     private bool hitGround = false;
+    private float spawnTime;
+    private float pickUpLockout = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = Random.onUnitSphere + new Vector3(0,force,0);
         target = GameManager.Instance.player.transform;
+        spawnTime = Time.time;
     }
 
     public void SetUpDroppedItem(ItemBlueprint item, int amount)
@@ -37,7 +39,7 @@ public class DroppedItem : MonoBehaviour
 
     private void Update()
     {
-        if (!hitGround) return;
+        if (Time.time < spawnTime + pickUpLockout) return;
 
         float distance = Vector3.Distance(transform.position, target.position);
         if (distance < 1.5f)
@@ -70,6 +72,31 @@ public class DroppedItem : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         hitGround = true;
+        CombineNearStacks();
+    }
+
+    private void CombineNearStacks()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1);
+        foreach (var hitCollider in hitColliders)
+        {
+            DroppedItem droppedItem = hitCollider.GetComponent<DroppedItem>();
+            if (droppedItem != null && droppedItem.droppedItem == this.droppedItem && droppedItem.amount < droppedItem.droppedItem.maxStackSize)
+            {
+                int amountToCombine = Mathf.Min(droppedItem.droppedItem.maxStackSize - droppedItem.amount, this.amount);
+                droppedItem.amount += amountToCombine;
+                this.amount -= amountToCombine;
+                if (this.amount == 0)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    amountText.text = "x" + this.amount.ToString();
+                }
+                droppedItem.amountText.text = "x" + droppedItem.amount.ToString();
+            }
+        }
     }
 
 }
