@@ -105,7 +105,7 @@ RectTransform:
   m_GameObject: {fileID: 1970617739736632352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.232}
-  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
+  m_LocalScale: {x: 0.27, y: 0.27, z: 0.27}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4560036542978774040}
@@ -958,8 +958,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crafterName: Smithy
   recipes:
-  - {fileID: 11400000, guid: 28596c715625ffe478c474efdb6e9100, type: 2}
   - {fileID: 11400000, guid: d5870c239f6545b459d07020aeca120f, type: 2}
+  - {fileID: 11400000, guid: 5e2ba430eaf6f3d448663e4f27de4e31, type: 2}
+  - {fileID: 11400000, guid: 3fb2f6103303a6a41891b0bc23de66be, type: 2}
+  - {fileID: 11400000, guid: 1a7dde3a4f6c7c74d9d33cf162af895c, type: 2}
   selectedRecipeIndex: 0
   craftingMaterials:
   - id: 0

@@ -6,15 +6,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public ItemInteractionEffects.EquipmentType slotRestriction = ItemInteractionEffects.EquipmentType.None;
+    public ItemType slotRestriction = ItemType.None;
     public Image sprite;
     public TextMeshProUGUI amountText;
     public MMF_Player feedback;
     public Container syncedContainer;
     public int currentAmount;
     public int assignedIndex = 0;
+    public int descriptionLocationIndex = 0;
 
     private void Awake()
     {
@@ -71,16 +72,40 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         ItemSlotUI dragedOverItemSlot = eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlotUI>();
         if(dragedOverItemSlot != null)
         {
-            if (dragedOverItemSlot.slotRestriction != ItemInteractionEffects.EquipmentType.None && dragedOverItemSlot.slotRestriction != ItemDatabase.GetItem(syncedContainer.items[assignedIndex].id).itemInteractionEffects.equipmentType)
+            ItemType itemType = ItemDatabase.GetItem(syncedContainer.items[assignedIndex].id).itemType;
+            ItemType dragedOverItemType = ItemDatabase.GetItem(dragedOverItemSlot.syncedContainer.items[dragedOverItemSlot.assignedIndex].id).itemType;
+            if (dragedOverItemSlot.slotRestriction != ItemType.None && dragedOverItemSlot.slotRestriction != itemType)
             {
-                return;
+                if(itemType != ItemType.None)
+                {
+                    return;
+                }
             }
-            if(slotRestriction != ItemInteractionEffects.EquipmentType.None && slotRestriction != ItemDatabase.GetItem(dragedOverItemSlot.syncedContainer.items[dragedOverItemSlot.assignedIndex].id).itemInteractionEffects.equipmentType)
+            if(slotRestriction != ItemType.None && slotRestriction != dragedOverItemType)
             {
-                return;
+                if (dragedOverItemType != ItemType.None)
+                {
+                    return;
+                }
             }
             Container.SwapItems(dragedOverItemSlot.syncedContainer, syncedContainer, dragedOverItemSlot.assignedIndex, assignedIndex);
         }
         InventoryUI.Instance.dragImage.enabled = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (syncedContainer.items[assignedIndex].id != 0)
+        {
+            GameUI.instance.ShowItemDescription(syncedContainer.items[assignedIndex], descriptionLocationIndex);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (syncedContainer.items[assignedIndex].id != 0)
+        {
+            GameUI.instance.HideItemDescription();
+        }
     }
 }

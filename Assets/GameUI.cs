@@ -43,6 +43,14 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI playerManaText;
     private StatusManager playerStatusManager;
 
+    [Header("Item Description")]
+    public GameObject itemDescription;
+    public RectTransform[] itemDescriptionLocations;
+    public TextMeshProUGUI itemDescriptionText;
+    public TextMeshProUGUI itemDescriptionTitle;
+    public TextMeshProUGUI itemType;
+    public Image itemDescriptionIcon;
+
     [HideInInspector] public Animator interfaceAnimator;
 
     // Singleton
@@ -246,6 +254,24 @@ public class GameUI : MonoBehaviour
         Time.timeScale = 1;
         SetInterfaceState(0);
         InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.performed -= SetGetItemScreenCloseDelegate;
+    }
+    #endregion
+
+    #region ItemDescription
+    public void ShowItemDescription(Item item, int location)
+    {
+        ItemBlueprint itemBlueprint = item.BluePrint;
+        itemDescriptionText.text = item.GetItemInteractionEffects.EffectDescription()+ "\n\n<color=grey>" + itemBlueprint.itemDescription;
+        itemDescriptionTitle.text = itemBlueprint.itemName;
+        itemType.text = itemBlueprint.itemType.ToString();
+        itemDescriptionIcon.sprite = itemBlueprint.itemIcon;
+        itemDescription.transform.position = itemDescriptionLocations[location].position;
+        itemDescription.SetActive(true);
+    }
+
+    public void HideItemDescription()
+    {
+        itemDescription.SetActive(false);
     }
     #endregion
 }
