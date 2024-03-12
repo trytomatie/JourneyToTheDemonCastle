@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02c5d4658e9dc9c43863b143e021744e, type: 3}
-  m_Name: CopperOre
+  m_Name: Copper Chestplate
   m_EditorClassIdentifier: 
-  id: 2
-  itemType: 10
-  itemName: Copper Ore
-  itemDescription: 
-  itemIcon: {fileID: 21300000, guid: b3b726454eda80b40a1b30ac1a7a0c7a, type: 3}
-  maxStackSize: 200
-  keyItem: 0
-  itemInteractionEffects: {fileID: 11400000, guid: 9194b24a30fb58546980d694091032da, type: 2}
+  id: 14
+  itemType: 2
+  itemName: Copper Chestplate
+  itemDescription: 'Increases Armor '
+  itemIcon: {fileID: 21300000, guid: e37ee0b1cbe20c5458102626b95a6b7c, type: 3}
+  maxStackSize: 1
+  keyItem: 1
+  itemInteractionEffects: {fileID: 11400000, guid: c9f73e26225252a469b546d49a620ea1, type: 2}

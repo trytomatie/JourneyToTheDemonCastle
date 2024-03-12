@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Wolfs-Den Key
   m_EditorClassIdentifier: 
   id: 6
+  itemType: 8
   itemName: Wolfs-Den Key
   itemDescription: Key to the Alpha Wolf
   itemIcon: {fileID: 21300000, guid: e30e7f1121c83ed469e6242c11d18e05, type: 3}
   maxStackSize: 200
+  keyItem: 0
   itemInteractionEffects: {fileID: 11400000, guid: 9194b24a30fb58546980d694091032da, type: 2}

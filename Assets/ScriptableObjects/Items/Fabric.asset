@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fabric
   m_EditorClassIdentifier: 
   id: 13
+  itemType: 10
   itemName: Fabric
   itemDescription: 
   itemIcon: {fileID: 21300000, guid: e577f30c6bd976a429addedf4c4ad662, type: 3}

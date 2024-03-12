@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Wooden Staff
   m_EditorClassIdentifier: 
   id: 8
+  itemType: 5
   itemName: Wooden Staff
   itemDescription: 
   itemIcon: {fileID: 21300000, guid: 02ff976d39577774bb44b83610e61dec, type: 3}
   maxStackSize: 1
+  keyItem: 0
   itemInteractionEffects: {fileID: 11400000, guid: 1bdbfa13359931945840931f903d13e9, type: 2}

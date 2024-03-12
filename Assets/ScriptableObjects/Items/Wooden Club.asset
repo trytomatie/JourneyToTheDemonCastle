@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Wooden Club
   m_EditorClassIdentifier: 
   id: 7
+  itemType: 5
   itemName: Wooden Club
   itemDescription: 
   itemIcon: {fileID: 21300000, guid: 2ddf0348701148a4d8a7c6a0f7f146b3, type: 3}
   maxStackSize: 1
+  keyItem: 0
   itemInteractionEffects: {fileID: 11400000, guid: 84f9ef51456542c4ba7006c8a9cc4250, type: 2}
