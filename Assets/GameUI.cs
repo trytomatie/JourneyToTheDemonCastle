@@ -51,6 +51,9 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI itemType;
     public Image itemDescriptionIcon;
 
+    [Header("Skills")]
+    public SkillSlotUI[] skillslots;
+
     [HideInInspector] public Animator interfaceAnimator;
 
     // Singleton
