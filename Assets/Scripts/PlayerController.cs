@@ -11,11 +11,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static PlayerController;
 
-public class PlayerController : MonoBehaviour
+public partial class PlayerController : MonoBehaviour, IEntityControlls
 {
     // Character Movement Properties
     [SerializeField] private float maxMovementSpeed = 6;
     [SerializeField] private float rotationSpeed = 40;
+    private float deceleration = 0.15f;
     public float ySpeed = 0;
     private float gravity = 1f;
     private float currentSpeed;
@@ -34,21 +35,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("HitBoxes")]
     public GameObject[] hitBoxes;
-    
 
     public Animator anim;
     private Transform cameraTransform;
 
     public Vector3 lastSolidGround = Vector3.zero;
 
-    [Header("Air Stepping")]
-    public int dashLimit = 0;
-    public int dashCount = 0;
-    public float dashCooldown = 3;
-    [HideInInspector]public float lastDashTime = 0;
-    public float airStepDistance = 5;
-    public AnimationCurve airStepCurve;
-    public float airStepDuration = 0.5f;
+    [Header("Skills")]
+    public int skillIndex = -1;
+    public Skill[] skills;
 
 
     // States
@@ -58,7 +53,7 @@ public class PlayerController : MonoBehaviour
         InWater,
         Running,
         Attacking,
-        AirStepping
+        PlayerUsingSkill
     }
     public PlayerState currentPlayerState = PlayerState.Controlling;
 
@@ -69,7 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         states[(int)PlayerState.Controlling] = new PlayerStateControlling();
         states[(int)PlayerState.InWater] = new PlayerStateInWater();
-        states[(int)PlayerState.AirStepping] = new PlayerStateAirStepping();
+        states[(int)PlayerState.PlayerUsingSkill] = new PlayerUsingSkill();
         states[(int)currentPlayerState].OnEnter(this);
         cameraTransform = Camera.main.transform;
         inventory = GetComponent<Inventory>();
@@ -93,19 +88,19 @@ public class PlayerController : MonoBehaviour
 
     public void SwitchPlayerState(PlayerState newState)
     {
-        SwitchPlayerState(newState , false);
+        SwitchPlayerState(newState, false);
     }
 
     public void SwitchPlayerState(PlayerState newState, bool force)
     {
-        if(!force)
+        if (!force)
         {
             CurrentPlayerState = newState;
         }
         else
         {
 
-            if(CurrentPlayerState == newState)
+            if (CurrentPlayerState == newState)
             {
                 states[(int)currentPlayerState].OnExit(this);
                 states[(int)currentPlayerState].OnEnter(this);
@@ -129,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleInteraction()
     {
-        if(InputSystem.GetInputActionMapPlayer().Player.Interact.WasPressedThisFrame())
+        if (InputSystem.GetInputActionMapPlayer().Player.Interact.WasPressedThisFrame())
         {
             print("Interacting");
             interactionManager.Interact();
@@ -140,7 +135,7 @@ public class PlayerController : MonoBehaviour
     public void HandleGravity()
     {
         bool isGrounded = IsGrounded();
-        if(isGrounded &&  ySpeed <= 0.2f)
+        if (isGrounded && ySpeed <= 0.2f)
         {
             ySpeed = 0;
             lastSolidGround = transform.position;
@@ -154,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position + new Vector3(0,0.05f,0), Vector3.down, 0.1f, groundLayer);
+        return Physics.Raycast(transform.position + new Vector3(0, 0.05f, 0), Vector3.down, 0.1f, groundLayer);
     }
 
     public void Rotation()
@@ -215,7 +210,7 @@ public class PlayerController : MonoBehaviour
         {
             currentSpeed *= 0.3f;
         }
-        if(currentSpeed > 0.5f)
+        if (currentSpeed > 0.5f)
         {
             walkDust.Play();
         }
@@ -253,7 +248,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!BuildingManager.instance.PlaceBuildingMode && isChargeing)
         {
-            if(anim.GetBool("chrageStaff")== false)
+            if (anim.GetBool("chrageStaff") == false)
             {
                 staffVFXRef = VFXManager.Instance.PlayFeedback(4, staffTip);
             }
@@ -263,7 +258,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(attackChargeTimer >= attackChargeTime)
+            if (attackChargeTimer >= attackChargeTime)
             {
                 FireMagicAttack();
                 attackChargeTimer = 0;
@@ -271,7 +266,7 @@ public class PlayerController : MonoBehaviour
             if (staffVFXRef != null)
             {
                 staffVFXRef.GetComponent<ParticleSystem>().Stop();
-                Destroy(staffVFXRef,3);
+                Destroy(staffVFXRef, 3);
             }
             anim.SetBool("chrageStaff", false);
         }
@@ -282,7 +277,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(hitBoxes[1], hitBoxes[1].transform.position, hitBoxes[1].transform.rotation).SetActive(true);
         GameObject vfx = VFXManager.Instance.PlayFeedback(5, staffTip);
         AudioManager.PlayGeneralSound(transform.position, 2);
-        Destroy(vfx,11);
+        Destroy(vfx, 11);
     }
 
     public void RotationDuringCast()
@@ -339,9 +334,9 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.overWorld.transform.position = new Vector3(0, 0, 0);
             GameManager.Instance.dungeonWorld.transform.position = new Vector3(0, -50, 0);
         }
-        foreach(EnemyAI enemy in EnemyAI.enemyAIList)
+        foreach (EnemyAI enemy in EnemyAI.enemyAIList)
         {
-            if(enemy.transform.position.y <-20)
+            if (enemy.transform.position.y < -20)
             {
                 enemy.gameObject.SetActive(false);
             }
@@ -352,7 +347,7 @@ public class PlayerController : MonoBehaviour
             enemy.agent.enabled = false;
             enemy.agent.enabled = true;
         }
-       // Invoke("ResetCamera", 0.1f);
+        // Invoke("ResetCamera", 0.1f);
     }
 
     private void ResetCamera()
@@ -362,41 +357,55 @@ public class PlayerController : MonoBehaviour
         vCam.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1;
     }
 
-    public void AirStep(Vector3 airStepDirection,float delta)
+    #region Skill
+    public void UseSkill(int index)
     {
-        if(airStepDirection == Vector3.zero)
+        skillIndex = index;
+        if (skills[skillIndex] != null && skills[skillIndex].CheckSkillConditions(gameObject))
         {
-            return;
-        }
-        float airStepDistance = this.airStepDistance;
-        float airStepCurveValue = airStepCurve.Evaluate(delta / airStepDuration);
-        Vector3 airStepVector = airStepDirection * airStepDistance * airStepCurveValue;
-        characterController.Move(airStepVector * Time.deltaTime);
-    }
-
-    public void CheckAirStepConditions(InputAction.CallbackContext ctx)
-    {
-        if(lastDashTime + dashCooldown < Time.time)
-        {
-            if(movementDirection != Vector3.zero && dashCount < dashLimit)
-            {
-                SwitchPlayerState(PlayerState.AirStepping,true);
-            }
+            SwitchPlayerState(PlayerState.PlayerUsingSkill);
         }
     }
+    #endregion
 
+    //#region AirStepping
+    //public void AirStep(Vector3 airStepDirection, float delta)
+    //{
+    //    if (airStepDirection == Vector3.zero)
+    //    {
+    //        return;
+    //    }
+    //    float airStepDistance = this.airStepDistance;
+    //    float airStepCurveValue = airStepCurve.Evaluate(delta / airStepDuration);
+    //    Vector3 airStepVector = airStepDirection * airStepDistance * airStepCurveValue;
+    //    Movement(airStepVector * Time.deltaTime);
+    //}
+
+    //public void CheckAirStepConditions(InputAction.CallbackContext ctx)
+    //{
+    //    if (lastDashTime + dashCooldown < Time.time)
+    //    {
+    //        if (movementDirection != Vector3.zero && dashCount < dashLimit)
+    //        {
+    //            SwitchPlayerState(PlayerState.AirStepping, true);
+    //        }
+    //    }
+    //}
+    //#endregion
     public void CheckForPlayerVoidOut()
     {
-        if(transform.position.y < -15)
+        if (transform.position.y < -15)
         {
             CurrentPlayerState = PlayerState.InWater;
         }
     }
 
-    public PlayerState CurrentPlayerState { get => currentPlayerState;
+    public PlayerState CurrentPlayerState
+    {
+        get => currentPlayerState;
         set
         {
-            if(currentPlayerState != value)
+            if (currentPlayerState != value)
             {
                 states[(int)currentPlayerState].OnExit(this);
                 states[(int)value].OnEnter(this);
@@ -410,8 +419,38 @@ public class PlayerController : MonoBehaviour
     {
         inventory.CurrentHotbarItem?.GetItemInteractionEffects.OnUse(gameObject, inventory.CurrentHotbarItem);
     }
-}
+    #region Interface
+    public void Movement(Vector3 movement)
+    {
+        characterController.Move(movement);
+    }
 
+    public Animator GetAnimator()
+    {
+        return anim;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    public Vector3 GetMovmentDirection()
+    {
+        return movementDirection;
+    }
+
+    public void SwitchState(PlayerState controlling)
+    {
+        SwitchPlayerState(controlling);
+    }
+
+    public void ManualMovement()
+    {
+        Movement();
+    }
+    #endregion
+}
 public interface State
 {
     void OnEnter(PlayerController pc);
@@ -423,13 +462,13 @@ public class PlayerStateControlling : State
 {
     public void OnEnter(PlayerController pc)
     {
-        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed += pc.CheckAirStepConditions;
+        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed += ctx => pc.UseSkill(0);
     }
 
     public void OnExit(PlayerController pc)
     {
         pc.walkDust.Stop();
-        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed -= pc.CheckAirStepConditions;
+        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed -= ctx => pc.UseSkill(0);
     }
 
     public void OnUpdate(PlayerController pc)
@@ -466,6 +505,26 @@ public class PlayerStateInWater : State
     }
 }
 
+public class PlayerUsingSkill : State
+{
+    public void OnEnter(PlayerController pc)
+    {
+        pc.skills[pc.skillIndex].OnEnter(pc.gameObject);
+    }
+
+    public void OnExit(PlayerController pc)
+    {
+        pc.skills[pc.skillIndex].OnExit(pc.gameObject);
+    }
+
+    public void OnUpdate(PlayerController pc)
+    {
+        pc.skills[pc.skillIndex].OnUpdate(pc.gameObject);
+        pc.ItemUsage();
+    }
+}
+
+/*
 public class PlayerStateAirStepping : State
 {
     private float onEnterTime;
@@ -510,3 +569,5 @@ public class PlayerStateAirStepping : State
         }
     }
 }
+
+*/
