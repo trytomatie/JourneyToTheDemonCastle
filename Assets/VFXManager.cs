@@ -58,6 +58,9 @@ public class VFXManager : MonoBehaviour
                 result.transform.position = position.position;
                 result.transform.rotation = GameManager.Instance.player.transform.rotation;
                 break;
+            case 6:
+                feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().TargetWorldPosition = position.position + new Vector3(0,0.5f,0);
+                break;
 
         }
 
