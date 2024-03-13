@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public GameObject overWorld;
     public GameObject dungeonWorld;
 
+    [Header("Hitboxes")]
+    public GameObject[] hitboxes;
 
     [Header("Modifiers")]
     public float generalItemProductionMultiplier = 1;
@@ -127,6 +129,12 @@ public class GameManager : MonoBehaviour
     {
         GameObject itemObj = Instantiate(droppedItem, pos, Quaternion.identity);
         itemObj.GetComponent<DroppedItem>().SetUpDroppedItem(item, amount);
+    }
+
+    public void SpawnHitbox(Transform character, int i)
+    {
+        GameObject hitbox = Instantiate(hitboxes[i], character.position + hitboxes[i].transform.localPosition, character.rotation);
+        hitbox.SetActive(true);
     }
 
 
