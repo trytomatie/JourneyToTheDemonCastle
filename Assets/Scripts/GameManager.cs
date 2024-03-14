@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("Grid")]
     public Dictionary<Vector2Int, GameObject> grid = new Dictionary<Vector2Int, GameObject>();
     public LayerMask groundLayer;
+    public Material groundMaterial;
 
     [Header("GameWorld")]
     public GameObject overWorld;
@@ -105,7 +107,7 @@ public class GameManager : MonoBehaviour
         if (Physics.Raycast(pos + new Vector3(0.5f, 0, -0.5f), Vector3.down, out hit, 100, groundLayer))
         {
 
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            if (hit.collider.gameObject.GetComponent<Renderer>().materials.Contains(groundMaterial))
             {
                 print(assigned);
                 if (!assigned)
