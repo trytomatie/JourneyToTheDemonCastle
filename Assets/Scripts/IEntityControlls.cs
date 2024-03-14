@@ -5,6 +5,7 @@ public interface IEntityControlls
 {
     public Animator GetAnimator();
     public GameObject GetGameObject();
+    public Transform VfxTransform { get; set; }
     public Vector3 GetMovmentDirection();
     public void Movement(Vector3 movement);
     public void ManualMovement();

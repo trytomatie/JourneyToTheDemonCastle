@@ -1,12 +1,6 @@
 using Cinemachine;
-using JetBrains.Annotations;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static PlayerController;
@@ -35,7 +29,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     [Header("HitBoxes")]
     public GameObject[] hitBoxes;
-
+    public Transform vfxTransform;
     public Animator anim;
     private Transform cameraTransform;
 
@@ -80,6 +74,17 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         InputSystem.GetInputActionMapPlayer().Player.Hotkey7.performed += ctx => SwitchHotbarItem(6);
         InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.performed += ctx => HandleItemUsage(true);
         InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.canceled += ctx => HandleItemUsage(false);
+
+        for (int i = 0; i < skills.Length; i++)
+        {
+            if (skills[i] != null)
+            {
+                skills[i] = Instantiate(skills[i]);
+                GameUI.instance.skillslots[i].SetupSkill(skills[i]);
+            }
+
+        }
+
         SwitchHotbarItem(0);
     }
    
@@ -497,6 +502,8 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     public float[] SkillColldowns { get => skillSlotCooldowns; set => skillSlotCooldowns = value; }
     public int SkillIndex { get => skillIndex; set => skillIndex = value; }
+
+    public Transform VfxTransform { get => vfxTransform; set => vfxTransform = value; }
     #endregion
 }
 public interface State

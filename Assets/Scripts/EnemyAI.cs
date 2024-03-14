@@ -50,8 +50,10 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     private float detectionTimer = 0;
 
     public static List<EnemyAI> enemyAIList = new List<EnemyAI>();
+    [Header("Skills")]
     public Skill[] skills;
     public int skillIndex;
+    public float[] skillCooldowns = new float[4];
 
     private void Awake()
     {
@@ -68,6 +70,14 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
         states[(int)EnemyControllState.UsingSkill] = new UsingSkill();
         states[(int)currentState].OnEnter(this);
         sm.OnDeath.AddListener(() => SwitchState(EnemyControllState.Death));
+        for(int i = 0; i < skills.Length; i++)
+        {
+            if (skills[i] != null)
+            {
+                skills[i] = Instantiate(skills[i]);
+            }
+
+        }
         enemyAIList.Add(this);
     }
 
@@ -174,8 +184,9 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
         }
     }
 
-    public float[] SkillColldowns { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public int SkillIndex { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float[] SkillColldowns { get => skillCooldowns; set => skillCooldowns = value; }
+    public int SkillIndex { get => skillIndex; set => skillIndex = value; }
+    public Transform VfxTransform { get => attackPivot; set => attackPivot = value; }
 
     public void DropLoot()
     {
@@ -200,7 +211,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
 
     public void Movement(Vector3 movement)
     {
-        Movement(movement);
+        agent.Move(movement);
     }
 
     public void ManualMovement()
@@ -208,16 +219,17 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
         // Not used for npcs
     }
 
+
     public void SwitchState(PlayerController.PlayerState controlling)
     {
         EnemyControllState state;
         switch(controlling)
         { 
             case PlayerController.PlayerState.Controlling:
-                state = EnemyControllState.Idle;
+                state = EnemyControllState.AttackEndlag;
                 break;
             case PlayerController.PlayerState.PlayerUsingSkill:
-                state = EnemyControllState.Attack;
+                state = EnemyControllState.UsingSkill;
                 break;
             default:
                 state = EnemyControllState.Idle;
@@ -422,7 +434,7 @@ public class PrepareAttack : EnemyState
         pc.Animations();
         if (enterTime < Time.time)
         {
-            pc.SwitchState(EnemyControllState.Attack);
+            pc.SwitchState(EnemyControllState.UsingSkill);
         }
     }
 }
@@ -432,6 +444,7 @@ public class AttackEndlag : EnemyState
     private float enterTime = 0f;
     public void OnEnter(EnemyAI pc)
     {
+        pc.SetDestinaton(pc.transform.position);
         enterTime = Time.time + pc.attackEndlag;
     }
 

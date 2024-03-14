@@ -42,7 +42,8 @@ public class VFXManager : MonoBehaviour
                 feedbacks[index].transform.rotation = rotation;
                 break;
             case 2:
-                feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().InstantiateParticlesPosition = position;
+                feedbacks[index].GetFeedbackOfType<MMF_InstantiateObject>().TargetTransform = position;
+                feedbacks[index].GetFeedbackOfType<MMF_InstantiateObject>().ParentTransform = position;
                 break;
             case 3:
                 feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().TargetWorldPosition = position.position;
@@ -60,6 +61,14 @@ public class VFXManager : MonoBehaviour
                 break;
             case 6:
                 feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().TargetWorldPosition = position.position + new Vector3(0,0.5f,0);
+                break;
+            case 7:
+                feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().InstantiateParticlesPosition = position;
+                feedbacks[index].transform.rotation = rotation;
+                break;
+            case 8:
+                feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().InstantiateParticlesPosition = position;
+                feedbacks[index].transform.rotation = rotation;
                 break;
 
         }

@@ -26,7 +26,9 @@ public class Skill_DarkOnslaught : Skill
         controller = source.GetComponent<IEntityControlls>();
         dashCount++;
         AudioManager.PlaySound(source.transform.position, SoundType.Player_Dash);
-        VFXManager.Instance.PlayFeedback(2, controller.GetGameObject().transform, controller.GetGameObject().transform.rotation);
+        VFXManager.Instance.PlayFeedback(2, controller.VfxTransform, controller.GetGameObject().transform.rotation);
+        VFXManager.Instance.PlayFeedback(7, controller.VfxTransform, controller.GetGameObject().transform.rotation);
+        //VFXManager.Instance.PlayFeedback(8, controller.VfxTransform, controller.GetGameObject().transform.rotation);
         onEnterTime = Time.time + airStepDuration;
         facingDirection = controller.GetMovmentDirection();
         if (facingDirection == Vector3.zero)
@@ -37,8 +39,8 @@ public class Skill_DarkOnslaught : Skill
     }
     public override void OnUpdate(GameObject source)
     {
-        AirStep(controller,facingDirection, airStepDuration - (onEnterTime - Time.time));
 
+        AirStep(controller,facingDirection, airStepDuration - (onEnterTime - Time.time));
         if (Time.time > onEnterTime)
         {
             controller.SwitchState(PlayerState.Controlling);

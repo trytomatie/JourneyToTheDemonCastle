@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42a28f23c8d12e347a3678e515f9b5ac, type: 3}
-  m_Name: Copper Sword Item Effect
+  m_Script: {fileID: 11500000, guid: 6fddc2ac05876d348976d59700db5675, type: 3}
+  m_Name: Skill_BladeStorm
   m_EditorClassIdentifier: 
-  attackDamage: 3
-  weaponPrefab: {fileID: 195570, guid: 71bfa3c2d06ef5643980cf76996b302b, type: 3}
-  skill: {fileID: 11400000, guid: a423385fbd93f1447bb45e50294db018, type: 2}
+  skillName: 
+  skillIcon: {fileID: 0}
+  skillCooldown: 3
+  bladeStormDuration: 1.5
+  vfxIntervalTimer: 0

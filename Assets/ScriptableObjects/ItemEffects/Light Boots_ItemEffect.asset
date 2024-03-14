@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5967f8db4b99643ac75c195a672d30, type: 3}
   m_Name: Light Boots_ItemEffect
   m_EditorClassIdentifier: 
-  airDash: {fileID: 11400000, guid: 67c87ac189b24a04f9cb1397ae874981, type: 2}
+  airDash: {fileID: 11400000, guid: e5295a6d459630a45b889290c336e6f9, type: 2}

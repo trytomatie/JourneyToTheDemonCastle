@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6a0e47509007f40b2b3f2af8c490ca, type: 3}
-  m_Name: Skill_BladeStorm
+  m_Script: {fileID: 11500000, guid: 6fddc2ac05876d348976d59700db5675, type: 3}
+  m_Name: Skill_BladeStorm 1
   m_EditorClassIdentifier: 
   skillName: Blade Strom
   skillIcon: {fileID: 21300000, guid: 29f7eb7beba2ae4419a9c3b857b15573, type: 3}
   skillCooldown: 3
-  skillColldownTimer: 0
   bladeStormDuration: 1.5
   vfxIntervalTimer: 0
