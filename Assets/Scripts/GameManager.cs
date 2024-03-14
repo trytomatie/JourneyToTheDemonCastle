@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         if (Physics.Raycast(pos + new Vector3(0.5f, 0, -0.5f), Vector3.down, out hit, 100, groundLayer))
         {
 
-            if (hit.collider.gameObject.GetComponent<Renderer>().materials.Contains(groundMaterial))
+            if (hit.collider.gameObject.GetComponent<Renderer>().materials.Any(e => e.name.Contains(groundMaterial.name)))
             {
                 print(assigned);
                 if (!assigned)
