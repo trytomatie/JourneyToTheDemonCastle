@@ -20,7 +20,7 @@ public class StatusManager : MonoBehaviour
     public SoundType deathSound;
     public int level = 1;
     public int maxHp = 30;
-    public int hp = 30;
+    private int hp = 30;
     [SerializeField] private int maxStamina = 0;
     [SerializeField] private int stamina = 0;
     [SerializeField] private int staminaRegenPerSecond = 5;
@@ -44,13 +44,14 @@ public class StatusManager : MonoBehaviour
 
     public int AttackDamage { get => Mathf.CeilToInt((baseAttackDamage + weaponAttackDamage + bonusAttackDamage) * bonusAttackDamageMultiplier); }
     public int Defense { get => bonusDefense; }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
         if(statsScaling != null)
         {
             maxHp += statsScaling.hpGrowth * level-1;
-            hp = maxHp;
+            Hp = maxHp;
             baseAttackDamage += statsScaling.attackGrowth * level-1;
             experienceDrop += statsScaling.expGrowth * level-1;
 
@@ -122,10 +123,9 @@ public class StatusManager : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         int calculatedDamage = Mathf.Clamp(damage - bonusDefense,1, 9999);
-        hp -= calculatedDamage;
+        Hp -= calculatedDamage;
         FloatingTextSpawner.instance.SpawnFloatingText(calculatedDamage.ToString(), transform);
-        OnDamage.Invoke();
-        if (hp <= 0)
+        if (Hp <= 0)
         {
             OnDeath.Invoke();
         }
@@ -133,7 +133,7 @@ public class StatusManager : MonoBehaviour
 
     public void UpdateHPBar(MMProgressBar progressbar)
     {
-        progressbar.UpdateBar01(hp / (float)maxHp);
+        progressbar.UpdateBar01(Hp / (float)maxHp);
     }
 
     public static List<StatusManager> GetEnemies(Faction faction)
@@ -147,6 +147,16 @@ public class StatusManager : MonoBehaviour
                 return factionMembers[Faction.Player];
             default:
                 return new List<StatusManager>();
+        }
+    }
+
+    public int Hp 
+    { 
+        get => hp;
+        set
+        {
+            OnDamage.Invoke();
+            hp = value;
         }
     }
 }

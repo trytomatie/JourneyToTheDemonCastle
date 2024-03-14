@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(StatusManager))]
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IEntityControlls
 {
 
     public LootTable lootTable;
@@ -50,7 +50,8 @@ public class EnemyAI : MonoBehaviour
     private float detectionTimer = 0;
 
     public static List<EnemyAI> enemyAIList = new List<EnemyAI>();
-
+    public Skill[] skills;
+    public int skillIndex;
 
     private void Awake()
     {
@@ -64,6 +65,7 @@ public class EnemyAI : MonoBehaviour
         states[(int)EnemyControllState.PrepareAttack] = new PrepareAttack();
         states[(int)EnemyControllState.AttackEndlag] = new AttackEndlag();
         states[(int)EnemyControllState.Death] = new Death();
+        states[(int)EnemyControllState.UsingSkill] = new UsingSkill();
         states[(int)currentState].OnEnter(this);
         sm.OnDeath.AddListener(() => SwitchState(EnemyControllState.Death));
         enemyAIList.Add(this);
@@ -172,11 +174,58 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public float[] SkillColldowns { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int SkillIndex { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     public void DropLoot()
     {
         VFXManager.Instance.PlayFeedback(3, transform);
         lootTable.DropLoot(transform.position);
     }
+    #region IEntityControlls
+    public Animator GetAnimator()
+    {
+        return anim;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    public Vector3 GetMovmentDirection()
+    {
+        return agent.velocity.normalized;
+    }
+
+    public void Movement(Vector3 movement)
+    {
+        Movement(movement);
+    }
+
+    public void ManualMovement()
+    {
+        // Not used for npcs
+    }
+
+    public void SwitchState(PlayerController.PlayerState controlling)
+    {
+        EnemyControllState state;
+        switch(controlling)
+        { 
+            case PlayerController.PlayerState.Controlling:
+                state = EnemyControllState.Idle;
+                break;
+            case PlayerController.PlayerState.PlayerUsingSkill:
+                state = EnemyControllState.Attack;
+                break;
+            default:
+                state = EnemyControllState.Idle;
+                break;
+        }
+        SwitchState(state);
+    }
+    #endregion
 }
 
 public enum EnemyControllState
@@ -187,7 +236,8 @@ public enum EnemyControllState
     Attack,
     PrepareAttack,
     AttackEndlag,
-    Death
+    Death,
+    UsingSkill
 }
 public interface EnemyState
 {
@@ -281,6 +331,7 @@ public class Attack : EnemyState
         pc.agent.isStopped = true;
         pc.agent.ResetPath();
         pc.SpawnAttackHitbox();
+        pc.SwitchState(EnemyControllState.UsingSkill);
     }
 
     public void OnExit(EnemyAI pc)
@@ -290,12 +341,31 @@ public class Attack : EnemyState
 
     public void OnUpdate(EnemyAI pc)
     {
+        return;
         pc.Animations();
         pc.DashAttack((Time.time-enterTime) / pc.attackDuration);
         if (enterTime +pc.attackDuration< Time.time)
         {
             pc.SwitchState(EnemyControllState.AttackEndlag);
         }
+    }
+}
+
+public class UsingSkill : EnemyState
+{
+    public void OnEnter(EnemyAI pc)
+    {
+        pc.skills[pc.skillIndex].OnEnter(pc.gameObject);
+    }
+
+    public void OnExit(EnemyAI pc)
+    {
+        pc.skills[pc.skillIndex].OnExit(pc.gameObject);
+    }
+
+    public void OnUpdate(EnemyAI pc)
+    {
+        pc.skills[pc.skillIndex].OnUpdate(pc.gameObject);
     }
 }
 

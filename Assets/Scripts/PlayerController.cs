@@ -195,6 +195,29 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         }
     }
 
+    public void Death()
+    {
+        anim.SetBool("Death", true);
+        AudioManager.PlayRandomSoundFromList(AudioManager.instance.playerDeath, transform.position);
+        StartCoroutine(DeathRoutine());
+
+    }
+
+    IEnumerator DeathRoutine()
+    {
+        yield return new WaitForSeconds(3);
+        TransitionScreenControler.instance.CallTransition();
+        yield return new WaitForSeconds(1f);
+        sm.Hp = sm.maxHp;
+        characterController.enabled = false;
+        TeleportToDungeonLayer(false);
+        transform.position = new Vector3(0,0,0);
+        characterController.enabled = true;
+        anim.SetBool("Death", false);
+        yield return new WaitForSeconds(0.5f);
+        TransitionScreenControler.instance.DismissTransition();
+    }
+
     public void Animations()
     {
         anim.SetFloat("speed", currentSpeed);

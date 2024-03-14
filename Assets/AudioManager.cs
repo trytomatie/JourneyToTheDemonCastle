@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] stoneHit;
     public AudioClip[] entityHit;
     public AudioClip[] generalAudio;
+    public AudioClip[] playerDeath;
 
     public AudioList[] audioLists;
     public AudioMixerGroup sfxAudioGroup;
@@ -58,6 +59,16 @@ public class AudioManager : MonoBehaviour
         GameObject audioSource = Instantiate(instance.audioSourcePrefab, position, Quaternion.identity);
         AudioSource source = audioSource.GetComponent<AudioSource>();
         source.clip = instance.audioLists[(int)type].audioClips[Random.Range(0, instance.audioLists[(int)type].audioClips.Length)];
+        source.outputAudioMixerGroup = instance.sfxAudioGroup;
+        source.Play();
+        Destroy(audioSource, source.clip.length + 0.1f);
+    }
+
+    public static void PlayRandomSoundFromList(AudioClip[] audio, Vector3 position)
+    {
+        GameObject audioSource = Instantiate(instance.audioSourcePrefab, position, Quaternion.identity);
+        AudioSource source = audioSource.GetComponent<AudioSource>();
+        source.clip = audio[Random.Range(0, audio.Length)];
         source.outputAudioMixerGroup = instance.sfxAudioGroup;
         source.Play();
         Destroy(audioSource, source.clip.length + 0.1f);
