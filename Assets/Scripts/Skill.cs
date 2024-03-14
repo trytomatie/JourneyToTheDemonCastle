@@ -7,7 +7,6 @@ public class Skill : ScriptableObject
     public string skillName;
     public Sprite skillIcon;
     public float skillCooldown = 3;
-    public float skillColldownTimer = 0;
     public virtual void OnEnter(GameObject source)
     {
 
@@ -28,22 +27,22 @@ public class Skill : ScriptableObject
         return true;
     }
 
-    public float GetCooldown() 
-    { 
-        return Mathf.Clamp(skillColldownTimer + skillCooldown - Time.time,0,999);
-    }
+    //public float GetCooldown() 
+    //{ 
+    //    return Mathf.Clamp(skillColldownTimer + skillCooldown - Time.time,0,999);
+    //}
 
-    public void AssignSkill(GameObject source)
+    public void AssignSkill(GameObject source,int index)
     {
         Skill instance = Instantiate(this);
-        source.GetComponent<PlayerController>().skills[0] = instance;
-        GameUI.instance.skillslots[0].SetupSkill(instance);
+        source.GetComponent<PlayerController>().skills[index] = instance;
+        GameUI.instance.skillslots[index].SetupSkill(instance);
     }
 
-    public void RemoveSkill(GameObject source)
+    public void RemoveSkill(GameObject source,int index)
     {
-        source.GetComponent<PlayerController>().skills[0] = null;
-        GameUI.instance.skillslots[0].SetupSkill(null);
+        source.GetComponent<PlayerController>().skills[index] = null;
+        GameUI.instance.skillslots[index].SetupSkill(null);
     }
 
 }

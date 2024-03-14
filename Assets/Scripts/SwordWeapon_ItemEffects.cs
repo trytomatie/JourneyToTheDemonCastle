@@ -7,6 +7,7 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
     public int attackDamage = 1;
     public GameObject weaponPrefab;
     private GameObject instaniatedWeapon;
+    public Skill skill;
     public override void OnUse(GameObject source, Item item)
     {
         if(isUsing)
@@ -34,12 +35,21 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
         instaniatedWeapon = Instantiate(weaponPrefab, weaponPivot);
         instaniatedWeapon.transform.localScale = weaponPrefab.transform.localScale;
         source.GetComponent<StatusManager>().weaponAttackDamage = attackDamage;
+        if(skill != null)
+        {
+            skill.AssignSkill(source, 0);
+        }
+
     }
 
     public override void OnUnequip(GameObject source, Item item)
     {
         source.GetComponent<StatusManager>().weaponAttackDamage = 0;
         Destroy(instaniatedWeapon);
+        if (skill != null)
+        {
+            skill.RemoveSkill(source, 0);
+        }
     }
 
     public override void OnDrop(GameObject source, Item item)

@@ -120,6 +120,7 @@ public class Container : MonoBehaviour
                 }
                 else if (items[i].amount == amount) // If the item has the same amount as the amount we want to remove
                 {
+                    print("Remove Same");
                     onItemCompletlyRemoved?.Invoke(i);
                     items[i] = new Item(0, 0);
                     stash.RemoveItem(id, amount, this);

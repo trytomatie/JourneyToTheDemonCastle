@@ -35,6 +35,7 @@ public class Inventory : Container
 
     public void RemoveHotbarItemIfRemoved(int i)
     {
+        print(i + " " + currentHotbarIndex);
         if(i == currentHotbarIndex)
         {
             items[currentHotbarIndex].GetItemInteractionEffects.OnUnequip(gameObject, items[currentHotbarIndex]);

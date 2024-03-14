@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 3
   weaponPrefab: {fileID: 195570, guid: 71bfa3c2d06ef5643980cf76996b302b, type: 3}
+  skill: {fileID: 11400000, guid: 72d51626a23d474408582fa3de5263b3, type: 2}

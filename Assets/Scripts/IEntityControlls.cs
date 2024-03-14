@@ -8,5 +8,7 @@ public interface IEntityControlls
     public Vector3 GetMovmentDirection();
     public void Movement(Vector3 movement);
     public void ManualMovement();
+    public float[] SkillColldowns { get; set; }
+    public int SkillIndex { get; set; }
     void SwitchState(PlayerController.PlayerState controlling);
 }

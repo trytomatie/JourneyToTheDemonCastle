@@ -8,12 +8,12 @@ public class Boots_ItemEffect : ItemInteractionEffects
 
     public override void OnEquip(GameObject source, Item item)
     {
-        airDash.AssignSkill(source);
+        airDash.AssignSkill(source,2);
     }
 
     public override void OnUnequip(GameObject source, Item item)
     {
-        airDash.RemoveSkill(source);
+        airDash.RemoveSkill(source,2);
     }
 
     public override void OnDrop(GameObject source, Item item)

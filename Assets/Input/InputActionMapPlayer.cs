@@ -292,6 +292,24 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""1de400fb-16dc-4c05-b4f2-28ee03bd1a46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill2"",
+                    ""type"": ""Button"",
+                    ""id"": ""48e70ec9-f940-43fa-b1bf-6742b90c994a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -404,6 +422,28 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
                     ""action"": ""UseSelectedItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2ce1ea3-de60-48a2-91a1-542dc520a51b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66fb7f58-897c-4c59-a967-beba3f77e86f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -462,6 +502,8 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
         m_Player_Hotkey5 = m_Player.FindAction("Hotkey5", throwIfNotFound: true);
         m_Player_Hotkey6 = m_Player.FindAction("Hotkey6", throwIfNotFound: true);
         m_Player_Hotkey7 = m_Player.FindAction("Hotkey7", throwIfNotFound: true);
+        m_Player_Skill1 = m_Player.FindAction("Skill1", throwIfNotFound: true);
+        m_Player_Skill2 = m_Player.FindAction("Skill2", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_PrintStackToConsole = m_Debug.FindAction("PrintStackToConsole", throwIfNotFound: true);
@@ -676,6 +718,8 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Hotkey5;
     private readonly InputAction m_Player_Hotkey6;
     private readonly InputAction m_Player_Hotkey7;
+    private readonly InputAction m_Player_Skill1;
+    private readonly InputAction m_Player_Skill2;
     public struct PlayerActions
     {
         private @InputActionMapPlayer m_Wrapper;
@@ -690,6 +734,8 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
         public InputAction @Hotkey5 => m_Wrapper.m_Player_Hotkey5;
         public InputAction @Hotkey6 => m_Wrapper.m_Player_Hotkey6;
         public InputAction @Hotkey7 => m_Wrapper.m_Player_Hotkey7;
+        public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
+        public InputAction @Skill2 => m_Wrapper.m_Player_Skill2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -729,6 +775,12 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
             @Hotkey7.started += instance.OnHotkey7;
             @Hotkey7.performed += instance.OnHotkey7;
             @Hotkey7.canceled += instance.OnHotkey7;
+            @Skill1.started += instance.OnSkill1;
+            @Skill1.performed += instance.OnSkill1;
+            @Skill1.canceled += instance.OnSkill1;
+            @Skill2.started += instance.OnSkill2;
+            @Skill2.performed += instance.OnSkill2;
+            @Skill2.canceled += instance.OnSkill2;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -763,6 +815,12 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
             @Hotkey7.started -= instance.OnHotkey7;
             @Hotkey7.performed -= instance.OnHotkey7;
             @Hotkey7.canceled -= instance.OnHotkey7;
+            @Skill1.started -= instance.OnSkill1;
+            @Skill1.performed -= instance.OnSkill1;
+            @Skill1.canceled -= instance.OnSkill1;
+            @Skill2.started -= instance.OnSkill2;
+            @Skill2.performed -= instance.OnSkill2;
+            @Skill2.canceled -= instance.OnSkill2;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -852,6 +910,8 @@ public partial class @InputActionMapPlayer: IInputActionCollection2, IDisposable
         void OnHotkey5(InputAction.CallbackContext context);
         void OnHotkey6(InputAction.CallbackContext context);
         void OnHotkey7(InputAction.CallbackContext context);
+        void OnSkill1(InputAction.CallbackContext context);
+        void OnSkill2(InputAction.CallbackContext context);
     }
     public interface IDebugActions
     {

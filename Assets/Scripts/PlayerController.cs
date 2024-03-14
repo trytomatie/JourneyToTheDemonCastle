@@ -44,6 +44,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     [Header("Skills")]
     public int skillIndex = -1;
     public Skill[] skills;
+    private float[] skillSlotCooldowns = new float[3];
 
 
     // States
@@ -69,7 +70,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         cameraTransform = Camera.main.transform;
         inventory = GetComponent<Inventory>();
         sm = GetComponent<StatusManager>();
-        SwitchHotbarItem(0);
+
         InputSystem.GetInputActionMapPlayer().Player.Hotkey1.performed += ctx => SwitchHotbarItem(0);
         InputSystem.GetInputActionMapPlayer().Player.Hotkey2.performed += ctx => SwitchHotbarItem(1);
         InputSystem.GetInputActionMapPlayer().Player.Hotkey3.performed += ctx => SwitchHotbarItem(2);
@@ -79,10 +80,16 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         InputSystem.GetInputActionMapPlayer().Player.Hotkey7.performed += ctx => SwitchHotbarItem(6);
         InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.performed += ctx => HandleItemUsage(true);
         InputSystem.GetInputActionMapPlayer().Player.UseSelectedItem.canceled += ctx => HandleItemUsage(false);
+        SwitchHotbarItem(0);
     }
+   
 
     public void SwitchHotbarItem(int index)
     {
+        if(currentPlayerState == PlayerState.PlayerUsingSkill)
+        {
+            return;
+        }
         inventory.SwitchHotbarItem(index);
     }
 
@@ -358,11 +365,24 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     }
 
     #region Skill
-    public void UseSkill(int index)
+    public void UseSkill(InputAction.CallbackContext ctx)
     {
-        skillIndex = index;
+        switch(ctx.action.name)
+        {
+            case "Skill1":
+                skillIndex = 0;
+                break;
+            case "Skill2":
+                skillIndex = 1;
+                break;
+            case "Air Step":
+                skillIndex = 2;
+                break;
+            default: return;
+        }
         if (skills[skillIndex] != null && skills[skillIndex].CheckSkillConditions(gameObject))
         {
+            GameUI.instance.skillslots[skillIndex].skillCooldown = skills[skillIndex].skillCooldown;
             SwitchPlayerState(PlayerState.PlayerUsingSkill);
         }
     }
@@ -415,6 +435,8 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         }
     }
 
+
+
     public void ItemUsage()
     {
         inventory.CurrentHotbarItem?.GetItemInteractionEffects.OnUse(gameObject, inventory.CurrentHotbarItem);
@@ -449,6 +471,9 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     {
         Movement();
     }
+
+    public float[] SkillColldowns { get => skillSlotCooldowns; set => skillSlotCooldowns = value; }
+    public int SkillIndex { get => skillIndex; set => skillIndex = value; }
     #endregion
 }
 public interface State
@@ -462,13 +487,17 @@ public class PlayerStateControlling : State
 {
     public void OnEnter(PlayerController pc)
     {
-        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed += ctx => pc.UseSkill(0);
+        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed += pc.UseSkill;
+        InputSystem.GetInputActionMapPlayer().Player.Skill1.performed += pc.UseSkill;
+        InputSystem.GetInputActionMapPlayer().Player.Skill2.performed += pc.UseSkill;
     }
 
     public void OnExit(PlayerController pc)
     {
         pc.walkDust.Stop();
-        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed -= ctx => pc.UseSkill(0);
+        InputSystem.GetInputActionMapPlayer().Player.AirStep.performed -= pc.UseSkill;
+        InputSystem.GetInputActionMapPlayer().Player.Skill1.performed -= pc.UseSkill;
+        InputSystem.GetInputActionMapPlayer().Player.Skill2.performed -= pc.UseSkill;
     }
 
     public void OnUpdate(PlayerController pc)

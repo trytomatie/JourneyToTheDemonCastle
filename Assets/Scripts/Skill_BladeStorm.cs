@@ -35,7 +35,7 @@ public class Skill_BladeStorm : Skill
         {
 
             controller.SwitchState(PlayerState.Controlling);
-            skillColldownTimer = Time.time;
+            controller.SkillColldowns[controller.SkillIndex] = Time.time;
         }
     }
 
@@ -47,7 +47,7 @@ public class Skill_BladeStorm : Skill
     public override bool CheckSkillConditions(GameObject source)
     {
         controller = source.GetComponent<IEntityControlls>();
-        if (skillColldownTimer + skillCooldown < Time.time)
+        if (controller.SkillColldowns[controller.SkillIndex] + skillCooldown < Time.time)
         {
                 return true;
         }

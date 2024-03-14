@@ -343,7 +343,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8860685398708551346}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -631,10 +631,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillIcon: {fileID: 8860685398708551348}
-  skillCooldown: {fileID: 6293022151973522886}
+  skillCooldownDark: {fileID: 6293022151973522886}
   skillCooldownRadial: {fileID: 6887160501593530916}
   skillCooldownText: {fileID: 4444406492390733944}
   skill: {fileID: 0}
+  skillCooldown: 0
 --- !u!1 &8860685399526529578
 GameObject:
   m_ObjectHideFlags: 0

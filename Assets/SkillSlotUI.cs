@@ -8,24 +8,33 @@ using UnityEngine.UI;
 public class SkillSlotUI : MonoBehaviour
 {
     public Image skillIcon;
-    public Image skillCooldown;
+    public Image skillCooldownDark;
     public Image skillCooldownRadial;
     public TextMeshProUGUI skillCooldownText;
     public Skill skill;
+    public IEntityControlls entity;
 
+    public int index;
+    public float skillCooldown;
+    private void Start()
+    {
+        entity = GameManager.Instance.player.GetComponent<IEntityControlls>();
+    }
     public void SetupSkill(Skill skill)
     {
         if(skill == null)
         {
             skillIcon.sprite = null;
-            skillCooldown.gameObject.SetActive(false);
+            skillIcon.enabled = false;
+            skillCooldownDark.gameObject.SetActive(false);
             skillCooldownRadial.fillAmount = 0;
             skillCooldownText.gameObject.SetActive(false);
             this.skill = null;
             return;
         }
         skillIcon.sprite = skill.skillIcon;
-        skillCooldown.gameObject.SetActive(false);
+        skillIcon.enabled = true;
+        skillCooldownDark.gameObject.SetActive(false);
         skillCooldownRadial.fillAmount = 0;
         skillCooldownText.gameObject.SetActive(false);
         this.skill = skill;
@@ -38,20 +47,29 @@ public class SkillSlotUI : MonoBehaviour
 
     public void CheckCooldown()
     {
-        if (skill == null) return;
-        if(skill.GetCooldown()>0)
+        if (skill == null) skillIcon.enabled = false;
+        else skillIcon.enabled = true;
+
+        // if (skill == null) return;
+        if (CalculateCooldown() > 0)
         {
             skillCooldownRadial.gameObject.SetActive(true);
-            skillCooldown.gameObject.SetActive(true);
-            skillCooldownRadial.fillAmount = (skill.GetCooldown() / skill.skillCooldown);
+            skillCooldownDark.gameObject.SetActive(true);
+            skillCooldownRadial.fillAmount = (CalculateCooldown() / skillCooldown);
             skillCooldownText.gameObject.SetActive(true);
-            skillCooldownText.text = skill.GetCooldown().ToString("F1");
+            skillCooldownText.text = CalculateCooldown().ToString("F1");
         }
         else
         {
-            skillCooldown.gameObject.SetActive(false);
+
+            skillCooldownDark.gameObject.SetActive(false);
             skillCooldownRadial.gameObject.SetActive(false);
             skillCooldownText.gameObject.SetActive(false);
         }
+    }
+
+    private float CalculateCooldown()
+    {
+        return Mathf.Clamp(entity.SkillColldowns[index] + skillCooldown - Time.time, 0, 999);
     }
 }

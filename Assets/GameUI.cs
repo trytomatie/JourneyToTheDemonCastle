@@ -77,6 +77,10 @@ public class GameUI : MonoBehaviour
         playerStatusManager = GameManager.Instance.player.GetComponent<StatusManager>();
         playerStatusManager.OnDamage.AddListener(UpdatePlayerHealthBar);
         UpdatePlayerHealthBar();
+        for(int i = 0; i < skillslots.Length; i++)
+        {
+            skillslots[i].index = i;
+        }
     }
 
     private void OnDisable()

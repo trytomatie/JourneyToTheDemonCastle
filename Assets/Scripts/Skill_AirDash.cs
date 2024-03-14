@@ -43,7 +43,7 @@ public class Skill_AirDash : Skill
         {
             controller.SwitchState(PlayerState.Controlling);
             dashCount = 0;
-            skillColldownTimer = Time.time;
+            controller.SkillColldowns[controller.SkillIndex] = Time.time;
         }
     }
 
@@ -55,7 +55,7 @@ public class Skill_AirDash : Skill
     public override bool CheckSkillConditions(GameObject source)
     {
         controller = source.GetComponent<IEntityControlls>();
-        if (skillColldownTimer + skillCooldown < Time.time)
+        if (controller.SkillColldowns[controller.SkillIndex] + skillCooldown < Time.time)
         {
             if (controller.GetMovmentDirection() != Vector3.zero && dashCount < dashLimit)
             {

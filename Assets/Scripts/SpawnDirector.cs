@@ -112,6 +112,10 @@ public class SpawnDirector : MonoBehaviour
                             resourceBlock.spawnedResoruce.transform.parent = resourceBlock.transform;
                             resourceBlock.spawnedResoruce.GetComponent<StatusManager>().OnDeath.AddListener(() => spawnedEnemies--);
                             resourceBlock.spawnedResoruce.GetComponent<StatusManager>().level = mobSpawnLevel;
+                            if(resourceBlock.spawnedResoruce.transform.position.y < -25) // If the enemy is spawned in an non active map
+                            {
+                                resourceBlock.spawnedResoruce.SetActive(false);
+                            }
                             spawnedEnemies++;
                             // resourceBlock.spawnedResoruce.GetComponent<ResourceController>().SetVisual(Random.Range(0, resourceBlockData.Count));
                             break;
