@@ -66,12 +66,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faction: 2
   materialType: 1
-  maxHp: 30
-  hp: 9
+  deathSound: 0
+  level: 1
+  maxHp: 10
   maxStamina: 0
   stamina: 0
   staminaRegenPerSecond: 5
-  attackDamage: 1
+  baseAttackDamage: 1
+  bonusDefense: 0
+  experienceDrop: 1
+  statsScaling: {fileID: 0}
+  bonusAttackDamage: 0
+  bonusAttackDamageMultiplier: 1
+  weaponAttackDamage: 0
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -120,6 +127,7 @@ MonoBehaviour:
   - {fileID: 5187481451062643914}
   - {fileID: 6701143423060755004}
   itemDrop: {fileID: 11400000, guid: af1f12adb8e0b2240b7ba81612d6e114, type: 2}
+  dropAmountRange: {x: 1, y: 1}
   shaderController: {fileID: 4019500801945924748}
 --- !u!208 &5752593726057996441
 NavMeshObstacle:

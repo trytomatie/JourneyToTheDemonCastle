@@ -51,11 +51,11 @@ public class StatusManager : MonoBehaviour
         if(statsScaling != null)
         {
             maxHp += statsScaling.hpGrowth * level-1;
-            Hp = maxHp;
             baseAttackDamage += statsScaling.attackGrowth * level-1;
             experienceDrop += statsScaling.expGrowth * level-1;
 
         }
+        Hp = maxHp;
         if(maxStamina > 0) 
         { 
             StartCoroutine(RegenStamina());

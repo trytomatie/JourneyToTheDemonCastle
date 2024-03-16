@@ -302,12 +302,12 @@ MonoBehaviour:
   materialType: 1
   deathSound: 0
   level: 1
-  maxHp: 30
-  hp: 9
+  maxHp: 10
   maxStamina: 0
   stamina: 0
   staminaRegenPerSecond: 5
   baseAttackDamage: 1
+  bonusDefense: 0
   experienceDrop: 1
   statsScaling: {fileID: 0}
   bonusAttackDamage: 0
