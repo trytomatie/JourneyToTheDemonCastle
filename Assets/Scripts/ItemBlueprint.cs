@@ -24,6 +24,7 @@ public class Item
 {
     public int id;
     public int amount;
+    public int varriant = 0;
     public int maxStackSize => ItemDatabase.GetItem(id).maxStackSize;
 
     public Item(int id, int amount)
