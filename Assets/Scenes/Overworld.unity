@@ -46950,6 +46950,14 @@ PrefabInstance:
       propertyPath: skills.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 117f0ce04498fb54289eb7daced6f37a, type: 2}
+    - target: {fileID: 3952892342644704472, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: skills.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 861fc369938e19248ab87f9ade9bfc16, type: 2}
+    - target: {fileID: 3952892342644704472, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: skills.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4680909111781863266, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
