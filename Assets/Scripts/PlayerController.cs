@@ -38,7 +38,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     [Header("Skills")]
     public int skillIndex = -1;
     public Skill[] skills;
-    private float[] skillSlotCooldowns = new float[3];
+    private float[] skillSlotCooldowns = new float[3] { -999, -999, -999 };
 
 
     // States

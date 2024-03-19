@@ -493,17 +493,20 @@ Shader "BruteForceURP/InteractiveGrassURP"
 	#endif
 	#ifdef LIGHTMAP_ON
 	#else
+					float3 baseCol = col.xyz;
 					if (mainLight.color.r + mainLight.color.g + mainLight.color.b > 0)
 					{
 						col.xyz *= mainLight.color;
 					}
+					
 	#endif
 					// Additional light pass in URP, thank you Unity for this //
 					int additionalLightsCount = GetAdditionalLightsCount();
 					for (int ii = 0; ii < additionalLightsCount; ++ii)
 					{
 						Light light = GetAdditionalLight(ii, i.worldPos);
-						col.xyz += col.xyz * (light.color * light.distanceAttenuation * _LightIntensity * 7);
+						col.xyz += col.xyz * (light.color * step(0.01,light.distanceAttenuation) * _LightIntensity * 7);
+						col.xyz = clamp(col,float4(0.0, 0.0, 0.0, 0.0),baseCol);
 					}
 
 	#ifdef USE_AL

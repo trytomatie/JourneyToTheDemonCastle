@@ -104,7 +104,7 @@ Material:
     - _GrassShading: 0.19
     - _GrassThinness: 0.48
     - _GrassThinnessIntersection: 0.89
-    - _LightIntensity: 1
+    - _LightIntensity: 0.17
     - _Metallic: 0
     - _MinimumNumberStacks: 2
     - _Mode: 0

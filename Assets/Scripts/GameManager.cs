@@ -139,6 +139,38 @@ public class GameManager : MonoBehaviour
         hitbox.SetActive(true);
     }
 
+    public void SpawnFlowersDelayed(List<GameObject> flowers,int amountPerFrame,float delay)
+    {
+        StartCoroutine(SpawnFlowersDelayedCoroutine(flowers, amountPerFrame,delay));
+    }
+
+    private IEnumerator SpawnFlowersDelayedCoroutine(List<GameObject> flowers, int amountPerFrame,float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        int spawned = 0;
+        foreach (var flower in flowers)
+        {
+            if(spawned == amountPerFrame)
+            {
+                spawned = 0;
+                yield return new WaitForEndOfFrame();
+            }
+            flower.SetActive(true);
+            spawned++;
+        }
+    }
+
+    public void StopParticleSystemAfterTime(ParticleSystem particleSystem, float time)
+    {
+        StartCoroutine(StopParticleSystemAfterTimeCoroutine(particleSystem, time));
+    }
+
+    private IEnumerator StopParticleSystemAfterTimeCoroutine(ParticleSystem particleSystem, float time)
+    {
+        yield return new WaitForSeconds(time);
+        particleSystem.Stop();
+    }
+
 
     public static GameManager Instance { get 
         { 

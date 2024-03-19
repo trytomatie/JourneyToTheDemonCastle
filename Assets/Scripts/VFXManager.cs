@@ -70,6 +70,18 @@ public class VFXManager : MonoBehaviour
                 feedbacks[index].GetFeedbackOfType<MMF_ParticlesInstantiation>().InstantiateParticlesPosition = position;
                 feedbacks[index].transform.rotation = rotation;
                 break;
+            case 9:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                Destroy(result, 30);
+                break;
+            case 10:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                Destroy(result, 30);
+                break;
 
         }
 
