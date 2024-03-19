@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Trees
-  m_Shader: {fileID: -6465566751694194690, guid: c8c6b696e8da81f4dbea9ed0ece54b8e, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 85827a98514358f438446da0fc64b0f0, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -85,7 +85,9 @@ Material:
     - _AO: 0
     - _Alpha: 1
     - _AlphaClip: 0
+    - _AmbientOcclusion: 1
     - _BaseLight: 1
+    - _BendingInfluence: 0
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -96,11 +98,16 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _FlatLighting: 0
     - _Float: 0
+    - _GlobalWindMotion: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.05
     - _GlossyReflections: 1
     - _Glow: 1
+    - _GradientBrightness: 1
+    - _LeafFlutter: 0.5
+    - _MaxWindStrength: 0.2
     - _Metallic: 0.173
     - _Mode: 0
     - _NormalBlend: 1
@@ -117,14 +124,21 @@ Material:
     - _SquashAmount: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _TransmissionAmount: 0
+    - _TransmissionSize: 1
     - _UVSec: 0
+    - _UseSpeedTreeWind: 0
+    - _WindAmplitudeMultiplier: 10
+    - _WindSwinging: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _HueVariation: {r: 1, g: 0.6213607, b: 0, a: 0.1686275}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TransmissionColor: {r: 1, g: 1, b: 1, a: 0.09411765}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

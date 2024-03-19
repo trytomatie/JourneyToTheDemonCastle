@@ -506,7 +506,7 @@ Shader "BruteForceURP/InteractiveGrassURP"
 					{
 						Light light = GetAdditionalLight(ii, i.worldPos);
 						col.xyz += col.xyz * (light.color * step(0.01,light.distanceAttenuation) * _LightIntensity * 7);
-						col.xyz = clamp(col,float4(0.0, 0.0, 0.0, 0.0),baseCol);
+						col.xyz = clamp(col.xyz,float4(0.0, 0.0, 0.0, 0.0),baseCol);
 					}
 
 	#ifdef USE_AL

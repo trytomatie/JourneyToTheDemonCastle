@@ -153,10 +153,25 @@ public class GameManager : MonoBehaviour
             if(spawned == amountPerFrame)
             {
                 spawned = 0;
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForFixedUpdate();
             }
             flower.SetActive(true);
+            StartCoroutine(RegulateFlowerSpawnWind(flower.GetComponentInChildren<Renderer>()));
             spawned++;
+        }
+    }
+    public AnimationCurve flowerSpawnWindCurve;
+    private IEnumerator RegulateFlowerSpawnWind(Renderer flower)
+    {
+        MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+        float time = 0;
+        propertyBlock.SetFloat("_SpeedScale", 1);
+        while (time < 5)
+        {
+            time += Time.deltaTime;
+            propertyBlock.SetFloat("_SpeedScale", flowerSpawnWindCurve.Evaluate(time/5) * 30);
+            flower.SetPropertyBlock(propertyBlock);
+            yield return new WaitForEndOfFrame();
         }
     }
 
