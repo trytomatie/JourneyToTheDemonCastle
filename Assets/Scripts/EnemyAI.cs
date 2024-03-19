@@ -187,6 +187,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     public float[] SkillColldowns { get => skillCooldowns; set => skillCooldowns = value; }
     public int SkillIndex { get => skillIndex; set => skillIndex = value; }
     public Transform VfxTransform { get => attackPivot; set => attackPivot = value; }
+    public StatusManager StatusManager { get => sm; set => sm = value; }
 
     public void DropLoot()
     {

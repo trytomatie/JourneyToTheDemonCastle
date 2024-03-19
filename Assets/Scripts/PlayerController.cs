@@ -502,6 +502,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     public float[] SkillColldowns { get => skillSlotCooldowns; set => skillSlotCooldowns = value; }
     public int SkillIndex { get => skillIndex; set => skillIndex = value; }
+    public StatusManager StatusManager { get => sm; set => sm = value; }
 
     public Transform VfxTransform { get => vfxTransform; set => vfxTransform = value; }
     #endregion

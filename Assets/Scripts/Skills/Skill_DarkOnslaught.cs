@@ -35,6 +35,12 @@ public class Skill_DarkOnslaught : Skill
         {
             facingDirection = controller.GetGameObject().transform.forward;
         }
+
+        // Spawn Hitbox
+        GameObject hitbox = GameManager.Instance.SpawnHitbox(controller.GetGameObject().transform, 2);
+        hitbox.transform.parent = controller.GetGameObject().transform;
+        hitbox.GetComponent<DamageObject>().source = controller.StatusManager;
+
         controller.GetAnimator().SetFloat("speed", 0);
     }
     public override void OnUpdate(GameObject source)

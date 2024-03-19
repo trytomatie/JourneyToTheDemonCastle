@@ -133,10 +133,11 @@ public class GameManager : MonoBehaviour
         itemObj.GetComponent<DroppedItem>().SetUpDroppedItem(item, amount);
     }
 
-    public void SpawnHitbox(Transform character, int i)
+    public GameObject SpawnHitbox(Transform character, int i)
     {
         GameObject hitbox = Instantiate(hitboxes[i], character.position + hitboxes[i].transform.localPosition, character.rotation);
         hitbox.SetActive(true);
+        return hitbox;
     }
 
     public void SpawnFlowersDelayed(List<GameObject> flowers,int amountPerFrame,float delay)
