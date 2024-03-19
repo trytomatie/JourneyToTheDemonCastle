@@ -43,7 +43,7 @@ public class Skill_FieldOfFlowers : Skill
                 int randomIndex = Random.Range(0, flowerPrefabs.Length);
                 Vector2 rnd = Random.onUnitSphere * (itterations/2f);
                 RaycastHit hit;
-                if(Physics.Raycast(new Vector3(rnd.x, controller.GetGameObject().transform.position.y + 1, rnd.y) + controller.GetGameObject().transform.position, Vector3.down, out hit,2,layerMask))
+                if(Physics.Raycast(new Vector3(rnd.x, controller.GetGameObject().transform.position.y + 2, rnd.y) + controller.GetGameObject().transform.position, Vector3.down, out hit,4,layerMask))
                 {
                     Vector3 randomPosition = hit.point;
                     GameObject spawnedObject = Instantiate(flowerPrefabs[randomIndex], randomPosition, Quaternion.Euler(0,Random.Range(0,360),0));

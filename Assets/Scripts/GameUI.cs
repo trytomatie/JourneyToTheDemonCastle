@@ -268,7 +268,7 @@ public class GameUI : MonoBehaviour
     public void ShowItemDescription(Item item, int location)
     {
         ItemBlueprint itemBlueprint = item.BluePrint;
-        itemDescriptionText.text = item.GetItemInteractionEffects.EffectDescription()+ "\n\n<color=grey>" + itemBlueprint.itemDescription;
+        itemDescriptionText.text = item.GetItemInteractionEffects.EffectDescription(item)+ "\n\n<color=grey>" + itemBlueprint.itemDescription;
         itemDescriptionTitle.text = itemBlueprint.itemName;
         itemType.text = itemBlueprint.itemType.ToString();
         itemDescriptionIcon.sprite = itemBlueprint.itemIcon;

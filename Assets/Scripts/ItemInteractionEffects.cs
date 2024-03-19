@@ -10,7 +10,7 @@ public class ItemInteractionEffects : ScriptableObject
         Debug.LogError("OnUse not implemented");
     }
 
-    public virtual string EffectDescription()
+    public virtual string EffectDescription(Item item)
     {
         return "";
     }

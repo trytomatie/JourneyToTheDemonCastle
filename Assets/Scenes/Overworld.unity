@@ -45935,6 +45935,14 @@ PrefabInstance:
       propertyPath: managedReferences[6749143728526983174].TargetTransform
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2092204359, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: items.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092204359, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
+      propertyPath: items.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: e473554a80559504287088bcc82bf9ef, type: 2}
     - target: {fileID: 2099579805, guid: 675c3c86dec5a85478522ba9de284c0b, type: 3}
       propertyPath: feedbacks.Array.size
       value: 11
