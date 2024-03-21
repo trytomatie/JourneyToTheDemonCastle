@@ -10,7 +10,6 @@ public class Skill_BladeStorm : Skill
 
     [Header("State Variables")]
     public float bladeStormDuration = 1.5f;
-    private float onEnterTime;
     private Vector3 facingDirection;
     private float airStepInputLockoutTime = 0.9f; // Percentage of the airStepDuration
     private float vfxInterval = 0.25f;

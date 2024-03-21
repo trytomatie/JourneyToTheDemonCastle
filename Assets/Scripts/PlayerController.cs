@@ -288,7 +288,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                 staffVFXRef = VFXManager.Instance.PlayFeedback(4, staffTip);
             }
             attackChargeTimer += Time.deltaTime;
-            RotationDuringCast();
+            CastRotation();
             anim.SetBool("chrageStaff", true);
         }
         else
@@ -315,7 +315,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         Destroy(vfx, 11);
     }
 
-    public void RotationDuringCast()
+    public void CastRotation()
     {
         Vector3 mousePosition = Input.mousePosition;
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -416,6 +416,20 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     }
     #endregion
 
+    public bool CheckSkillUsage()
+    {
+        switch(skillIndex)
+        {
+            case 0:
+                return InputSystem.GetInputActionMapPlayer().Player.Skill1.inProgress;
+                case 1:
+                return InputSystem.GetInputActionMapPlayer().Player.Skill2.inProgress;
+                case 2:
+                return InputSystem.GetInputActionMapPlayer().Player.AirStep.inProgress;
+        }
+        return false;
+    }
+
     //#region AirStepping
     //public void AirStep(Vector3 airStepDirection, float delta)
     //{
@@ -503,8 +517,11 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     public float[] SkillColldowns { get => skillSlotCooldowns; set => skillSlotCooldowns = value; }
     public int SkillIndex { get => skillIndex; set => skillIndex = value; }
     public StatusManager StatusManager { get => sm; set => sm = value; }
+    public bool HoldingSkill { get => CheckSkillUsage();}
 
     public Transform VfxTransform { get => vfxTransform; set => vfxTransform = value; }
+
+    public Transform CastingPivot => staffTip;
     #endregion
 }
 public interface State

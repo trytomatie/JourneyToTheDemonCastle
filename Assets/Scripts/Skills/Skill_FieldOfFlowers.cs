@@ -17,11 +17,9 @@ public class Skill_FieldOfFlowers : Skill
     public int ticks = 5;
     private int itterations = 1;
     private float tickTimer = 0;
-    public float castTime = 1.5f;
     public int lifeTime = 10;
     public LayerMask layerMask;
 
-    private float onEnterTime;
 
     public override void OnEnter(GameObject source)
     {

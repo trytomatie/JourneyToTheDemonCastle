@@ -7,6 +7,13 @@ public class Inventory : Container
     {
         AddItem(new Item(7, 1));
         AddItem(new Item(8, 1));
+        AddItem(new Item(17, 1,0));
+        AddItem(new Item(17, 1, 1));
+        AddItem(new Item(17, 1, 2));
+        AddItem(new Item(17, 1, 3));
+        AddItem(new Item(17, 1, 4));
+        AddItem(new Item(17, 1, 5));
+        AddItem(new Item(17, 1, 6));
         onItemCompletlyRemoved += RemoveHotbarItemIfRemoved;
         onInventoryUpdate += EquipNewHotBarItem;
     }

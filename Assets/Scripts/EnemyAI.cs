@@ -184,10 +184,22 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
         }
     }
 
+    
+    public bool CheckSkillUsage()
+    {
+        if(skills[skillIndex].onEnterTime + skills[skillIndex].castTime < Time.time)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public float[] SkillColldowns { get => skillCooldowns; set => skillCooldowns = value; }
     public int SkillIndex { get => skillIndex; set => skillIndex = value; }
     public Transform VfxTransform { get => attackPivot; set => attackPivot = value; }
     public StatusManager StatusManager { get => sm; set => sm = value; }
+    public bool HoldingSkill { get => CheckSkillUsage(); }
+    public Transform CastingPivot => throw new System.NotImplementedException();
 
     public void DropLoot()
     {
@@ -237,6 +249,11 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
                 break;
         }
         SwitchState(state);
+    }
+
+    public void CastRotation()
+    {
+        throw new System.NotImplementedException();
     }
     #endregion
 }

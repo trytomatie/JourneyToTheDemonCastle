@@ -7,6 +7,9 @@ public class Skill : ScriptableObject
     public string skillName;
     public Sprite skillIcon;
     public float skillCooldown = 3;
+    public float castTime = 1.5f;
+
+    [HideInInspector]public float onEnterTime;
     public virtual void OnEnter(GameObject source)
     {
 

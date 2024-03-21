@@ -33,6 +33,13 @@ public class Item
         this.amount = amount;
     }
 
+    public Item(int id, int amount, int varriant)
+    {
+        this.id = id;
+        this.amount = amount;
+        this.varriant = varriant;
+    }
+
     public ItemBlueprint BluePrint
     {
         get

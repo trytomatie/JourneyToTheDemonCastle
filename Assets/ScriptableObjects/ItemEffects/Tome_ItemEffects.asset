@@ -16,5 +16,9 @@ MonoBehaviour:
   weaponPrefab: {fileID: 166544, guid: 432e90641b77e1641bbe326c4647207e, type: 3}
   skill:
   - {fileID: 11400000, guid: 117f0ce04498fb54289eb7daced6f37a, type: 2}
-  - {fileID: 11400000, guid: a423385fbd93f1447bb45e50294db018, type: 2}
   - {fileID: 11400000, guid: 861fc369938e19248ab87f9ade9bfc16, type: 2}
+  - {fileID: 11400000, guid: e5295a6d459630a45b889290c336e6f9, type: 2}
+  - {fileID: 11400000, guid: a423385fbd93f1447bb45e50294db018, type: 2}
+  - {fileID: 11400000, guid: 29bfe9e3ead748d4888828c0e8547b3b, type: 2}
+  - {fileID: 11400000, guid: 6ff5430a1c1aaa5448c608f64b14e69c, type: 2}
+  - {fileID: 11400000, guid: f5ee69f165563a24e9df7ee9fa8319f7, type: 2}
