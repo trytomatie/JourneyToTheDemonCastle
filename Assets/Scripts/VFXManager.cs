@@ -3,6 +3,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class VFXManager : MonoBehaviour
 {
@@ -76,37 +77,43 @@ public class VFXManager : MonoBehaviour
             case 9:
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
-                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                result.transform.rotation = position.rotation;
                 Destroy(result, 30);
                 break;
             case 10:
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
-                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                result.transform.rotation = position.rotation;
                 Destroy(result, 30);
                 break;
             case 11:
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
-                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                result.transform.rotation = position.rotation;
                 Destroy(result, 300);
                 break;
             case 12:
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
-                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                result.transform.rotation = position.rotation;
                 Destroy(result, 300);
                 break;
             case 13:
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
-                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                result.transform.rotation = position.rotation;
                 Destroy(result, 300);
                 break;
             case 14:
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
-                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                result.transform.rotation = position.rotation;
+                Destroy(result, 300);
+                break;
+            case 15:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = position.rotation;
                 Destroy(result, 300);
                 break;
 

@@ -42,7 +42,8 @@ public class Skill_DarkOnslaught : Skill
         hitbox.GetComponent<DamageObject>().source = controller.StatusManager;
         hitbox.GetComponent<DamageObject>().lifeTime = airStepDuration - 0.1f;
 
-      controller.GetAnimator().SetFloat("speed", 0);
+        controller.GetAnimator().SetFloat("speed", 0);
+        controller.GetAnimator().Play("Attack");
     }
     public override void OnUpdate(GameObject source)
     {
@@ -58,7 +59,7 @@ public class Skill_DarkOnslaught : Skill
 
     public override void OnExit(GameObject source)
     {
-
+        controller.Movement(new Vector3(0, 0, 0));
     }
 
     public override bool CheckSkillConditions(GameObject source)

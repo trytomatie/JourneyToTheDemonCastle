@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     // References
     public Transform attackPivot;
     [HideInInspector] public StatusManager sm;
-    [HideInInspector] public Animator anim;
+    public Animator anim;
     [HideInInspector] public NavMeshAgent agent;
 
     [Header("Tracking")]
@@ -27,9 +27,11 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     private float detectionInterval = 5f;
     private List<StatusManager> enemyList = new List<StatusManager>();
     [HideInInspector]public StatusManager target = null;
+    public float speedAnimationMultiplier = 1;
 
     [Header("Attack Parameter")]
     public float attackDashSpeed = 5;
+    public float attackInitiationRadius = 0.9f;
     public float attackPrepareTime = 0.8f;
     public AnimationCurve attackCurve;
     public float attackDuration = 0.5f;
@@ -58,7 +60,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     private void Awake()
     {
         sm = GetComponent<StatusManager>();
-        anim = GetComponent<Animator>();
+        if(anim == null) anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         states[(int)EnemyControllState.Idle] = new Idle();
         states[(int)EnemyControllState.Wander] = new Wander();
@@ -89,6 +91,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     public void Update()
     {
         states[(int)currentState].OnUpdate(this);
+        Debug.DrawRay(agent.destination, Vector3.up, Color.red, 1);
     }
 
     public void SwitchState(EnemyControllState newState)
@@ -111,7 +114,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
 
     public void Animations()
     {
-        anim.SetFloat("Speed", agent.velocity.magnitude);
+        anim.SetFloat("speed", agent.velocity.magnitude * speedAnimationMultiplier);
     }
 
     public void PlayAttackAnim()
@@ -354,6 +357,8 @@ public class Attack : EnemyState
     private float enterTime = 0f;
     public void OnEnter(EnemyAI pc)
     {
+        pc.SwitchState(EnemyControllState.UsingSkill);
+        return;
         VFXManager.Instance.PlayFeedback(2, pc.attackPivot,pc.transform.rotation);
         enterTime = Time.time;
         //pc.Invoke("PlayAttackAnim", 0.43f);
@@ -361,7 +366,7 @@ public class Attack : EnemyState
         pc.agent.isStopped = true;
         pc.agent.ResetPath();
         pc.SpawnAttackHitbox();
-        pc.SwitchState(EnemyControllState.UsingSkill);
+
     }
 
     public void OnExit(EnemyAI pc)
@@ -385,12 +390,14 @@ public class UsingSkill : EnemyState
 {
     public void OnEnter(EnemyAI pc)
     {
+        pc.agent.isStopped = true;
         pc.skills[pc.skillIndex].OnEnter(pc.gameObject);
     }
 
     public void OnExit(EnemyAI pc)
     {
         pc.skills[pc.skillIndex].OnExit(pc.gameObject);
+        pc.agent.isStopped = false;
     }
 
     public void OnUpdate(EnemyAI pc)
@@ -416,7 +423,7 @@ public class Chase : EnemyState
         pc.HandleGeneralSound();
         pc.SetDestinaton(pc.target.transform.position);
         pc.Animations();
-        if(Vector3.Distance(pc.transform.position, pc.target.transform.position) < 2.8f && pc.attackCooldownTimer < Time.time)
+        if(Vector3.Distance(pc.transform.position, pc.target.transform.position) < pc.attackInitiationRadius && pc.attackCooldownTimer < Time.time)
         {
             pc.SetDestinaton(pc.transform.position);
             pc.SwitchState(EnemyControllState.PrepareAttack);
@@ -431,13 +438,13 @@ public class PrepareAttack : EnemyState
     public void OnEnter(EnemyAI pc)
     {
         pc.SetDestinaton(pc.transform.position);
-        enterTime = Time.time + pc.attackPrepareTime + Random.Range(0,1f);
-        pc.anim.SetBool("PrepareAttack", true);
+        enterTime = Time.time + pc.attackPrepareTime;
+        pc.anim.Play("PrepareAttack");
     }
 
     public void OnExit(EnemyAI pc)
     {
-        pc.anim.SetBool("PrepareAttack", false);
+        pc.anim.Play("Movement");
     }
 
     private Quaternion lastRotation;
@@ -463,12 +470,14 @@ public class AttackEndlag : EnemyState
     public void OnEnter(EnemyAI pc)
     {
         pc.SetDestinaton(pc.transform.position);
+        pc.agent.isStopped = true;
         enterTime = Time.time + pc.attackEndlag;
     }
 
     public void OnExit(EnemyAI pc)
     {
         pc.attackCooldownTimer = Time.time + pc.attackCooldown;
+        pc.agent.isStopped = false;
     }
 
     public void OnUpdate(EnemyAI pc)

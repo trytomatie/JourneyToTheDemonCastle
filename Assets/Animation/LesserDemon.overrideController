@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LesserDemon
+  m_Controller: {fileID: 9100000, guid: 42e9e1c000d57a548b8472918af31b73, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e6b16998fc609de45a80acbe777e0ec0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 258a3d68218cd1749a8b3bcf4325bc8a, type: 2}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: e466376da3095c944a8fe07241b745d0, type: 3}
+    m_OverrideClip: {fileID: 1827226128182048838, guid: cfa4135ac2511444b80e2d8fe484f583, type: 3}
+  - m_OriginalClip: {fileID: -6573926900370726997, guid: faa75ac4891cc294baac7f901d850ba4, type: 3}
+    m_OverrideClip: {fileID: -6573926900370726997, guid: faa75ac4891cc294baac7f901d850ba4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4905dbccf6df2ce47b10b960fdb1d924, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: c8373ec3a2dd0dc42a5ac5684d077550, type: 3}

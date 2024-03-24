@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(GameClock());
-        CheckGridInARadius(Vector3.zero, 360);
+        // CheckGridInARadius(Vector3.zero, 360); Removed for the Raiding Game
     }
 
     private IEnumerator GameClock()

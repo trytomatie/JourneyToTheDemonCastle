@@ -25,6 +25,8 @@ public class AlphaShaderController : MonoBehaviour
         Vector3 direction = (GameManager.Instance.player.transform.position - Camera.main.transform.position).normalized;
         Ray ray = new Ray(startPostion, direction);
         Debug.DrawRay(startPostion, direction * (playerDistance-0.3f), Color.red);
+        material.SetFloat("_PlayerYPosition", GameManager.Instance.player.transform.position.y);
+        return;
         if (Physics.Raycast(ray, out hit, playerDistance-0.3f, layerMask))
         {
             if (hit.collider.gameObject == GameManager.Instance.player)
