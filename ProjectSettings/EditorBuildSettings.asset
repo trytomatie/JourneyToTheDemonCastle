@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/DungeonTest.unity
+    guid: adbd6f9eba86db54d9fae011998fb050
+  - enabled: 1
     path: Assets/Scenes/Overworld.unity
     guid: 3af3bae78e7a4244a88f4fb2b0aff3c1
   m_configObjects: {}
