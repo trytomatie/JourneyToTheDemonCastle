@@ -10,4 +10,9 @@ public class SpawnPoint : MonoBehaviour
     {
         spawnPoints.Add(transform);
     }
+
+    private void OnDestroy()
+    {
+        spawnPoints.Remove(transform);
+    }
 }

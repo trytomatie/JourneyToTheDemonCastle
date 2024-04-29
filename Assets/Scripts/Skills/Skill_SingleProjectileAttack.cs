@@ -49,7 +49,7 @@ public class Skill_SingleProjectileAttack : Skill
                 GameObject go = Instantiate(fireBoltProjectile, controller.VfxTransform.position, controller.GetGameObject().transform.rotation);
                 //go.GetComponent<FireBoltProjectile>().SetOwner(controller.GetGameObject());
                 go.SetActive(true);
-                go.GetComponent<Rigidbody>().velocity = go.transform.forward * projectileSpeed;
+                go.GetComponent<Rigidbody>().linearVelocity = go.transform.forward * projectileSpeed;
                 go.GetComponent<DamageObject>().source = controller.StatusManager;
                 castingVFX.transform.parent = go.transform;
                 castingVFX.transform.localPosition = Vector3.zero;
