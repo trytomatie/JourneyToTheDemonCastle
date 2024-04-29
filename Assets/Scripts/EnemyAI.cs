@@ -85,7 +85,9 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
 
     private void Start()
     {
+        agent.enabled = true;
         nameAndLevel.text = sm.name + " Lv." + sm.level;
+
     }
 
     public void Update()

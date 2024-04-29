@@ -13,19 +13,7 @@ MonoBehaviour:
   m_Name: DirectorShop
   m_EditorClassIdentifier: 
   shopItems:
-  - resourceBlockData: {fileID: 11400000, guid: 70f552f62d947f545807bbbe50ba8ef7, type: 2}
-    maxAmount: 5
+  - resourceBlockData: {fileID: 11400000, guid: f9b009c06d3c898428494e7a790feef2, type: 2}
+    maxAmount: 12
     amount: 5
     cost: 10
-  - resourceBlockData: {fileID: 11400000, guid: dd7dc6c95e9618a47813b1160b88f60d, type: 2}
-    maxAmount: 5
-    amount: 5
-    cost: 10
-  - resourceBlockData: {fileID: 11400000, guid: aaaeb11d5a8be904fb95b93db95ff586, type: 2}
-    maxAmount: 3
-    amount: 3
-    cost: 15
-  - resourceBlockData: {fileID: 11400000, guid: 5cca95ebd3773fa44abb31ad48920d54, type: 2}
-    maxAmount: 3
-    amount: 3
-    cost: 15

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderObjects
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: RenderObjects
     Event: 1000
@@ -25,7 +25,7 @@ MonoBehaviour:
     overrideMaterial: {fileID: 2100000, guid: 73e5774a1c3bb7a438ecaf06c4991c72, type: 2}
     overrideMaterialPassIndex: 0
     overrideDepthState: 1
-    depthCompareFunction: 3
+    depthCompareFunction: 8
     enableWrite: 0
     stencilSettings:
       overrideStencilState: 0

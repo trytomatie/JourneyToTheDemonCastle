@@ -6,13 +6,15 @@ using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Linq;
 
-[CreateAssetMenu(fileName = "Skill_FireBolt", menuName = "ScriptableObjects/Skills/Skill_FireBolt", order = 1)]
-public class Skill_FireBolt : Skill
+[CreateAssetMenu(fileName = "Skill_SingleProjectileAttack", menuName = "ScriptableObjects/Skills/Skill_SingleProjectileAttack", order = 1)]
+public class Skill_SingleProjectileAttack : Skill
 {
     private IEntityControlls controller;
     public GameObject fireBoltProjectile;
     private GameObject castingVFX;
     private GameObject spellReadyVFX;
+    public float projectileSpeed = 10;
+    public int vfxIndex = 13;
 
     public int lifeTime = 10;
 
@@ -22,7 +24,7 @@ public class Skill_FireBolt : Skill
         controller = source.GetComponent<IEntityControlls>();
         onEnterTime = Time.time;
 
-        castingVFX = VFXManager.Instance.PlayFeedback(13, controller.CastingPivot, controller.CastingPivot.transform.rotation);
+        castingVFX = VFXManager.Instance.PlayFeedback(vfxIndex, controller.CastingPivot, controller.CastingPivot.transform.rotation);
         castingVFX.transform.parent = controller.CastingPivot;
         castingVFX.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         ParticleSystem.MainModule main= castingVFX.transform.GetChild(0).GetComponent<ParticleSystem>().main;
@@ -47,9 +49,12 @@ public class Skill_FireBolt : Skill
                 GameObject go = Instantiate(fireBoltProjectile, controller.VfxTransform.position, controller.GetGameObject().transform.rotation);
                 //go.GetComponent<FireBoltProjectile>().SetOwner(controller.GetGameObject());
                 go.SetActive(true);
-                Destroy(go, lifeTime);
+                go.GetComponent<Rigidbody>().velocity = go.transform.forward * projectileSpeed;
+                go.GetComponent<DamageObject>().source = controller.StatusManager;
+                castingVFX.transform.parent = go.transform;
+                castingVFX.transform.localPosition = Vector3.zero;
+
                 controller.SkillColldowns[controller.SkillIndex] = Time.time;
-                castingVFX.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
                 spellReadyVFX.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
                 Destroy(spellReadyVFX, 3);
                 Destroy(castingVFX, 3);
@@ -62,7 +67,7 @@ public class Skill_FireBolt : Skill
                 Destroy(castingVFX, 3);
                 controller.SwitchState(PlayerState.Controlling);
             }
-            castingVFX.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+
             Destroy(castingVFX, 3);
             controller.SwitchState(PlayerState.Controlling);
         }

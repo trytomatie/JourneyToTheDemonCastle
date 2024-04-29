@@ -78,6 +78,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "2d696ada3308480bb1c8bc2ce5ba96c3"
+                },
+                "m_SlotId": 5
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "cbd85cfc13e041b6826b171083810cd1"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "52a1ba9b08fc42f59d0e5e6c8fdce8bf"
                 },
                 "m_SlotId": 0
@@ -440,10 +454,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1202.39990234375,
-            "y": 339.1999816894531,
+            "x": -1228.0,
+            "y": 344.79998779296877,
             "width": 208.0,
-            "height": 431.9999694824219
+            "height": 431.99993896484377
         }
     },
     "m_Slots": [
@@ -1077,10 +1091,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -943.2000732421875,
-            "y": 339.20001220703127,
-            "width": 208.0,
-            "height": 301.5999755859375
+            "x": -902.4000854492188,
+            "y": 361.6000061035156,
+            "width": 207.99993896484376,
+            "height": 301.6000061035156
         }
     },
     "m_Slots": [
@@ -1181,7 +1195,7 @@
     "m_ShaderOutputName": "Edge",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.00009999999747378752,
+        "x": 0.009999999776482582,
         "y": 1.0,
         "z": 1.0,
         "w": 1.0

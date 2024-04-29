@@ -17,5 +17,7 @@ MonoBehaviour:
   skillCooldown: 1
   castTime: 0.25
   onEnterTime: 0
-  fireBoltProjectile: {fileID: 1347034509603832, guid: c672c33205300444d8eff47795e0f284, type: 3}
+  fireBoltProjectile: {fileID: 1103602101101700391, guid: 947cb7fe4e6f88340afa4cb5eedd28a6, type: 3}
+  projectileSpeed: 10
+  vfxIndex: 13
   lifeTime: 10

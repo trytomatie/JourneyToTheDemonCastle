@@ -7,6 +7,8 @@ using Unity.VisualScripting;
 using UnityEditor;
 using static Generator3D;
 using System.IO;
+using UnityEditor.AI;
+using System.Linq;
 
 public class Generator3D : MonoBehaviour {
     enum CellType {
@@ -29,15 +31,15 @@ public class Generator3D : MonoBehaviour {
                 || (a.bounds.position.z >= (b.bounds.position.z + b.bounds.size.z)) || ((a.bounds.position.z + a.bounds.size.z) <= b.bounds.position.z));
         }
     }
-    [SerializeField] int gridSize = 4;
-    [SerializeField]
-    Vector3Int size;
+    public static int gridSize = 4;
+    public static Vector3Int size = new Vector3Int(30,5,30);
     [SerializeField]
     int roomCount;
     [SerializeField]
     Vector3Int roomMaxSize;
     [SerializeField] GameObject cubePrefab;
     [SerializeField] GameObject hallwayPrefab;
+    [SerializeField] GameObject entrancePrefab;
     [SerializeField] GameObject stairsPrefab;
     [SerializeField] GameObject[] roomPrefabs;
     [SerializeField] GameObject teleporter;
@@ -60,7 +62,7 @@ public class Generator3D : MonoBehaviour {
 
     void Start() {
 
-        Generate(10599852);
+        Generate(11248882);
     }
 
     public void Generate(int seed)
@@ -74,23 +76,30 @@ public class Generator3D : MonoBehaviour {
         grid = new Grid3D<CellType>(size, Vector3Int.zero);
         selectedEdges.Clear();
         rooms = new List<Room>();
+        SystemMessageManager.DisplayProcessingMessage("Generating Dungeon...");
         PlaceRooms();
-        Triangulate();
+        if(!Triangulate())
+        {
+            Debug.Log("BAD SEED, RETRYING...");
+            Generate(UnityEngine.Random.Range(0, 100000));
+            return;
+        }
         CreateHallways();
         PathfindHallways();
         DungeonGenerationTileController.GenerateAll(this);
+        MapGenerator.Instance.GenerateMapTextures(size.y,gridSize);
     }
 
     private Vector3Int SouthernGridCenter
     {
-        get { return new Vector3Int(size.x / 2, 0, 0); }
+        get { return new Vector3Int(size.x / 2, size.y /2, 0); }
     }
 
     void PlaceRooms() {
         // StartRoom
         Room startRoom = new Room(SouthernGridCenter, new Vector3Int(1, 1, 1));
         rooms.Add(startRoom);
-        PlaceHallway(SouthernGridCenter);
+        PlaceRoom(startRoom, entrancePrefab);
         foreach (var pos in startRoom.bounds.allPositionsWithin)
         {
             grid[pos] = CellType.Room;
@@ -144,14 +153,23 @@ public class Generator3D : MonoBehaviour {
         }
     }
 
-    void Triangulate() {
+    bool Triangulate() {
         List<Vertex> vertices = new List<Vertex>();
 
         foreach (var room in rooms) {
             vertices.Add(new Vertex<Room>((Vector3)room.bounds.position + ((Vector3)room.bounds.size) / 2, room));
         }
-
         delaunay = Delaunay3D.Triangulate(vertices);
+        bool foundStartRoom = false;
+        foreach (var selectedEdge in delaunay.Edges)
+        {
+            if ((selectedEdge.U as Vertex<Room>).Item.bounds.position == rooms[0].bounds.position)
+            {
+                foundStartRoom = true;
+                break;
+            }
+        }
+        return foundStartRoom;
     }
 
     void CreateHallways() {
@@ -165,6 +183,7 @@ public class Generator3D : MonoBehaviour {
         List<Prim.Edge> minimumSpanningTree = Prim.MinimumSpanningTree(edges, edges[0].U);
 
         selectedEdges = new HashSet<Prim.Edge>(minimumSpanningTree);
+
         var remainingEdges = new HashSet<Prim.Edge>(edges);
         remainingEdges.ExceptWith(selectedEdges);
         PlaceCube(SouthernGridCenter * gridSize, Vector3Int.one * gridSize  , greenMaterial);
@@ -242,7 +261,6 @@ public class Generator3D : MonoBehaviour {
                         // Debug.DrawLine((prev + new Vector3(0.5f, 0.5f, 0.5f))* gridSize, (current + new Vector3(0.5f, 0.5f, 0.5f)) * gridSize, Color.blue, 100, false);
                     }
                 }
- 
                 // Remove duplicate positions from path
                 foreach (var pos in path) {
                     if (grid[pos] == CellType.Hallway && !positionsGenerated.Contains(pos)) 

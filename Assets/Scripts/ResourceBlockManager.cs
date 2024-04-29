@@ -5,6 +5,7 @@ using static Unity.Collections.AllocatorManager;
 
 public class ResourceBlockManager : MonoBehaviour
 {
+    /*
     public List<ResourceBlock> resourceBlocksInScene = new List<ResourceBlock>();
     public List<ResoruceBlockData> resourceBlockData;
     public List<SpawnDirector> spawnDirectors = new List<SpawnDirector>();
@@ -103,4 +104,5 @@ public class ResourceBlockManager : MonoBehaviour
 
         return spawnDirector;
     }
+    */
 }

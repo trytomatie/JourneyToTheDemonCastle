@@ -17,7 +17,6 @@ public class Skill_AirDash : Skill
     public float airStepDuration = 0.5f;
 
     [Header("State Variables")]
-    private float onEnterTime;
     private Vector3 facingDirection;
     private float airStepInputLockoutTime = 0.9f; // Percentage of the airStepDuration
 

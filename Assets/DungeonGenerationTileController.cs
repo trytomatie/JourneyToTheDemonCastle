@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.AI;
 using UnityEngine;
 using static Highlighters.HighlighterTrigger;
 
@@ -33,11 +34,12 @@ public class DungeonGenerationTileController : MonoBehaviour
             dungeonGenerationTileController.StartCoroutine(dungeonGenerationTileController.Generate());
         }
         dungeonGenerationTileControllers.Clear();
+        yield return new WaitForSeconds(4);
+        NavMeshBuilder.BuildNavMesh();
     }
 
     private void Start()
     {
-        print("I STAETRTED");
         dungeonGenerationTileControllers.Add(this);
         if (generateOnStart)
         {
@@ -46,7 +48,6 @@ public class DungeonGenerationTileController : MonoBehaviour
     }
     IEnumerator Generate()
     {
-        print("tessst");
         yield return new WaitForFixedUpdate();
         if (wallsCheck)
         {
@@ -55,7 +56,6 @@ public class DungeonGenerationTileController : MonoBehaviour
                 Destroy(wall);
             }
         }
-        print("tesssasdadst");
         yield return new WaitForFixedUpdate();
         if (floorCheck)
         {

@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdaa3bdec96d104db0423d18d2fbd85, type: 3}
-  m_Name: Data
+  m_Script: {fileID: 11500000, guid: c4bf62dbb6e160142bac4e02acf48777, type: 3}
+  m_Name: LowerDemon
   m_EditorClassIdentifier: 
-  numberOfTreasureChunks: 0
-  numberOfStandardChunks: 74
-  numberOfBossChunks: 0
-  numberOfSpecialChunks: 0
-  numberOfTraderChunks: 0
+  id: 3
+  spawnWeight: 100
+  guarenteedSpawnPerMinute: 1
+  resourceBlockPrefab: {fileID: 2741627169797374711, guid: 5fd9c13de24553f4481f2f18cc3ab3d5, type: 3}

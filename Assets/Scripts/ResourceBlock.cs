@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ResourceBlock : MonoBehaviour
 {
+    /*
     public int spawnResistance = 100;
     public GameObject spawnedResoruce;
     public Transform grassPivot;
@@ -18,4 +19,5 @@ public class ResourceBlock : MonoBehaviour
             //Instantiate(GameManager.Instance.grassPrefabs[Random.Range(0, GameManager.Instance.grassPrefabs.Length)], grassPivot.position, Quaternion.Euler(randomRotation), grassPivot);
         }
     }
+    */
 }
