@@ -4,8 +4,6 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.AI;
 using UnityEngine;
-using static Highlighters.HighlighterTrigger;
-
 public class DungeonGenerationTileController : MonoBehaviour
 {
     public bool wallsCheck = false;

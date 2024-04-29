@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Highlighters.HighlighterTrigger;
 
 public class AlphaShaderController : MonoBehaviour
 {

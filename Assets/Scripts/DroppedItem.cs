@@ -22,7 +22,7 @@ public class DroppedItem : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Random.onUnitSphere + new Vector3(0,force,0);
+        rb.linearVelocity = Random.onUnitSphere + new Vector3(0,force,0);
         target = GameManager.Instance.player.transform;
         spawnTime = Time.time;
     }
