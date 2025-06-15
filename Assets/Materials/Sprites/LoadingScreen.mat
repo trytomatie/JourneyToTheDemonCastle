@@ -104,7 +104,7 @@ Material:
     - _GlowBorder: 0.02
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0
+    - _Opacity: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
