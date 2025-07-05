@@ -12,6 +12,7 @@ Material:
   m_ValidKeywords:
   - USE_AL
   - USE_CS
+  - USE_PR
   - USE_RT
   - USE_S
   - USE_SC
@@ -104,15 +105,15 @@ Material:
     - _GrassCut: 0
     - _GrassSaturation: 1
     - _GrassShading: 0.19
-    - _GrassThinness: 0.48
+    - _GrassThinness: 1.13
     - _GrassThinnessIntersection: 0.89
     - _LightIntensity: 1.005
     - _Metallic: 0
-    - _MinimumNumberStacks: 2
+    - _MinimumNumberStacks: 12.9
     - _Mode: 0
     - _NearCameraSmoosh: 1
     - _NoisePower: 4
-    - _NumberOfStacks: 17
+    - _NumberOfStacks: 3.69
     - _OcclusionStrength: 1
     - _OffsetValue: 1.35
     - _Parallax: 0.02
@@ -133,7 +134,7 @@ Material:
     - _UVSec: 0
     - _UseAmbientLight: 1
     - _UseCS: 1
-    - _UsePR: 0
+    - _UsePR: 1
     - _UsePreciseDepth: 0
     - _UseRT: 1
     - _UseShadow: 1

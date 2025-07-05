@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9975af7851a6be44b882b72f7823954b, type: 3}
+  m_Name: Skill_HollowStar
+  m_EditorClassIdentifier: 
+  skillName: HollowStar
+  skillIcon: {fileID: 21300000, guid: f67a668a825ba9545bfca88b46961865, type: 3}
+  skillCooldown: 3
+  castTime: 1.5
+  onEnterTime: 0
+  fireBoltProjectile: {fileID: 0}
+  lifeTime: 10

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed097dccd2c9eb147b5817ec96df2586, type: 3}
   m_Name: Dream_Madra
   m_EditorClassIdentifier: 
-  mardraType: Wind_Madra
+  mardraType: Dream_Madra
   majorPerks:
-  - 5% more Movement Speed and 50% Chance to ignore a snare every 15 Seconds
+  - May cast an Illusion of a Ruler or Striker Technique if canceled (10 second cooldown)
   minorPerks:
-  - 3% more Movement Speed
+  - Fading snare for 0.5 Seconds on Hit

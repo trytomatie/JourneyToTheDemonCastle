@@ -9729,6 +9729,7 @@ GameObject:
   - component: {fileID: 199413474041559024}
   - component: {fileID: 6253768990761304616}
   - component: {fileID: 576855901932168794}
+  - component: {fileID: 3756564627714489875}
   m_Layer: 0
   m_Name: Projectile 16 fire
   m_TagString: Untagged
@@ -14700,6 +14701,19 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &3756564627714489875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347034509603832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108d742c2ec126648b5045baab9798a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxInfo: {fileID: 11400000, guid: ccf14b4748aceb147ba123a77aec18c2, type: 2}
 --- !u!1 &1694412689053138
 GameObject:
   m_ObjectHideFlags: 0
@@ -29514,7 +29528,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.4433962, g: 0.4006949, b: 0.37019402, a: 1}
-      maxColor: {r: 0.6415094, g: 0, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -30606,7 +30620,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -30614,7 +30628,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0, b: 0, a: 1}
+        key0: {r: 1, g: 0.4509434, b: 0.4509434, a: 1}
         key1: {r: 0, g: 0, b: 0, a: 1}
         key2: {r: 0.41640264, g: 0.36447936, b: 0.29266036, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}

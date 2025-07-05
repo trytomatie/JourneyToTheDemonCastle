@@ -109,6 +109,26 @@ public class VFXManager : MonoBehaviour
                 result.transform.rotation = GameManager.Instance.player.transform.rotation;
                 Destroy(result, 300);
                 break;
+            case 15:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                Destroy(result, 300);
+                break;
+            case 16:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position + new Vector3(Random.Range(-2, 2), 0, Random.Range(-2, 2));
+                Destroy(result, 300);
+                break;
+            case 17:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                Destroy(result, 300);
+                break;
+            default:
+                Debug.LogError("VFXManager: Invalid feedback index " + index);
+                return null;
 
 
         }

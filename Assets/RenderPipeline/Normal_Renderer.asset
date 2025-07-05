@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Settings:
-    technique: 0
-    maxDrawDistance: 1000
+    technique: 2
+    maxDrawDistance: 333
     dBufferSettings:
-      surfaceData: 2
+      surfaceData: 0
     screenSpaceSettings:
-      normalBlend: 0
-      useGBuffer: 1
+      normalBlend: 2
+      useGBuffer: 0
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}
 --- !u!114 &11400000
@@ -38,10 +38,11 @@ MonoBehaviour:
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
   m_RendererFeatures:
+  - {fileID: 8585719395286891677}
   - {fileID: -6622062427318852822}
   - {fileID: 8810004354840039338}
   - {fileID: 1212863430806267382}
-  m_RendererFeatureMap: 2ae332bb4eb519a4aa8fe287486c437af6e54442ddf4d410
+  m_RendererFeatureMap: 9dbc41094d9a26772ae332bb4eb519a4aa8fe287486c437af6e54442ddf4d410
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -67,8 +68,8 @@ MonoBehaviour:
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 0
-    stencilCompareFunction: 3
-    passOperation: 2
+    stencilCompareFunction: 0
+    passOperation: 1
     failOperation: 3
     zFailOperation: 2
   m_ShadowTransparentReceive: 1
@@ -92,6 +93,42 @@ MonoBehaviour:
   m_Name: AutoExposureRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 1
+--- !u!114 &8585719395286891677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c421ab04dd7f22b47920d39a59441f98, type: 3}
+  m_Name: ScreenSpaceOutlines
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  renderPassEvent: 450
+  outlinesLayerMask:
+    serializedVersion: 2
+    m_Bits: 1161
+  outlinesOccluderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  outlineSettings:
+    outlineColor: {r: 1, g: 1, b: 1, a: 1}
+    outlineScale: 0.52
+    depthThreshold: 5
+    robertsCrossMultiplier: 9
+    normalThreshold: 0.496
+    steepAngleThreshold: 0.926
+    steepAngleMultiplier: 183
+  viewSpaceNormalsTextureSettings:
+    colorFormat: 0
+    depthBufferBits: 32
+    filterMode: 1
+    backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    perObjectData: 0
+    enableDynamicBatching: 0
+    enableInstancing: 0
 --- !u!114 &8810004354840039338
 MonoBehaviour:
   m_ObjectHideFlags: 0

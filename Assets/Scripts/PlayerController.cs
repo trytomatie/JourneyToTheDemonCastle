@@ -15,8 +15,10 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     private float gravity = 1f;
     private float currentSpeed;
     public Vector3 movementDirection;
+    private Vector3 forcedMovement;
     public Vector3 rootMotionMotion;
     public LayerMask groundLayer;
+    public bool applyRootMotion = false;
     // References
     public CharacterController characterController;
     public CinemachineVirtualCamera vCam;
@@ -26,6 +28,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     public Transform staffTip;
     private StatusManager sm;
     private Inventory inventory;
+    public RootMotionCatcher rootMotionCatcher;
 
     [Header("HitBoxes")]
     public GameObject[] hitBoxes;
@@ -230,6 +233,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     public void Movement()
     {
+        rootMotionMotion = rootMotionCatcher.rootMotionDelta;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -259,21 +263,68 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
         Vector3 finalMovementDirection = movementDirection * currentSpeed;
         finalMovementDirection.y = 0;
-        characterController.Move((finalMovementDirection * maxMovementSpeed * Time.deltaTime) + rootMotionMotion);
+        characterController.Move((finalMovementDirection * maxMovementSpeed * Time.deltaTime) + (applyRootMotion ?rootMotionMotion:Vector3.zero) + forcedMovement *Time.deltaTime);
 
         rootMotionMotion = Vector3.zero;
 
     }
+    float attackCD1 = 0.8f;
+    float attackCD2 = 0.5f;
+    float attackCD3 = 0.6f;
+    float attackTimer = 0;
+    int attackSequence = 0;
     public void HandleAttack(bool handleAttack)
     {
+        if(handleAttack)
+        {
+            applyRootMotion = Vector3.Distance(GameManager.CurosrPosition.transform.position, transform.position) > 0.5f ? true : false;
+        }
         if (!EventSystem.current.IsPointerOverGameObject() && !BuildingManager.instance.PlaceBuildingMode && handleAttack)
         {
-            anim.SetBool("attack", true);
+            if(attackTimer < Time.time)
+            {
+                switch(attackSequence)
+                {
+                    case 0:
+                        anim.Play("Attack1");
+                        attackTimer = Time.time + attackCD1;
+                        StartCoroutine(TriggerHitbox(0, 0.6f, 0.1f));
+                        attackSequence++;
+                        break;
+                    case 1:
+                        anim.Play("Attack2");
+                        attackTimer = Time.time + attackCD2;
+                        StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
+                        attackSequence++;
+                        break;
+                    case 2:
+                        anim.Play("Attack3");
+                        attackTimer = Time.time + attackCD3;
+                        StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
+                        attackSequence = 0;
+                        break;
+                }
+            }
         }
         else
         {
-            anim.SetBool("attack", false);
+            attackSequence = 0;
+            forcedMovement = Vector3.zero; // Reset the forward force when not attacking
+            if (attackTimer < Time.time)
+            {
+                anim.Play("Movement");
+
+            }
         }
+    }
+
+    private IEnumerator TriggerHitbox(int index,float delay = 0.2f,float duration = 0.1f)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject hitbox = Instantiate(hitBoxes[index], hitBoxes[index].transform.position, hitBoxes[index].transform.rotation);
+        hitbox.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        hitbox.SetActive(false);
     }
 
     private GameObject staffVFXRef = null;

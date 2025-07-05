@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8624201247287188930
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb60a22f311433c4c962b888d1393f88, type: 3}
+  m_Name: PaniniProjection
+  m_EditorClassIdentifier: 
+  active: 0
+  distance:
+    m_OverrideState: 0
+    m_Value: 1
+  cropToFit:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &-8089561986166662675
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -77,16 +96,16 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.8
+    m_Value: 1.6
   intensity:
     m_OverrideState: 1
-    m_Value: 1.12
+    m_Value: 6.63
   scatter:
     m_OverrideState: 1
-    m_Value: 0.726
+    m_Value: 0.267
   clamp:
-    m_OverrideState: 0
-    m_Value: 65472
+    m_OverrideState: 1
+    m_Value: 2.71
   tint:
     m_OverrideState: 1
     m_Value: {r: 0.7904593, g: 0.9646908, b: 0.9811321, a: 1}
@@ -95,14 +114,14 @@ MonoBehaviour:
     m_Value: 0
   skipIterations:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 0
   dirtTexture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: fecbc2dbf76d9ab4089330c3e5ee2423, type: 3}
     dimension: 1
   dirtIntensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 2.66
 --- !u!114 &-2422356716760678493
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -118,7 +137,7 @@ MonoBehaviour:
   active: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.27
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +157,69 @@ MonoBehaviour:
   - {fileID: -2422356716760678493}
   - {fileID: -8089561986166662675}
   - {fileID: 700217828836821712}
+  - {fileID: 282667570860812642}
+  - {fileID: 412961120708899380}
+  - {fileID: -8624201247287188930}
+  - {fileID: 3817565145751939230}
+--- !u!114 &282667570860812642
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8f6e43869a48f991285995d4df1e93, type: 3}
+  m_Name: ColorGrading
+  m_EditorClassIdentifier: 
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.852
+  blueShadows:
+    m_OverrideState: 1
+    m_Value: 0.186
+  greenShadows:
+    m_OverrideState: 1
+    m_Value: 0.447
+  redHighlights:
+    m_OverrideState: 1
+    m_Value: 0
+  contrast:
+    m_OverrideState: 1
+    m_Value: 0
+  vibrance:
+    m_OverrideState: 1
+    m_Value: 0.412
+  saturation:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &412961120708899380
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
+  m_Name: FilmGrain
+  m_EditorClassIdentifier: 
+  active: 0
+  type:
+    m_OverrideState: 1
+    m_Value: 10
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.021
+  response:
+    m_OverrideState: 1
+    m_Value: 1
+  texture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 300878dfaad9f8748af1edfc6f13c2c6, type: 3}
 --- !u!114 &700217828836821712
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -243,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 0
     m_Value: 0
@@ -256,3 +338,31 @@ MonoBehaviour:
   clamp:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &3817565145751939230
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: 
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: -1
+  xMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  yMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  scale:
+    m_OverrideState: 0
+    m_Value: 1

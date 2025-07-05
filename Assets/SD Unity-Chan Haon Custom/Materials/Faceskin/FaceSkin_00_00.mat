@@ -8,16 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FaceSkin_00_00
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ValidKeywords:
-  - _EMISSION
+  m_Shader: {fileID: -6465566751694194690, guid: c8c6b696e8da81f4dbea9ed0ece54b8e, type: 3}
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -84,6 +82,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 8f1ed309a298a2742b829de2033346ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -162,6 +164,7 @@ Material:
     - _2nd_ShadeColor_Feather: 0.232
     - _2nd_ShadeColor_Step: 0.153
     - _Add_Antipodean_RimLight: 0
+    - _Alpha: 1
     - _AlphaClip: 0
     - _Ap_RimLight_FeatherOff: 0
     - _Ap_RimLight_Power: 0.123
@@ -184,10 +187,12 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _Farthest_Distance: 100
+    - _FrenselPower: 0
     - _GI_Intensity: 0
     - _GlossMapScale: 0
     - _Glossiness: 0.5
     - _GlossyReflections: 0
+    - _Glow: 1
     - _HighColor_Power: 0
     - _Inverse_Clipping: 0
     - _Inverse_MatcapMask: 0
@@ -221,6 +226,9 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _Nearest_Distance: 0.5
+    - _NormalBlend: 1
+    - _NormalStrength: 1
+    - _NormalTile: 1
     - _OUTLINE: 0
     - _OcclusionStrength: 1
     - _Offset_X_Axis_BLD: -0.05
@@ -228,6 +236,7 @@ Material:
     - _Offset_Z: 0
     - _Outline_Width: 0
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimLight: 1
@@ -260,6 +269,7 @@ Material:
     - _Use_BaseAs1st: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _rimpower: 2
     - _simpleUI: 2
     - _utsTechnique: 1
     - _utsVersion: 2.06
@@ -277,6 +287,7 @@ Material:
     - _RimLightColor: {r: 0.3301887, g: 0.061885547, b: 0, a: 1}
     - _ShadowColor: {r: 0.86774653, g: 0.86774653, b: 0.9433962, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _rimColor: {r: 5.278032, g: 5.278032, b: 5.278032, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7797381722449731113
 MonoBehaviour:

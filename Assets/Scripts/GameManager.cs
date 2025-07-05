@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject droppedItem;
     public GameObject[] grassPrefabs;
     public GameObject resourceBlock;
+   
 
     [Header("Grid")]
     public Dictionary<Vector2Int, GameObject> grid = new Dictionary<Vector2Int, GameObject>();
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     [Header("GameWorld")]
     public GameObject overWorld;
     public GameObject dungeonWorld;
+    public Transform cursorPosition;
 
     [Header("Hitboxes")]
     public GameObject[] hitboxes;
@@ -124,6 +126,27 @@ public class GameManager : MonoBehaviour
                     grid.Remove(gridPos);
                 }
             }
+        }
+    }
+
+    public static Vector3 GetPointerPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Vector3 position = Vector3.zero;
+        if (Physics.Raycast(ray, out hit, 20, Instance.groundLayer) && hit.normal == Vector3.up)
+        {
+            position = hit.point;
+        }
+        Instance.cursorPosition.position = position;
+        return position;
+    }
+
+    public static Transform CurosrPosition{
+        get
+        {
+            GetPointerPosition();
+            return Instance.cursorPosition;
         }
     }
 

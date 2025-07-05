@@ -13,6 +13,7 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
         if(isUsing)
         {
             source.GetComponent<PlayerController>().HandleAttack(true);
+            source.GetComponent<PlayerController>().CastRotation();
         }
     }
 
