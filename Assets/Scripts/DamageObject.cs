@@ -23,7 +23,8 @@ public class DamageObject : MonoBehaviour
             hitObjects.Add(other.gameObject);
             resourceStatusManager.ApplyDamage(source.AttackDamage);
             Vector3 hitPosition = other.ClosestPointOnBounds(transform.position+ new Vector3(0,0.5f,0));
-            GameObject hitVFX = Instantiate(hitVFXPrefab, hitPosition, Quaternion.identity);
+            Quaternion hitrotation = Quaternion.LookRotation(transform.forward);
+            GameObject hitVFX = Instantiate(hitVFXPrefab, hitPosition, hitrotation);
             Destroy(hitVFX, 2f);
         }
         else if (statusManager != null&& statusManager.faction != source.faction)
@@ -32,7 +33,8 @@ public class DamageObject : MonoBehaviour
             hitObjects.Add(other.gameObject);
             statusManager.ApplyDamage(source.AttackDamage);
             Vector3 hitPosition = other.ClosestPointOnBounds(transform.position+ new Vector3(0,0.5f,0));
-            GameObject hitVFX = Instantiate(hitVFXPrefab, hitPosition, Quaternion.identity);
+            Quaternion hitrotation = Quaternion.LookRotation(transform.forward);
+            GameObject hitVFX = Instantiate(hitVFXPrefab, hitPosition, hitrotation);
             Destroy(hitVFX, 2f);
         }
 

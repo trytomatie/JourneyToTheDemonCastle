@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SwordSlash8
-  m_Shader: {fileID: -6465566751694194690, guid: 1c658274f9a314546be62e32eea23521, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f4f96caa19b27524687b441f720f958f, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,6 +33,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Main_tex:
+        m_Texture: {fileID: 2800000, guid: 78261325c54076a4ca633cdbf8169c9a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Dissolve:
         m_Texture: {fileID: 2800000, guid: 3e788240fc1a09e4894a2a7c99e70249, type: 3}
         m_Scale: {x: 1, y: 3}
@@ -41,17 +45,33 @@ Material:
         m_Texture: {fileID: 2800000, guid: 3f670eabb2a5b264fa623fa4752322a4, type: 3}
         m_Scale: {x: 1.2, y: 1}
         m_Offset: {x: 0.1, y: 0}
+    - _EmissionTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Flow:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5551f2320b5bfde4dbdbb0604036a53a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: 50c4a6456461a2e4f9c41755e6002738, type: 3}
         m_Scale: {x: 1.7, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondaryTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VertexOffsetNoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
@@ -71,25 +91,74 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Boolean_9C0948F4: 1
+    - Vector1_270105AC: -1
+    - Vector1_2C5A3101: 1
+    - Vector1_930B327D: -10
+    - _AlphaClipTreshhold: 0.38
+    - _AlphaClipping: 0
+    - _BUILTIN_QueueControl: -1
+    - _BUILTIN_QueueOffset: 0
+    - _Cutoff: 0.5
     - _Desaturation: 1
     - _Emission: 4
+    - _EmissionForce: 0
+    - _EmissionPowerMain: 1
     - _Flowpower: 0
+    - _Framerate: 5
     - _HUE: 0
+    - _HideRimUnderShadow: 0
     - _InvFade: 1
     - _Opacity: 20
+    - _OpacityMask: 0.7814395
+    - _OutlineAlpha: 0
+    - _OutlineWidth: 0.1
     - _PathSet0ifyouuseinPS: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RimAmount: 0.7
+    - _RimPower: 0.6547081
+    - _SecondaryTextureSize: 1
+    - _SecondaryTextureSpeedFactor: 0
+    - _SecondaryTextureStrength: 0
+    - _SharpRimLight: 1
+    - _UseRimLight: 0
+    - _UseVertexColors: 0
+    - _UseVertexOffset: 0
     - _Usedepth: 0
     - _Usesmoothdissolve: 0
+    - _VertexOffsetFrequency: 2
+    - _VertexOffsetMagnitude: 0.05
+    - _VertexOffsetX: 0.5
+    - _VertexOffsetY: 0.5
+    - _VertexOffsetZ: 0.5
+    - __dirty: 1
     m_Colors:
     - _AddColor: {r: 0.6367924, g: 0.83823544, b: 1, a: 1}
     - _DissolveTiling: {r: 1, g: 3, b: 0, a: 0}
+    - _EmissionColor: {r: 2, g: 2, b: 2, a: 1}
     - _EmissionTexTiling: {r: 1.2, g: 1, b: 0.1, a: 0}
     - _FlowTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _MainTexPanningSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MainTexTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 0.5451995, g: 1, b: 0, a: 1}
     - _Remap: {r: -0.3, g: 1, b: 0, a: 0}
+    - _RimColor: {r: 0, g: 0.7342432, b: 1, a: 1}
     - _SpeedFlow: {r: 0, g: 0, b: 0, a: 0}
     - _SpeedMainTexUVNoiseZW: {r: 0, g: 0, b: 0.8, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []
+--- !u!114 &8831667597166699179
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0

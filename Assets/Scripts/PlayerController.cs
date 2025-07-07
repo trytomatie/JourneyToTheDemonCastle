@@ -301,7 +301,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                         anim.Play("Attack3");
                         attackTimer = Time.time + attackCD3;
                         StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
-                        attackSequence = 0;
+                        attackSequence = 1;
                         break;
                 }
             }
@@ -323,8 +323,6 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         yield return new WaitForSeconds(delay);
         GameObject hitbox = Instantiate(hitBoxes[index], hitBoxes[index].transform.position, hitBoxes[index].transform.rotation);
         hitbox.SetActive(true);
-        yield return new WaitForSeconds(duration);
-        hitbox.SetActive(false);
     }
 
     private GameObject staffVFXRef = null;

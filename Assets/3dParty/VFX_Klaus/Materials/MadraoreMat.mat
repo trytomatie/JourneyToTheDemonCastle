@@ -82,9 +82,11 @@ Material:
     - BOOLEAN_D42C41C1: 0
     - Boolean_9C0948F4: 1
     - Vector1_270105AC: -2
-    - Vector1_2C5A3101: 0.76
+    - Vector1_2C5A3101: 0.4
     - Vector1_930B327D: -10
     - _AlphaClip: 0
+    - _AlphaClipTreshhold: 0.39
+    - _AlphaClipping: 1
     - _BUILTIN_QueueControl: -1
     - _BUILTIN_QueueOffset: 0
     - _Blend: 0

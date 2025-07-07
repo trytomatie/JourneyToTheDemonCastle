@@ -44,8 +44,8 @@ public class VFXController : MonoBehaviour
         go.SetActive(true);
         Destroy(go, 2f);
 
-        GameObject go2 = Instantiate(attackHitBox, attackHitBox.transform.position, attackHitBox.transform.rotation);
-        go2.SetActive(true);
+        //GameObject go2 = Instantiate(attackHitBox, attackHitBox.transform.position, attackHitBox.transform.rotation);
+        //go2.SetActive(true);
     }
 
     public void PlayParticleSystem()

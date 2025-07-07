@@ -12,7 +12,6 @@ Material:
   m_ValidKeywords:
   - USE_AL
   - USE_CS
-  - USE_PR
   - USE_RT
   - USE_S
   - USE_SC
@@ -113,7 +112,7 @@ Material:
     - _Mode: 0
     - _NearCameraSmoosh: 1
     - _NoisePower: 4
-    - _NumberOfStacks: 3.69
+    - _NumberOfStacks: 5.79
     - _OcclusionStrength: 1
     - _OffsetValue: 1.35
     - _Parallax: 0.02
@@ -130,11 +129,11 @@ Material:
     - _SrcBlend: 1
     - _TilingN1: 6.45
     - _TilingN2: 0.05
-    - _TilingN3: 0.4
+    - _TilingN3: 5
     - _UVSec: 0
     - _UseAmbientLight: 1
     - _UseCS: 1
-    - _UsePR: 1
+    - _UsePR: 0
     - _UsePreciseDepth: 0
     - _UseRT: 1
     - _UseShadow: 1
@@ -144,7 +143,7 @@ Material:
     - _UseVP: 1
     - _UseVR: 0
     - _UseWC: 1
-    - _WindForce: 0.71
+    - _WindForce: 4.55
     - _WindMovement: 0.2
     - _WorldRotation: 51
     - _WorldScale: 10
