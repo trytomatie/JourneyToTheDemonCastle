@@ -23,6 +23,27 @@ MonoBehaviour:
       useGBuffer: 0
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}
+--- !u!114 &-2172381126121701940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2e666a0193a442ab1551414ba5f7c3, type: 3}
+  m_Name: QuibliPostProcess
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderersAfterOpaqueAndSky: []
+    renderersBeforePostProcess:
+    - CompoundRendererFeature.PostProcess.StylizedDetailRenderer, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - CompoundRendererFeature.PostProcess.ColorGradingRenderer, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    renderersAfterPostProcess: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,7 +63,8 @@ MonoBehaviour:
   - {fileID: -6622062427318852822}
   - {fileID: 8810004354840039338}
   - {fileID: 1212863430806267382}
-  m_RendererFeatureMap: 9dbc41094d9a26772ae332bb4eb519a4aa8fe287486c437af6e54442ddf4d410
+  - {fileID: -2172381126121701940}
+  m_RendererFeatureMap: 9dbc41094d9a26772ae332bb4eb519a4aa8fe287486c437af6e54442ddf4d410ccbdc024e026dae1
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -115,11 +137,11 @@ MonoBehaviour:
     m_Bits: 0
   outlineSettings:
     outlineColor: {r: 1, g: 1, b: 1, a: 1}
-    outlineScale: 0.52
-    depthThreshold: 5
-    robertsCrossMultiplier: 9
+    outlineScale: 0.5
+    depthThreshold: 0.6
+    robertsCrossMultiplier: 6
     normalThreshold: 0.496
-    steepAngleThreshold: 0.926
+    steepAngleThreshold: 1.08
     steepAngleMultiplier: 183
   viewSpaceNormalsTextureSettings:
     colorFormat: 0

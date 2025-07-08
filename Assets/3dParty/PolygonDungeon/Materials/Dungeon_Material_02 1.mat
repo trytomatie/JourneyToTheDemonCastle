@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DM1_SeeThrough
+  m_Name: Dungeon_Material_02 1
   m_Shader: {fileID: -6465566751694194690, guid: c8c6b696e8da81f4dbea9ed0ece54b8e, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: b24b57e0cfed05643be34b0256df875e, type: 3}
+        m_Texture: {fileID: 2800000, guid: f3117e735161a1e49aa3f78498761f06, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -41,11 +41,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 91ec928f471bba747ad8c1a981051402, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8c7dd9c3365f19d4c995f92c3932d3c9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b24b57e0cfed05643be34b0256df875e, type: 3}
+        m_Texture: {fileID: 2800000, guid: f3117e735161a1e49aa3f78498761f06, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -95,22 +95,19 @@ Material:
     - _DstBlend: 0
     - _EmissionScaleUI: 1
     - _EnvironmentReflections: 1
-    - _FrenselPower: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.2
     - _GlossyReflections: 1
     - _Glow: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NormalBlend: 1
-    - _NormalStrength: 1
-    - _NormalTile: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Posterization: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.46
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -118,16 +115,14 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _rimpower: 2
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _rimColor: {r: 5.278032, g: 5.278032, b: 5.278032, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4320496601133494751
+--- !u!114 &1434520701245402184
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

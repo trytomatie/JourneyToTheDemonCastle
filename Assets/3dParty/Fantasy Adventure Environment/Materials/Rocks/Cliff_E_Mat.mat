@@ -8,11 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Cliff_E_Mat
-  m_Shader: {fileID: -6465566751694194690, guid: 7f57b0c643f528f4297b72348cab9faf, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c8c6b696e8da81f4dbea9ed0ece54b8e, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _EMISSION
-  - _NORMALMAP
+  m_InvalidKeywords: []
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -63,10 +61,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 463963cd6790673438853b0028fb8933, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -116,6 +118,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 1
     - _BumpScale: 1
     - _CoverageAmount: 1
     - _CoverageTiling: 8
@@ -128,6 +131,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Glow: 1
     - _MaskClipValue: 0.5
     - _Metallic: 0
     - _Mode: 0
@@ -136,6 +140,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Roughness: 0.276
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SnowCover: 1
     - _SnowTiling: 7

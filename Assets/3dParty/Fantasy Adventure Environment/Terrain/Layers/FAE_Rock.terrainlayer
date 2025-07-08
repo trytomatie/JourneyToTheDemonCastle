@@ -7,10 +7,10 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FAE_Rock
-  m_DiffuseTexture: {fileID: 2800000, guid: 82bdee967b2bb5742ae7493e6f7f90cf, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 13d764aa26cf45241967c339b19ab906, type: 3}
-  m_MaskMapTexture: {fileID: 2800000, guid: dc3d24781b1fa1045866a95d899eb150, type: 3}
-  m_TileSize: {x: 8, y: 8}
+  m_DiffuseTexture: {fileID: 2800000, guid: a2b5321a24389f54da0e01192dc7671e, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 77c4d9783f97fb341a79004c990556b1, type: 3}
+  m_MaskMapTexture: {fileID: 0}
+  m_TileSize: {x: 1, y: 1}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0

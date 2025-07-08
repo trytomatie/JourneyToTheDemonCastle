@@ -122,6 +122,68 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 1
     m_Value: 2.66
+--- !u!114 &-4668257737004756585
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8317041eee140a38873daddb4b3a5f, type: 3}
+  m_Name: StylizedDetail
+  m_EditorClassIdentifier: 
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  blur:
+    m_OverrideState: 1
+    m_Value: 1
+  edgePreserve:
+    m_OverrideState: 1
+    m_Value: 1.25
+  rangeStart:
+    m_OverrideState: 0
+    m_Value: 10
+  rangeEnd:
+    m_OverrideState: 0
+    m_Value: 30
+--- !u!114 &-3734751799325169401
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
+  m_Name: ShadowsMidtonesHighlights
+  m_EditorClassIdentifier: 
+  active: 0
+  shadows:
+    m_OverrideState: 0
+    m_Value: {x: 0.66223514, y: 0.9761515, z: 1, w: -0.11300454}
+  midtones:
+    m_OverrideState: 0
+    m_Value: {x: 0.563955, y: 1, z: 0.61805147, w: -0.15784758}
+  highlights:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: -0.02869966}
+  shadowsStart:
+    m_OverrideState: 0
+    m_Value: 0
+  shadowsEnd:
+    m_OverrideState: 0
+    m_Value: 0.3
+  highlightsStart:
+    m_OverrideState: 0
+    m_Value: 0.55
+  highlightsEnd:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!114 &-2422356716760678493
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -161,6 +223,8 @@ MonoBehaviour:
   - {fileID: 412961120708899380}
   - {fileID: -8624201247287188930}
   - {fileID: 3817565145751939230}
+  - {fileID: -3734751799325169401}
+  - {fileID: -4668257737004756585}
 --- !u!114 &282667570860812642
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -176,7 +240,7 @@ MonoBehaviour:
   active: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.852
+    m_Value: 0.338
   blueShadows:
     m_OverrideState: 1
     m_Value: 0.186
@@ -191,7 +255,7 @@ MonoBehaviour:
     m_Value: 0
   vibrance:
     m_OverrideState: 1
-    m_Value: 0.412
+    m_Value: 0.845
   saturation:
     m_OverrideState: 1
     m_Value: 1
@@ -210,10 +274,10 @@ MonoBehaviour:
   active: 0
   type:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 8
   intensity:
     m_OverrideState: 1
-    m_Value: 0.021
+    m_Value: 1
   response:
     m_OverrideState: 1
     m_Value: 1

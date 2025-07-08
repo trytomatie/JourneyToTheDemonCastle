@@ -21,12 +21,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FAE_PineTrunk
-  m_Shader: {fileID: -6465566751694194690, guid: cd32417db29324f4f8f49c2a0e918511, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c8c6b696e8da81f4dbea9ed0ece54b8e, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - EFFECT_HUE_VARIATION
-  - GEOM_TYPE_BRANCH
-  - _ALPHATEST_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -92,6 +89,10 @@ Material:
         m_Texture: {fileID: 1167038465, guid: b6620978afaf9234f9e6fe1cfa32c8ff, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normals:
         m_Texture: {fileID: -1740734699, guid: 2635874bfdb7b854fb68f8ed2c948a1b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -155,6 +156,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AO: 0.415
+    - _Alpha: 1
     - _Alphacutoff: 0.594
     - _AmbientOcclusion: 0.5
     - _BumpScale: 1
@@ -174,13 +176,16 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _Glow: 1
     - _GradientBrightness: 1
     - _MaskClipValue: 0.5
     - _Metallic: 0
     - _Mode: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.0258
-    - _QueueControl: -1
+    - _Posterization: 6.84
+    - _Posterizer: 36.68
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _Shadows: 1
     - _Shininess: 0.1
@@ -214,5 +219,6 @@ Material:
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
     - _Transmisioncolor: {r: 1, g: 1, b: 1, a: 0}
     - _Variationcolor: {r: 1, g: 1, b: 1, a: 0.078}
+    - _Vector3: {r: 255, g: 255, b: 255, a: 0}
     - _WindDirection: {r: 0.93536794, g: 0, b: 0.35367614, a: 0}
   m_BuildTextureStacks: []
