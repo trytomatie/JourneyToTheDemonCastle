@@ -3,6 +3,7 @@ using UnityEngine;
 
 public interface IEntityControlls
 {
+    public void Initialize();
     public Animator GetAnimator();
     public GameObject GetGameObject();
     public StatusManager StatusManager { get; set; }
@@ -16,4 +17,5 @@ public interface IEntityControlls
     public float[] SkillColldowns { get; set; }
     public int SkillIndex { get; set; }
     void SwitchState(PlayerController.PlayerState controlling);
+    public void HurtFlash();
 }

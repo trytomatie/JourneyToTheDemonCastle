@@ -51,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GrassTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6415e4b059f8ca249ad6c1c205f2330e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GroundTex:
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 35832e4bcb865be44867dbdb64c65aca, type: 3}
+        m_Texture: {fileID: 2800000, guid: fb49619912679bd46a197b457e11d2c2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -102,15 +102,15 @@ Material:
     - _GrassCut: 0
     - _GrassSaturation: 1
     - _GrassShading: 0.19
-    - _GrassThinness: 0.48
-    - _GrassThinnessIntersection: 0.89
+    - _GrassThinness: 1.39
+    - _GrassThinnessIntersection: 1.937
     - _LightIntensity: 0.17
     - _Metallic: 0
-    - _MinimumNumberStacks: 2
+    - _MinimumNumberStacks: 0
     - _Mode: 0
     - _NearCameraSmoosh: 1
     - _NoisePower: 4
-    - _NumberOfStacks: 11.16
+    - _NumberOfStacks: 17
     - _OcclusionStrength: 1
     - _OffsetValue: 1.35
     - _Parallax: 0.02
@@ -125,7 +125,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TilingN1: 8.27
+    - _TilingN1: 5.8
     - _TilingN2: 0.05
     - _TilingN3: 0.4
     - _UVSec: 0
@@ -142,13 +142,13 @@ Material:
     - _UseVR: 0
     - _UseWC: 1
     - _WindForce: 0
-    - _WindMovement: 1.01
+    - _WindMovement: 0
     - _WorldRotation: 0
-    - _WorldScale: 15.9
+    - _WorldScale: 9.67
     - _ZWrite: 1
     - __NumberOfStacks: 17
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.98490566, g: 0.98490566, b: 0.98490566, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetVector: {r: 0, g: 0.03, b: 0, a: 0}

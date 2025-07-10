@@ -71,7 +71,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
-        m_Texture: {fileID: 2800000, guid: 529789b31389da34d9a7f98c613bf944, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3584f2bf4afb5284d91edb6a29126e62, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -110,7 +110,7 @@ Material:
     - _Mode: 0
     - _NearCameraSmoosh: 1
     - _NoisePower: 4
-    - _NumberOfStacks: 2.38
+    - _NumberOfStacks: 16.36
     - _OcclusionStrength: 1
     - _OffsetValue: 1.35
     - _Parallax: 0.02
@@ -144,16 +144,16 @@ Material:
     - _WindForce: 0
     - _WindMovement: 0
     - _WorldRotation: 0
-    - _WorldScale: 15.9
+    - _WorldScale: 101.64
     - _ZWrite: 1
     - __NumberOfStacks: 17
     m_Colors:
-    - _Color: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
+    - _Color: {r: 0.7433963, g: 0.6171653, b: 0.42499822, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 1, g: 0.9233376, b: 0.7075472, a: 1}
     - _OffsetVector: {r: 0, g: 0.03, b: 0, a: 0}
     - _PJShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ProjectedShadowColor: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SelfShadowColor: {r: 0.4037736, g: 0.38223898, b: 0, a: 1}
+    - _SelfShadowColor: {r: 0.5999999, g: 0.5999999, b: 0.5999999, a: 1}
   m_BuildTextureStacks: []

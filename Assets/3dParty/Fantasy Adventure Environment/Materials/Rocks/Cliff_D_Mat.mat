@@ -8,10 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Cliff_D_Mat
-  m_Shader: {fileID: -6465566751694194690, guid: 7f57b0c643f528f4297b72348cab9faf, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c8c6b696e8da81f4dbea9ed0ece54b8e, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _EMISSION
+  m_InvalidKeywords: []
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -39,6 +38,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Globalalbedo:
         m_Texture: {fileID: 2800000, guid: 90c15e788b01a3646a1f0b65505c9972, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: aaefaca70f66ed144816f5a298eb23d3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 8f1ed309a298a2742b829de2033346ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Objectalbedo:
@@ -79,19 +86,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 1
     - _CoverageAmount: 1
     - _CoverageTiling: 8
     - _Detailstrength: 0.28
     - _Float4: 0.13
     - _Globaltiling: 0.163
+    - _Glow: 1
     - _MaskClipValue: 0.5
+    - _Metallic: 0
+    - _Posterization: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Roughness: 0.276
+    - _Smoothness: 0
     - _SnowCover: 1
     - _SnowTiling: 7
     - __dirty: 0
     m_Colors:
+    - _Color: {r: 0.7509433, g: 0.72363836, b: 0.64467776, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _GlobalColor: {r: 1, g: 1, b: 1, a: 1}
     - _ObjectColor: {r: 0.86764705, g: 0.86764705, b: 0.86764705, a: 1}
   m_BuildTextureStacks: []

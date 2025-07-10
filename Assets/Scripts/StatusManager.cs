@@ -21,9 +21,11 @@ public class StatusManager : MonoBehaviour
     public int level = 1;
     public int maxHp = 30;
     private int hp = 30;
-    [SerializeField] private int maxStamina = 0;
-    [SerializeField] private int stamina = 0;
-    [SerializeField] private int staminaRegenPerSecond = 5;
+    [SerializeField] private float maxMadraCore = 100;
+    [SerializeField] private float madraCore = 100;
+    [SerializeField] private float maxMadra = 0;
+    [SerializeField] private float madra = 0;
+    [SerializeField] private float madraRegenPerSecond = 5;
     [SerializeField] private int baseAttackDamage = 1;
     public int bonusDefense = 0;
 
@@ -41,6 +43,7 @@ public class StatusManager : MonoBehaviour
 
     public UnityEvent OnDeath;
     public UnityEvent OnDamage;
+    public UnityEvent<Vector4> OnMadraRegen;
 
     public int AttackDamage { get => Mathf.CeilToInt((baseAttackDamage + weaponAttackDamage + bonusAttackDamage) * bonusAttackDamageMultiplier); }
     public int Defense { get => bonusDefense; }
@@ -56,7 +59,7 @@ public class StatusManager : MonoBehaviour
 
         }
         Hp = maxHp;
-        if(maxStamina > 0) 
+        if(maxMadra > 0) 
         { 
             StartCoroutine(RegenStamina());
         }
@@ -103,19 +106,21 @@ public class StatusManager : MonoBehaviour
 
     private IEnumerator RegenStamina()
     {
-        float regenFloat = 0;
         while (true)
         {
             yield return new WaitForFixedUpdate();
 
-            if (stamina < maxStamina)
+            if (Madra < maxMadra)
             {
-                regenFloat += staminaRegenPerSecond * Time.fixedDeltaTime;
-                if (regenFloat >= 1)
+                if(madraCore > 0)
                 {
-                    regenFloat -= 1;
-                    stamina++;
+                    float regen = madraRegenPerSecond * Time.fixedDeltaTime;
+                    Madra += regen;
+                    Madra = Mathf.Clamp(Madra, 0, maxMadra);
+                    madraCore -= regen;
                 }
+
+
             }
         }
     }
@@ -157,6 +162,15 @@ public class StatusManager : MonoBehaviour
         {
             OnDamage.Invoke();
             hp = value;
+        }
+    }
+
+    public float Madra { get => madra; 
+        set
+        {
+            madra = value;
+            OnMadraRegen.Invoke(new Vector4(madra, maxMadra, madraCore, maxMadraCore));
+
         }
     }
 }

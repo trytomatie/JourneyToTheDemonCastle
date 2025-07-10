@@ -289,6 +289,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                         anim.Play("Attack1");
                         attackTimer = Time.time + attackCD1;
                         StartCoroutine(TriggerHitbox(0, 0.6f, 0.1f));
+                        sm.Madra -= 5;
                         attackSequence++;
                         break;
                     case 1:
@@ -296,12 +297,14 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                         attackTimer = Time.time + attackCD2;
                         StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
                         attackSequence++;
+                        sm.Madra -= 5;
                         break;
                     case 2:
                         anim.Play("Attack3");
                         attackTimer = Time.time + attackCD3;
                         StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
                         attackSequence = 1;
+                        sm.Madra -= 5;
                         break;
                 }
             }
@@ -420,7 +423,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         }
         foreach (EnemyAI enemy in EnemyAI.enemyAIList)
         {
-            if (enemy.transform.position.y < -20)
+            if (enemy.transform.position.y < -220)
             {
                 enemy.gameObject.SetActive(false);
             }
@@ -505,7 +508,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     //#endregion
     public void CheckForPlayerVoidOut()
     {
-        if (transform.position.y < -15)
+        if (transform.position.y < -220)
         {
             CurrentPlayerState = PlayerState.InWater;
         }
@@ -561,6 +564,16 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     public void ManualMovement()
     {
         Movement();
+    }
+
+    public void Initialize()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void HurtFlash()
+    {
+        throw new System.NotImplementedException();
     }
 
     public float[] SkillColldowns { get => skillSlotCooldowns; set => skillSlotCooldowns = value; }

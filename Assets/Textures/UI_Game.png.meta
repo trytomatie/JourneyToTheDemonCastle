@@ -96,12 +96,12 @@ TextureImporter:
       name: UI_Game_0
       rect:
         serializedVersion: 2
-        x: 92
-        y: 10
-        width: 12
-        height: 12
+        x: 90
+        y: 8
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -122,7 +122,7 @@ TextureImporter:
         width: 27
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -130,6 +130,48 @@ TextureImporter:
       bones: []
       spriteID: 9245fa05f08138f47b9bca8b6cb1da74
       internalID: -2051073177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Game_2
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 1
+        width: 7
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 289e2144f347edb438e0e1c2dbf7931b
+      internalID: -1565997753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Game_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 35
+        width: 48
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a63b8e4679172bc458291c811b01e285
+      internalID: -937228715
       vertices: []
       indices: 
       edges: []
@@ -147,6 +189,8 @@ TextureImporter:
     nameFileIdTable:
       UI_Game_0: -899314045
       UI_Game_1: -2051073177
+      UI_Game_2: -1565997753
+      UI_Game_3: -937228715
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

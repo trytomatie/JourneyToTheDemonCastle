@@ -55,11 +55,14 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     public int skillIndex;
     public float[] skillCooldowns = new float[4];
 
+    public Renderer myRenderer;
+
     private void Awake()
     {
         sm = GetComponent<StatusManager>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        myRenderer = GetComponentInChildren<Renderer>();
         states[(int)EnemyControllState.Idle] = new Idle();
         states[(int)EnemyControllState.Wander] = new Wander();
         states[(int)EnemyControllState.Attack] = new Attack();
@@ -79,6 +82,7 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
 
         }
         enemyAIList.Add(this);
+        Initialize();
     }
 
     private void Start()
@@ -207,6 +211,10 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
         lootTable.DropLoot(transform.position);
     }
     #region IEntityControlls
+    public void Initialize()
+    {
+        sm.OnDamage.AddListener(HurtFlash);
+    }
     public Animator GetAnimator()
     {
         return anim;
@@ -255,6 +263,25 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
     {
         throw new System.NotImplementedException();
     }
+
+    public void HurtFlash()
+    {
+        if (myRenderer == null) return;
+        StopCoroutine(FlashCoroutine());
+        StartCoroutine(FlashCoroutine());
+    }
+    IEnumerator FlashCoroutine()
+    {
+        MaterialPropertyBlock block = new MaterialPropertyBlock();
+        // Set hiteffectbool to true
+        block.SetFloat("_HitEffect", 1f);
+        myRenderer.SetPropertyBlock(block);
+        yield return new WaitForSeconds(0.1f);
+        block.SetFloat("_HitEffect", 0f);
+        myRenderer.SetPropertyBlock(block);
+    }
+
+
     #endregion
 }
 

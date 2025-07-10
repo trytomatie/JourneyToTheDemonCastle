@@ -42,7 +42,7 @@ public class VFXController : MonoBehaviour
     {
         GameObject go = Instantiate(attackVFX[i], attackVFX[i].transform.position, attackVFX[i].transform.rotation);
         go.SetActive(true);
-        Destroy(go, 2f);
+        Destroy(go, 20f);
 
         //GameObject go2 = Instantiate(attackHitBox, attackHitBox.transform.position, attackHitBox.transform.rotation);
         //go2.SetActive(true);
