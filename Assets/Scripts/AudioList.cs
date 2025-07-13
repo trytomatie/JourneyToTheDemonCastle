@@ -5,4 +5,7 @@
 public class AudioList : ScriptableObject
 {
     public AudioClip[] audioClips;
+    public float pitchStart = 1;
+    public float pitchRandomness = 0;
+    public float trimStart = 0;
 }

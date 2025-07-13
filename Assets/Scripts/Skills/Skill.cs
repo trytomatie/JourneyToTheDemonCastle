@@ -48,4 +48,17 @@ public class Skill : ScriptableObject
         GameUI.instance.skillslots[index].SetupSkill(null);
     }
 
+    public bool CastingFinsihed()
+    {
+        return Time.time - onEnterTime > castTime;
+    }
+
+}
+
+public enum AnimationSkillCasting
+{
+    Cast_1H_Prepare = 1,
+    Cast_1H_Release = 101,
+    Cast_Bow_Prepare = 2,
+    Cast_Bow_Release = 102,
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179ebeb0152285544ad70eb050ccc43d, type: 3}
+  m_Name: Sword_Swing
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 582bb2ca97856274aa1ce377dc0942be, type: 3}
+  - {fileID: 8300000, guid: e62e0c292a56a314abbbed191a74e553, type: 3}
+  - {fileID: 8300000, guid: 51ba09c36bb7abc48977925dcd607c6c, type: 3}
+  pitchStart: 1.4
+  pitchRandomness: 0.32
+  trimStart: 0

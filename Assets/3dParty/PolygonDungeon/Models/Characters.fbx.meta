@@ -895,8 +895,9 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
-    normalSmoothAngle: 5
+    normalSmoothAngle: 112
     normalImportMode: 1
     tangentImportMode: 4
     normalCalculationMode: 0

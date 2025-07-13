@@ -26,7 +26,7 @@ public class VFXManager : MonoBehaviour
 
     public GameObject PlayFeedback(int index,Transform position)
     {
-        return PlayFeedback(index,position, Quaternion.identity);
+        return PlayFeedback(index,position, position.rotation);
     }
 
     public GameObject PlayFeedback(int index,Transform position,Quaternion rotation)
@@ -124,6 +124,12 @@ public class VFXManager : MonoBehaviour
                 result = Instantiate(feedbacks[index].gameObject);
                 result.transform.position = position.position;
                 result.transform.rotation = GameManager.Instance.player.transform.rotation;
+                Destroy(result, 300);
+                break;
+            case 18:
+                result = Instantiate(feedbacks[index].gameObject);
+                result.transform.position = position.position;
+                result.transform.rotation = rotation;
                 Destroy(result, 300);
                 break;
             default:

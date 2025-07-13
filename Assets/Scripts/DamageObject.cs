@@ -9,6 +9,7 @@ public class DamageObject : MonoBehaviour
     public GameObject hitVFXPrefab;
     public UnityEvent HitEvent;
     public StatusManager source;
+    public float speed = 0;
 
     private List<GameObject> hitObjects = new List<GameObject>();
     private void OnTriggerEnter(Collider other)
@@ -22,16 +23,17 @@ public class DamageObject : MonoBehaviour
             HitEvent.Invoke();  
             hitObjects.Add(other.gameObject);
             resourceStatusManager.ApplyDamage(source.AttackDamage);
+            resourceStatusManager.OnHit.Invoke();
             Vector3 hitPosition = other.ClosestPointOnBounds(transform.position+ new Vector3(0,0.5f,0));
             Quaternion hitrotation = Quaternion.LookRotation(transform.forward);
             GameObject hitVFX = Instantiate(hitVFXPrefab, hitPosition, hitrotation);
             Destroy(hitVFX, 2f);
         }
-        else if (statusManager != null&& statusManager.faction != source.faction)
+        else if (statusManager != null && statusManager.faction != source.faction)
         {
             HitEvent.Invoke();  
             hitObjects.Add(other.gameObject);
-            statusManager.ApplyDamage(source.AttackDamage);
+            statusManager.OnHit.Invoke();
             Vector3 hitPosition = other.ClosestPointOnBounds(transform.position+ new Vector3(0,0.5f,0));
             Quaternion hitrotation = Quaternion.LookRotation(transform.forward);
             GameObject hitVFX = Instantiate(hitVFXPrefab, hitPosition, hitrotation);
@@ -40,9 +42,48 @@ public class DamageObject : MonoBehaviour
 
     }
 
+    private IEnumerator ReleaseSnapShotEntityAction()
+    {
+
+        yield return new WaitForSeconds(0.1f);
+            foreach (GameObject hitObject in hitObjects)
+            {
+                ResourceStatusManager resourceStatusManager = hitObject.GetComponent<ResourceStatusManager>();
+                if (resourceStatusManager != null)
+                {
+                    resourceStatusManager.ApplyDamage(source.AttackDamage);
+                }
+                else
+                {
+                    StatusManager statusManager = hitObject.GetComponent<StatusManager>();
+                    if (statusManager != null)
+                    {
+                        statusManager.ApplyDamage(source.AttackDamage);
+                    }
+                }
+            }
+
+    }
+
+    private IEnumerator DisableAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject,5);
+    }
+
     private void Start()
     {
-        Destroy(gameObject, lifeTime);
+        StartCoroutine(DisableAfterSeconds(lifeTime));
+        StartCoroutine(ReleaseSnapShotEntityAction());
+    }
+
+    private void Update()
+    {
+        if (speed > 0)
+        {
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
     }
 
 }

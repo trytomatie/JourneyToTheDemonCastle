@@ -43,6 +43,7 @@ public class StatusManager : MonoBehaviour
 
     public UnityEvent OnDeath;
     public UnityEvent OnDamage;
+    public UnityEvent OnHit;
     public UnityEvent<Vector4> OnMadraRegen;
 
     public int AttackDamage { get => Mathf.CeilToInt((baseAttackDamage + weaponAttackDamage + bonusAttackDamage) * bonusAttackDamageMultiplier); }
@@ -75,13 +76,13 @@ public class StatusManager : MonoBehaviour
         switch(materialType)
         {
             case HitType.Wood:
-                OnDamage.AddListener(() => AudioManager.PlayHitSound(transform.position, HitType.Wood));
+                OnHit.AddListener(() => AudioManager.PlayHitSound(transform.position, HitType.Wood));
                 break;
             case HitType.Stone:
-                OnDamage.AddListener(() => AudioManager.PlayHitSound(transform.position, HitType.Stone));
+                OnHit.AddListener(() => AudioManager.PlayHitSound(transform.position, HitType.Stone));
                 break;
             default:
-                OnDamage.AddListener(() => AudioManager.PlayHitSound(transform.position, HitType.Entity));
+                OnHit.AddListener(() => AudioManager.PlayHitSound(transform.position, HitType.Entity));
                 break;
         }
     }

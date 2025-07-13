@@ -206,7 +206,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     public void Death()
     {
         anim.SetBool("Death", true);
-        AudioManager.PlayRandomSoundFromList(AudioManager.instance.playerDeath, transform.position);
+        AudioManager.PlayRandomSoundFromList(AudioManager.instance.audioLists[0], transform.position);
         StartCoroutine(DeathRoutine());
 
     }
@@ -323,7 +323,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     private IEnumerator TriggerHitbox(int index,float delay = 0.2f,float duration = 0.1f)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay-0.1f);
         GameObject hitbox = Instantiate(hitBoxes[index], hitBoxes[index].transform.position, hitBoxes[index].transform.rotation);
         hitbox.SetActive(true);
     }

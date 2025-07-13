@@ -45,8 +45,8 @@ public class AudioManager : MonoBehaviour
                 source.clip = instance.stoneHit[Random.Range(0, instance.stoneHit.Length)];
                 break;
             case HitType.Entity:
-                source.clip = instance.entityHit[Random.Range(0, instance.entityHit.Length)];
-                break;
+                PlayRandomSoundFromList(instance.audioLists[3], position);
+                return;
         }
         source.outputAudioMixerGroup = instance.sfxAudioGroup;
         source.Play();
@@ -64,12 +64,14 @@ public class AudioManager : MonoBehaviour
         Destroy(audioSource, source.clip.length + 0.1f);
     }
 
-    public static void PlayRandomSoundFromList(AudioClip[] audio, Vector3 position)
+    public static void PlayRandomSoundFromList(AudioList audio, Vector3 position)
     {
         GameObject audioSource = Instantiate(instance.audioSourcePrefab, position, Quaternion.identity);
         AudioSource source = audioSource.GetComponent<AudioSource>();
-        source.clip = audio[Random.Range(0, audio.Length)];
+        source.clip = audio.audioClips[Random.Range(0, audio.audioClips.Length)];
         source.outputAudioMixerGroup = instance.sfxAudioGroup;
+        source.pitch = audio.pitchStart + Random.Range(-audio.pitchRandomness,audio.pitchRandomness);
+        source.time = audio.trimStart;
         source.Play();
         Destroy(audioSource, source.clip.length + 0.1f);
     }
