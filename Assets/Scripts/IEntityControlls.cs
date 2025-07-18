@@ -18,4 +18,7 @@ public interface IEntityControlls
     public int SkillIndex { get; set; }
     void SwitchState(PlayerController.PlayerState controlling);
     public void HurtFlash();
+
+    public MadraVFX_Info GetMadraVFXInfo();
+
 }

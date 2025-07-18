@@ -9,6 +9,7 @@ public class MadraVFX_Info : ScriptableObject
 {
     public Material materialOverrideMain;
     [ColorUsage(true, true)]
-    public Color customColoerOverride;
+    public Color customMainColorOverride;
+    public Color customSecondaryColorOverride;
     public MinMaxGradient colorOverLifetimeOverride;
 }

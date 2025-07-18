@@ -18,7 +18,7 @@ MonoBehaviour:
   castTime: 0.4
   onEnterTime: 0
   skillProjectileVFX: 18
-  skillCastingVFX: 2
+  skillCastingVFX: 4
   castingAnimationIndex: 1
   spellIndicatorIndex: 2
   spellIndicatorType: 2

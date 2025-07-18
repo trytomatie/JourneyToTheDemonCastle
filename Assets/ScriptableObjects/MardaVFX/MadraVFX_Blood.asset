@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MadraVFX_Blood
   m_EditorClassIdentifier: 
   materialOverrideMain: {fileID: 0}
-  customColoerOverride: {r: 0.13655695, g: 0, b: 0, a: 1}
+  customMainColorOverride: {r: 14.928529, g: 0, b: 0, a: 1}
+  customSecondaryColorOverride: {r: 1, g: 0.00000012715658, b: 0, a: 1}
   colorOverLifetimeOverride:
     m_Mode: 1
     m_GradientMin:
@@ -43,6 +44,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_GradientMax:
@@ -72,6 +74,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}

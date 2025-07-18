@@ -7,6 +7,7 @@ using UnityEngine;
 public class MadraAspect : ScriptableObject
 {
     public string mardraType;
+    public Color Color;
     public string[] majorPerks;
     public string[] minorPerks;
 

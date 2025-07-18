@@ -16,6 +16,7 @@ public class Skill_Projectile : Skill
     private GameObject castingVFX;
     private GameObject spellReadyVFX;
     private bool castAnimation = false;
+    private MadraVFX_Info madraVFXInfo;
 
     public override void OnEnter(GameObject source)
     {
@@ -37,6 +38,10 @@ public class Skill_Projectile : Skill
             Destroy(castingVFX);
             GameObject projectile = Instantiate(projectileHitbox, controller.VfxTransform.position, controller.GetGameObject().transform.rotation);
             GameObject projectileVFX = VFXManager.Instance.PlayFeedback(skillProjectileVFX, projectile.transform);
+            if (projectileVFX.GetComponent<VFX_Adjuster_TEMP>() != null)
+            {
+                projectileVFX.GetComponent<VFX_Adjuster_TEMP>().vfxInfo = madraVFXInfo;
+            }
             projectileVFX.transform.parent = projectile.transform;
             projectileVFX.transform.localPosition = Vector3.zero;
             projectileVFX.transform.localRotation = Quaternion.Euler(-90, 0, 0);
@@ -52,9 +57,16 @@ public class Skill_Projectile : Skill
     public void StartProjectileCast(IEntityControlls entityControlls)
     {
         controller = entityControlls;
+        controller.CastRotation();
+        madraVFXInfo = controller.GetMadraVFXInfo();
         onEnterTime = Time.time;
         SpellIndicators.CallSpellIndicator(spellIndicatorType, spellIndicatorIndex, controller);
         castingVFX = VFXManager.Instance.PlayFeedback(skillCastingVFX,entityControlls.VfxTransform);
+        if(castingVFX.GetComponent<VFX_Adjuster_TEMP>() != null)
+        {
+            castingVFX.GetComponent<VFX_Adjuster_TEMP>().vfxInfo = madraVFXInfo;
+        }
+
         controller.GetAnimator().SetInteger("SkillCasting", (int)castingAnimationIndex);
     }
 

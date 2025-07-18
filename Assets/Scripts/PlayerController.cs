@@ -1,8 +1,11 @@
 using Cinemachine;
+using MoreMountains.Tools;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using static PlayerController;
 
 public partial class PlayerController : MonoBehaviour, IEntityControlls
@@ -12,9 +15,11 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     [SerializeField] private float rotationSpeed = 40;
     private float deceleration = 0.15f;
     public float ySpeed = 0;
+    public float speedMultiplier = 1f;
     private float gravity = 1f;
     private float currentSpeed;
     public Vector3 movementDirection;
+    private Vector3 inputDirection;
     private Vector3 forcedMovement;
     public Vector3 rootMotionMotion;
     public LayerMask groundLayer;
@@ -29,6 +34,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     private StatusManager sm;
     private Inventory inventory;
     public RootMotionCatcher rootMotionCatcher;
+    public Renderer[] myRenderers;
 
     [Header("HitBoxes")]
     public GameObject[] hitBoxes;
@@ -39,6 +45,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     public Vector3 lastSolidGround = Vector3.zero;
 
     [Header("Skills")]
+    public MadraVFX_Info madraVFX_Info;
     public int skillIndex = -1;
     public Skill[] skills;
     private float[] skillSlotCooldowns = new float[3] { -999, -999, -999 };
@@ -169,6 +176,8 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     public void Rotation()
     {
+        CastRotation();
+        return;
         // Rotate the character to movement direction
         if (movementDirection != Vector3.zero)
         {
@@ -238,6 +247,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+        inputDirection = new Vector3(horizontalInput,0, verticalInput);
         movementDirection.Normalize();
 
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
@@ -257,6 +267,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         {
             walkDust.Stop();
         }
+        currentSpeed *= speedMultiplier;
 
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up)
     * movementDirection;
@@ -271,24 +282,29 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
     float attackCD1 = 0.8f;
     float attackCD2 = 0.5f;
     float attackCD3 = 0.6f;
+    public float animCurveMultiplier = 1;
+    public AnimationCurve attackAnimCurve1;
+    public AnimationCurve attackAnimCurve2;
+    public AnimationCurve attackAnimCurve3;
     float attackTimer = 0;
     int attackSequence = 0;
     public void HandleAttack(bool handleAttack)
     {
-        if(handleAttack)
+        if (handleAttack)
         {
-            applyRootMotion = Vector3.Distance(GameManager.CurosrPosition.transform.position, transform.position) > 0.5f ? true : false;
+            //applyRootMotion = Vector3.Distance(GameManager.CurosrPosition.transform.position, transform.position) > 0.5f ? true : false;
         }
         if (!EventSystem.current.IsPointerOverGameObject() && !BuildingManager.instance.PlaceBuildingMode && handleAttack)
         {
-            if(attackTimer < Time.time)
+            if (attackTimer < Time.time)
             {
-                switch(attackSequence)
+                switch (attackSequence)
                 {
                     case 0:
                         anim.Play("Attack1");
                         attackTimer = Time.time + attackCD1;
                         StartCoroutine(TriggerHitbox(0, 0.6f, 0.1f));
+                        StartCoroutine(MovePlayer(attackAnimCurve1, attackCD1));
                         sm.Madra -= 5;
                         attackSequence++;
                         break;
@@ -296,6 +312,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                         anim.Play("Attack2");
                         attackTimer = Time.time + attackCD2;
                         StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
+                        StartCoroutine(MovePlayer(attackAnimCurve2, attackCD2));
                         attackSequence++;
                         sm.Madra -= 5;
                         break;
@@ -303,6 +320,7 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                         anim.Play("Attack3");
                         attackTimer = Time.time + attackCD3;
                         StartCoroutine(TriggerHitbox(0, 0.2f, 0.1f));
+                        StartCoroutine(MovePlayer(attackAnimCurve3, attackCD3));
                         attackSequence = 1;
                         sm.Madra -= 5;
                         break;
@@ -318,6 +336,18 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
                 anim.Play("Movement");
 
             }
+        }
+    }
+
+    private IEnumerator MovePlayer(AnimationCurve curve, float duration)
+    {
+        float timer = 0;
+        while(timer < duration)
+        {
+            timer += Time.deltaTime;
+            float curveValue = curve.Evaluate(timer / duration);
+            forcedMovement = transform.forward * curveValue * maxMovementSpeed;
+            yield return null;
         }
     }
 
@@ -374,16 +404,30 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
         groundPlane.SetNormalAndPosition(Vector3.up, transform.position);
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         float hitDistance;
-
         if (groundPlane.Raycast(ray, out hitDistance))
         {
             Vector3 cursorPosition = ray.GetPoint(hitDistance);
-
             Vector3 direction = cursorPosition - transform.position;
             direction.Normalize();
             Quaternion targetCharacterRotation = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetCharacterRotation, 10000 * Time.deltaTime);
         }
+        GameManager.GetPointerPosition();
+        float dot = Vector3.Dot(transform.forward, movementDirection);
+        float dotRight = Vector3.Dot(transform.right, movementDirection);
+
+        float maxDot = Mathf.Max(Mathf.Abs(dotRight), Mathf.Abs(dot));
+        if (maxDot == Mathf.Abs(dot))
+        {
+            dotRight = 0;
+        }
+        else
+        {
+            dot = 0;
+        }
+
+        anim.SetFloat("xDir", Mathf.RoundToInt(dotRight));
+        anim.SetFloat("yDir", Mathf.RoundToInt(dot));
     }
 
     public void HandleItemUsage(bool isUsing)
@@ -573,7 +617,33 @@ public partial class PlayerController : MonoBehaviour, IEntityControlls
 
     public void HurtFlash()
     {
-        throw new System.NotImplementedException();
+        if (myRenderers.Length <= 0) return;
+        StopCoroutine(FlashCoroutine());
+        StartCoroutine(FlashCoroutine());
+    }
+    IEnumerator FlashCoroutine()
+    {
+        foreach (Renderer myRenderer in myRenderers)
+        {
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            // Set hiteffectbool to true
+            block.SetFloat("_HitEffect", 1f);
+            myRenderer.SetPropertyBlock(block);
+        }
+        yield return new WaitForSeconds(0.1f);
+        foreach (Renderer myRenderer in myRenderers)
+        {
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            // Set hiteffectbool to false
+            block.SetFloat("_HitEffect", 0f);
+            myRenderer.SetPropertyBlock(block);
+        }
+
+    }
+
+    public MadraVFX_Info GetMadraVFXInfo()
+    {
+        return madraVFX_Info;
     }
 
     public float[] SkillColldowns { get => skillSlotCooldowns; set => skillSlotCooldowns = value; }
@@ -612,12 +682,14 @@ public class PlayerStateControlling : State
 
     public void OnUpdate(PlayerController pc)
     {
-        pc.Movement();
+
         pc.Rotation();
         pc.Animations();
-        pc.ItemUsage();
         pc.HandleGravity();
         pc.HandleInteraction();
+        pc.ItemUsage();
+        pc.Movement();
+
     }
 }
 

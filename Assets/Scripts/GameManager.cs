@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Vector3 position = Vector3.zero;
-        if (Physics.Raycast(ray, out hit, 20, Instance.groundLayer) && hit.normal == Vector3.up)
+        if (Physics.Raycast(ray, out hit, 320, Instance.groundLayer))
         {
             position = hit.point;
         }

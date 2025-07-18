@@ -281,6 +281,11 @@ public class EnemyAI : MonoBehaviour, IEntityControlls
         myRenderer.SetPropertyBlock(block);
     }
 
+    public MadraVFX_Info GetMadraVFXInfo()
+    {
+        throw new System.NotImplementedException();
+    }
+
 
     #endregion
 }

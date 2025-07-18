@@ -14,12 +14,16 @@ public class SwordWeapon_ItemEffects : ItemInteractionEffects
         {
             source.GetComponent<PlayerController>().HandleAttack(true);
             source.GetComponent<PlayerController>().CastRotation();
+            source.GetComponent<PlayerController>().speedMultiplier = 0;
         }
+
     }
 
     public override void OnUseEnd(GameObject source,Item item)
     {
         source.GetComponent<PlayerController>().HandleAttack(false);
+   
+    source.GetComponent<PlayerController>().speedMultiplier = 1;
     }
 
     public override string EffectDescription(Item item)
